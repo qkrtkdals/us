@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>미국 서부 로드트립 · 2026.10</title>
+<style>
+:root{
+  --paper:#F4F1E8; --paper-2:#EAE5D8; --white:#FFFDF7;
+  --ink:#2B2A28; --ink-soft:#6B665C; --line:#D5CDBB;
+  --green:#33503E; --green-d:#263C2F; --rust:#A6503A;
+  --ocean:#3A6B7A; --alert:#8C2F2F;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-padding-top:70px;-webkit-text-size-adjust:100%;}
+body{margin:0;padding:0 14px 60px;background:var(--paper);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+  font-size:14px;line-height:1.65;}
+.wrap{max-width:900px;margin:0 auto;}
+
+/* 브랜드 영역 : 스크롤되어 사라짐 */
+.brandbar{padding:14px 0 10px;}
+/* 탭만 상단 고정 (아이폰 화면 절약) */
+.tabsbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--paper);
+  padding:8px 0;border-bottom:2px solid var(--green);margin-bottom:14px;
+  box-shadow:0 6px 10px -8px rgba(0,0,0,.25);}
+.sign{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.badge{background:var(--green);color:var(--white);font-weight:800;font-size:10px;
+  padding:5px 8px;border-radius:5px;letter-spacing:.06em;line-height:1.2;text-align:center;flex-shrink:0;}
+.badge span{display:block;font-size:15px;}
+h1{margin:0;font-size:19px;font-weight:800;letter-spacing:-.01em;}
+h1 small{display:block;font-size:11px;font-weight:600;color:var(--ink-soft);margin-top:1px;}
+.infobar{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:0;}
+.infobar div{background:var(--white);border:1px solid var(--line);border-radius:6px;padding:5px 6px;text-align:center;}
+.infobar .l{font-size:9px;color:var(--ink-soft);font-weight:700;}
+.infobar .v{font-size:11.5px;font-weight:800;color:var(--green-d);}
+.tabs{display:flex;gap:5px;overflow-x:auto;padding-bottom:3px;-webkit-overflow-scrolling:touch;}
+.tabs::-webkit-scrollbar{display:none;}
+.tabs label{flex-shrink:0;background:var(--white);border:1px solid var(--line);border-radius:18px;
+  padding:7px 13px;font-size:12px;font-weight:700;color:var(--ink-soft);cursor:pointer;
+  user-select:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;}
+.tabs label b{color:var(--ink);}
+.dayradio{position:absolute;opacity:0;pointer-events:none;width:0;height:0;}
+
+.day{display:none;background:var(--white);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:14px;}
+#r1:checked~.days .day[data-d="1"],#r2:checked~.days .day[data-d="2"],
+#r3:checked~.days .day[data-d="3"],#r4:checked~.days .day[data-d="4"],
+#r5:checked~.days .day[data-d="5"],#r6:checked~.days .day[data-d="6"],
+#r7:checked~.days .day[data-d="7"],#r8:checked~.days .day[data-d="8"],
+#rall:checked~.days .day{display:block;}
+#r1:checked~.tabsbar label[for="r1"],#r2:checked~.tabsbar label[for="r2"],
+#r3:checked~.tabsbar label[for="r3"],#r4:checked~.tabsbar label[for="r4"],
+#r5:checked~.tabsbar label[for="r5"],#r6:checked~.tabsbar label[for="r6"],
+#r7:checked~.tabsbar label[for="r7"],#r8:checked~.tabsbar label[for="r8"],
+#rall:checked~.tabsbar label[for="rall"]{background:var(--green);border-color:var(--green);color:var(--white);}
+#r1:checked~.tabsbar label[for="r1"] b,#r2:checked~.tabsbar label[for="r2"] b,
+#r3:checked~.tabsbar label[for="r3"] b,#r4:checked~.tabsbar label[for="r4"] b,
+#r5:checked~.tabsbar label[for="r5"] b,#r6:checked~.tabsbar label[for="r6"] b,
+#r7:checked~.tabsbar label[for="r7"] b,#r8:checked~.tabsbar label[for="r8"] b,
+#rall:checked~.tabsbar label[for="rall"] b{color:var(--white);}
+
+.dhead{background:var(--green);color:var(--white);padding:11px 16px;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;}
+.dhead .n{font-size:19px;font-weight:800;}
+.dhead .dt{font-size:11.5px;opacity:.85;font-weight:600;}
+.dhead .rt{font-size:11.5px;font-weight:700;margin-left:auto;text-align:right;}
+.dbody{padding:14px 16px 16px;}
+
+.mapbox{background:var(--paper-2);border-radius:9px;padding:11px 12px;margin-bottom:13px;}
+.mapbox .mt{font-size:10px;font-weight:800;color:var(--green);letter-spacing:.05em;margin-bottom:6px;}
+.usmap{width:100%;height:auto;display:block;background:#E8EEF2;border-radius:6px;border:1px solid var(--line);}
+.rstats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:9px;}
+.rstats div{background:var(--white);border:1px solid var(--line);border-radius:6px;padding:6px 4px;text-align:center;}
+.rstats .l{font-size:9px;color:var(--ink-soft);font-weight:700;}
+.rstats .v{font-size:12.5px;font-weight:800;color:var(--rust);}
+
+.drive{background:#F7EFE9;border-left:4px solid var(--rust);border-radius:0 7px 7px 0;padding:10px 12px;margin-bottom:13px;font-size:12px;line-height:1.7;}
+.drive .t{font-size:10.5px;font-weight:800;color:var(--rust);margin-bottom:4px;}
+.drive ul{margin:0;padding-left:16px;}
+.drive li{margin-bottom:3px;}
+.warn{background:#FBECEC;border-left-color:var(--alert);}
+.warn .t{color:var(--alert);}
+
+table.sched{width:100%;border-collapse:collapse;font-size:12.5px;margin-bottom:13px;}
+table.sched td{padding:7px 3px;border-bottom:1px dashed var(--line);vertical-align:top;}
+table.sched tr:last-child td{border-bottom:none;}
+table.sched .t{width:62px;font-size:10.5px;font-weight:800;color:var(--rust);white-space:nowrap;padding-top:8px;}
+table.sched .t.nt{color:var(--ocean);}
+table.sched b{color:var(--green-d);}
+table.sched .memo{display:block;font-size:11px;color:var(--ink-soft);margin-top:2px;}
+
+.spots-t{font-size:11px;font-weight:800;color:var(--green);margin:0 0 4px;}
+.spots-s{font-size:10.5px;color:var(--ink-soft);margin:0 0 8px;}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+.chips a{display:inline-block;background:var(--paper-2);border:1px solid var(--line);border-radius:16px;
+  padding:6px 12px;font-size:12px;font-weight:700;color:var(--ink);text-decoration:none;
+  -webkit-tap-highlight-color:transparent;}
+.chips a:active{background:var(--green);color:var(--white);border-color:var(--green);}
+.chips a .nw{color:var(--rust);font-size:9px;font-weight:800;margin-left:2px;}
+
+.spot{display:flex;gap:11px;background:var(--white);border:1px solid var(--line);
+  border-radius:9px;padding:10px;margin-bottom:9px;}
+.thumb{width:96px;height:66px;border-radius:6px;flex-shrink:0;display:block;}
+.spot .info{min-width:0;flex:1;}
+.spot .nm{font-size:13px;font-weight:800;margin-bottom:2px;line-height:1.35;}
+.spot .nm a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid var(--line);}
+.spot .nm a:active{color:var(--green);}
+.spot .nm .tag{display:inline-block;font-size:9px;font-weight:800;padding:1px 5px;border-radius:3px;margin-left:4px;vertical-align:1px;}
+.tag.must{background:#E4ECDF;color:var(--green);border:1px solid #C3D4C0;}
+.tag.car{background:#F6E6E3;color:var(--rust);border:1px solid #D8A99F;}
+.tag.free{background:#E7EFF2;color:var(--ocean);border:1px solid #BCD3DB;}
+.spot .ds{font-size:11.5px;line-height:1.6;}
+.spot .pk{font-size:10.5px;color:var(--ink-soft);margin-top:4px;line-height:1.5;}
+
+.stay{background:var(--paper-2);border-left:4px solid var(--ocean);border-radius:0 7px 7px 0;padding:10px 12px;font-size:12px;line-height:1.7;margin-top:13px;}
+.stay .hd{font-size:10px;font-weight:800;color:var(--ocean);margin-bottom:4px;}
+.stay table{width:100%;border-collapse:collapse;font-size:11.5px;}
+.stay td{padding:2px 0;vertical-align:top;}
+.stay td:first-child{width:52px;color:var(--ink-soft);font-weight:700;}
+.resv{display:inline-block;font-size:9.5px;font-weight:800;color:var(--green);background:#E4ECDF;
+  border:1px solid #C3D4C0;border-radius:3px;padding:1px 5px;}
+.chk{color:var(--alert);font-weight:800;}
+
+.flight{background:var(--paper-2);border-left:4px solid var(--rust);border-radius:0 7px 7px 0;padding:11px 12px;margin-bottom:13px;font-size:12px;}
+.flight .hd{font-weight:800;color:var(--rust);margin-bottom:6px;}
+.flight table{width:100%;border-collapse:collapse;font-size:11.5px;}
+.flight td{padding:3px 0;vertical-align:top;}
+.flight td:first-child{width:72px;color:var(--ink-soft);}
+.flight b{color:var(--green-d);}
+.hl{color:var(--alert);font-weight:800;}
+
+.pager{display:flex;gap:8px;margin-top:14px;}
+.pager label{flex:1;text-align:center;background:var(--green);color:var(--white);border-radius:7px;
+  padding:11px 8px;font-size:12.5px;font-weight:800;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent;}
+.pager label.ghost{background:var(--paper-2);color:var(--ink-soft);border:1px solid var(--line);}
+
+.card{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:16px;}
+.card h2{margin:0 0 10px;font-size:13px;font-weight:800;color:var(--green);border-bottom:2px solid var(--green);padding-bottom:7px;}
+.card ul{margin:0;padding-left:17px;font-size:12.5px;line-height:1.75;}
+.card li{margin-bottom:4px;}
+table.book{width:100%;border-collapse:collapse;font-size:11.5px;line-height:1.6;}
+table.book th{background:var(--green);color:var(--white);text-align:left;padding:6px 9px;font-size:11px;
+  font-weight:800;border-radius:4px;}
+table.book td{padding:7px 4px;border-bottom:1px dashed var(--line);vertical-align:top;}
+table.book td:first-child{width:96px;font-weight:800;color:var(--green-d);font-size:11px;}
+table.book tr:last-child td{border-bottom:none;}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:10.5px;color:var(--ink-soft);margin-top:8px;}
+.legend span{display:inline-flex;align-items:center;gap:4px;}
+.sw{width:16px;height:3px;border-radius:2px;display:inline-block;}
+.foot{text-align:center;font-size:10.5px;color:var(--ink-soft);margin-top:18px;}
+
+@media (max-width:520px){
+  .infobar{grid-template-columns:repeat(2,1fr);}
+  html{scroll-padding-top:80px;}
+  .spot{flex-direction:column;}
+  .thumb{width:100%;height:120px;}
+  .dhead .rt{margin-left:0;width:100%;text-align:left;}
+}
+@media print{.tabsbar,.pager{display:none;} .day{display:block!important;page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<!-- ===== SVG 스프라이트 : 미국 지도 + 명소 일러스트 (전부 파일 내장) ===== -->
+<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B9D4E2"/><stop offset="1" stop-color="#F2E7D0"/></linearGradient>
+  <linearGradient id="dusk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5B6E8C"/><stop offset=".55" stop-color="#D98F5F"/><stop offset="1" stop-color="#F3D9AE"/></linearGradient>
+  <linearGradient id="night" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1B2440"/><stop offset="1" stop-color="#3E4668"/></linearGradient>
+
+  <!-- 미국 서부 4개 주 실제 경위도 기반 윤곽 (x=(경도+125)*24, y=(42-위도)*24) -->
+  <symbol id="usw" viewBox="0 0 400 270">
+    <rect width="400" height="270" fill="#DCE8EE"/>
+    <!-- 태평양 -->
+    <path d="M19.2 0 L20.4 24 L14.4 37.4 L21.6 48 L31.2 72 L48 88.8 L60 93.6 L62.4 100.8 L76.8 121.2
+             L74.4 129.6 L96 153.6 L104.4 164.4 L108 181 L136.8 185.3 L156 191.3 L163.2 198.7
+             L184.8 211.2 L189.1 227.3 L0 270 L0 0 Z" fill="#BCD6E2"/>
+    <!-- 캘리포니아 -->
+    <path d="M19.2 0 L120 0 L120 72 L248.9 168 L246.7 222.7 L189.1 227.3 L184.8 211.2 L163.2 198.7
+             L156 191.3 L136.8 185.3 L108 181 L104.4 164.4 L96 153.6 L74.4 129.6 L76.8 121.2
+             L62.4 100.8 L60 93.6 L48 88.8 L31.2 72 L21.6 48 L14.4 37.4 L20.4 24 Z"
+          fill="#E9E2CE" stroke="#A89B80" stroke-width="1.4"/>
+    <!-- 네바다 -->
+    <path d="M120 0 L263 0 L263 120 L246.5 141.4 L248.9 168 L120 72 Z"
+          fill="#EFE8D6" stroke="#A89B80" stroke-width="1.4"/>
+    <!-- 유타 -->
+    <path d="M263 0 L335 0 L335 24 L383 24 L383 120 L263 120 Z"
+          fill="#E5DDC8" stroke="#A89B80" stroke-width="1.4"/>
+    <!-- 애리조나 -->
+    <path d="M248.9 168 L246.5 141.4 L263 120 L383 120 L383 256 L334.3 256 L244.6 228.2 Z"
+          fill="#EFE3CC" stroke="#A89B80" stroke-width="1.4"/>
+    <g font-size="11" font-weight="800" fill="#A89B80" text-anchor="middle" opacity=".85">
+      <text x="78" y="150">캘리포니아</text>
+      <text x="192" y="52">네바다</text>
+      <text x="323" y="72">유타</text>
+      <text x="316" y="205">애리조나</text>
+    </g>
+  </symbol>
+
+  <symbol id="i-bridge" viewBox="0 0 200 120">
+    <rect width="200" height="120" fill="url(#sky)"/><path d="M0 88h200v32H0z" fill="#4E7186"/>
+    <path d="M0 96q50 7 100 0t100 0v24H0z" fill="#3E5F72" opacity=".7"/>
+    <g fill="#C1502E"><rect x="44" y="20" width="9" height="70"/><rect x="147" y="20" width="9" height="70"/>
+    <rect x="40" y="30" width="17" height="5"/><rect x="143" y="30" width="17" height="5"/>
+    <rect x="40" y="46" width="17" height="5"/><rect x="143" y="46" width="17" height="5"/></g>
+    <path d="M0 52q24 26 48.5 26T100 66q27-12 51.5 12T200 52" fill="none" stroke="#C1502E" stroke-width="4"/>
+    <rect y="76" width="200" height="7" fill="#A8462A"/>
+    <g stroke="#C1502E" stroke-width="1.6" opacity=".85"><path d="M20 63v13M34 58v18M66 70v6M84 68v8M116 68v8M134 70v6M166 58v18M180 63v13"/></g>
+    <ellipse cx="164" cy="70" rx="40" ry="11" fill="#EFEAE0" opacity=".55"/>
+  </symbol>
+
+  <symbol id="i-city" viewBox="0 0 200 120">
+    <rect width="200" height="120" fill="url(#sky)"/>
+    <g fill="#6E7B84"><rect x="12" y="52" width="24" height="68"/><rect x="42" y="34" width="20" height="86"/>
+    <rect x="68" y="60" width="26" height="60"/><rect x="100" y="24" width="18" height="96"/>
+    <rect x="124" y="48" width="28" height="72"/><rect x="158" y="62" width="30" height="58"/></g>
+    <path d="M100 24l9 14h-18z" fill="#5C686F"/>
+    <g fill="#F3E4B8" opacity=".9"><rect x="17" y="60" width="5" height="6"/><rect x="26" y="60" width="5" height="6"/>
+    <rect x="17" y="72" width="5" height="6"/><rect x="26" y="72" width="5" height="6"/><rect x="47" y="44" width="4" height="6"/>
+    <rect x="55" y="44" width="4" height="6"/><rect x="47" y="58" width="4" height="6"/><rect x="55" y="58" width="4" height="6"/>
+    <rect x="75" y="70" width="5" height="6"/><rect x="84" y="70" width="5" height="6"/><rect x="131" y="58" width="5" height="6"/>
+    <rect x="141" y="58" width="5" height="6"/><rect x="165" y="74" width="5" height="6"/><rect x="176" y="74" width="5" height="6"/></g>
+    <rect y="112" width="200" height="8" fill="#55616A"/>
+  </symbol>
+
+  <symbol id="i-wharf" viewBox="0 0 200 120">
+    <rect width="200" height="120" fill="url(#sky)"/><path d="M0 62h200v58H0z" fill="#4E7F94"/>
+    <path d="M0 70q25 6 50 0t50 0 50 0 50 0v50H0z" fill="#3F6C80" opacity=".6"/>
+    <g fill="#8A6A4A"><rect x="18" y="66" width="7" height="42"/><rect x="48" y="66" width="7" height="42"/><rect x="78" y="66" width="7" height="42"/></g>
+    <rect x="8" y="60" width="86" height="8" fill="#A5825C"/>
+    <g fill="#6E5B4A"><ellipse cx="34" cy="55" rx="13" ry="6"/><ellipse cx="58" cy="57" rx="11" ry="5"/><ellipse cx="76" cy="54" rx="9" ry="4.5"/></g>
+    <g fill="#F2EDE1"><path d="M130 76h44l-7 16h-30z"/><rect x="148" y="52" width="4" height="24"/></g>
+    <path d="M152 54h20l-20 16z" fill="#D8695A"/>
+    <path d="M118 96q10-5 20 0t20 0 20 0 22 0" stroke="#EFE6D4" stroke-width="2.5" fill="none" opacity=".8"/>
+  </symbol>
+
+  <symbol id="i-falls" viewBox="0 0 200 120">
+    <rect width="200" height="120" fill="url(#sky)"/>
+    <path d="M0 120V26l36-10 30 16 22-8v96z" fill="#7C8C82"/>
+    <path d="M200 120V34l-40-12-32 18-16-6v86z" fill="#6B7A71"/>
+    <path d="M92 20h20l4 62q0 12-14 12t-14-12z" fill="#F6F8F7"/>
+    <path d="M96 24h5l-1 58h-4zM107 24h5l-1 58h-4z" fill="#D9E6EA" opacity=".8"/>
+    <ellipse cx="102" cy="96" rx="30" ry="9" fill="#EDF2F3" opacity=".75"/>
+    <ellipse cx="102" cy="103" rx="44" ry="8" fill="#5E8494" opacity=".55"/>
+    <path d="M0 106h200v14H0z" fill="#4C6F5B"/>
+    <g fill="#33503E"><path d="M24 106l9-22 9 22zM44 106l7-17 7 17zM156 106l9-21 9 21zM174 106l7-16 7 16z"/></g>
+  </symbol>
+
+  <symbol id="i-granite" viewBox="0 0 200 120">
+    <rect width="200" height="120" fill="url(#sky)"/>
+    <path d="M22 108V44q0-26 26-26t26 26v64z" fill="#9AA39C"/>
+    <path d="M48 18q26 0 26 26v64H48z" fill="#7F8880"/>
+    <path d="M110 108l34-62 34 62z" fill="#A7AFA6"/><path d="M144 46l34 62h-34z" fill="#8B948B"/>
+    <path d="M0 108h200v12H0z" fill="#8FA36B"/>
+    <path d="M0 102q40 8 78 0t122 2v18H0z" fill="#7C9159"/>
+    <g fill="#33503E"><path d="M6 104l7-18 7 18zM86 104l6-15 6 15zM96 104l8-20 8 20zM188 104l6-14 6 14z"/></g>
+  </symbol>
+
+  <symbol id="i-lake" viewBox="0 0 200 120">
+    <rect width="200" height="120" fill="url(#sky)"/>
+    <path d="M0 62l40-34 30 24 26-18 38 28 34-20 32 20v10H0z" fill="#8D96A4"/>
+    <path d="M40 28l14 12-8 6zM96 34l16 12-9 5z" fill="#F0F2F4"/>
+    <rect y="66" width="200" height="54" fill="#5E8DA0"/>
+    <path d="M0 66l40 30 30-22 26 18 38-26 34 20 32-20v54H0z" fill="#4E7B8D" opacity=".45"/>
+    <g fill="#D8CDB4"><path d="M30 92l6-22 7 22zM44 94l4-13 5 13zM156 90l7-24 8 24zM172 94l5-15 6 15z"/></g>
+    <path d="M0 108h200v12H0z" fill="#3F6879"/>
+  </symbol>
+
+  <symbol id="i-mesa" viewBox="0 0 200 120">
+    <rect width="200" height="120" fill="url(#dusk)"/>
+    <path d="M14 96V52h30v44z" fill="#A85238"/><path d="M30 52h14v44H30z" fill="#8A3F2B"/>
+    <path d="M78 96V40h26v56z" fill="#B85C3E"/><path d="M92 40h12v56H92z" fill="#93452E"/>
+    <path d="M136 96V58h34v38z" fill="#A04D34"/><path d="M154 58h16v38h-16z" fill="#853E29"/>
+    <path d="M0 96h200v24H0z" fill="#C98F5E"/>
+    <path d="M86 120l10-24h12l14 24z" fill="#8B6B4A"/><path d="M97 96h10l-2 24h-8z" fill="#6E543A"/>
+    <g stroke="#F3E3C6" stroke-width="2.5" stroke-dasharray="7 8"><path d="M101 100v20"/></g>
+  </symbol>
+
+  <symbol id="i-canyon" viewBox="0 0 200 120">
+    <rect width="200" height="120" fill="url(#sky)"/><path d="M0 48h200v72H0z" fill="#C98554"/>
+    <path d="M0 56q30-8 54 4t50-2 46 8 50-6v18H0z" fill="#B06C42"/>
+    <path d="M0 76q34-6 58 6t48-4 44 10 50-4v16H0z" fill="#98572F"/>
+    <path d="M0 94q30-4 56 6t50-4 44 8 50-4v20H0z" fill="#7E4728"/>
+    <path d="M0 112q40-6 74 2t126-4v10H0z" fill="#63381F"/>
+    <path d="M0 50q28-10 60-4t60 8 80-8" fill="none" stroke="#E0B887" stroke-width="3"/>
+  </symbol>
+
+  <symbol id="i-slot" viewBox="0 0 200 120">
+    <rect width="200" height="120" fill="#7A3418"/>
+    <path d="M0 0h60q-14 34 4 60T44 120H0z" fill="#B85A21"/>
+    <path d="M28 0h44q-16 32 2 58t-16 62H28q22-36 4-62T28 0z" fill="#D6773A"/>
+    <path d="M200 0h-58q16 32-2 58t18 62h42z" fill="#A34C1E"/>
+    <path d="M172 0h-42q18 34 0 60t14 60h28q-18-32 0-60t0-60z" fill="#C4632C"/>
+    <path d="M84 0h30q-10 30 0 58t-6 62H86q12-34 2-62T84 0z" fill="#EC9B5A"/>
+    <path d="M94 0h10q-6 30 2 58t-4 62h-8q8-34 0-62T94 0z" fill="#F7C489" opacity=".85"/>
+  </symbol>
+
+  <symbol id="i-hoodoo" viewBox="0 0 200 120">
+    <rect width="200" height="120" fill="url(#sky)"/><path d="M0 104h200v16H0z" fill="#B8703F"/>
+    <g fill="#E08A4C">
+      <path d="M14 104V56q0-8 6-8t6 8v48z"/><path d="M34 104V44q0-7 5-7t5 7v60z"/>
+      <path d="M54 104V62q0-6 5-6t5 6v42z"/><path d="M74 104V36q0-8 6-8t6 8v68z"/>
+      <path d="M96 104V54q0-7 5-7t5 7v50z"/><path d="M116 104V42q0-7 6-7t6 7v62z"/>
+      <path d="M138 104V60q0-6 5-6t5 6v44z"/><path d="M158 104V48q0-7 6-7t6 7v56z"/>
+      <path d="M180 104V66q0-6 5-6t5 6v38z"/></g>
+    <g fill="#C06B34" opacity=".55"><path d="M20 104V48h6v56zM80 104V28h6v76zM122 104V35h6v69zM164 104V41h6v63z"/></g>
+    <g fill="#F3B87E" opacity=".7"><rect x="14" y="70" width="12" height="4"/><rect x="74" y="56" width="12" height="4"/>
+    <rect x="116" y="62" width="12" height="4"/><rect x="158" y="66" width="12" height="4"/></g>
+  </symbol>
+
+  <symbol id="i-redrock" viewBox="0 0 200 120">
+    <rect width="200" height="120" fill="url(#sky)"/>
+    <path d="M6 100V58q0-12 10-12t10 12v42z" fill="#C0613A"/>
+    <path d="M32 100V38q0-14 12-14t12 14v62z" fill="#D2724A"/>
+    <path d="M44 24q12 0 12 14v62H44z" fill="#A94F30"/>
+    <path d="M70 100l30-52 30 52z" fill="#C2653C"/><path d="M100 48l30 52h-30z" fill="#A04F2E"/>
+    <path d="M140 100V50q0-11 10-11t10 11v50z" fill="#CE6E45"/>
+    <path d="M168 100V64q0-9 8-9t8 9v36z" fill="#B45934"/>
+    <path d="M0 100h200v20H0z" fill="#9C7A52"/>
+    <g fill="#3F5C3E"><path d="M20 100l7-16 7 16zM60 100l6-13 6 13zM128 100l7-15 7 15zM186 100l6-12 6 12z"/></g>
+  </symbol>
+
+  <symbol id="i-neon" viewBox="0 0 200 120">
+    <rect width="200" height="120" fill="url(#night)"/>
+    <g fill="#FFF3C4" opacity=".8"><circle cx="24" cy="18" r="1.4"/><circle cx="62" cy="10" r="1.1"/><circle cx="130" cy="16" r="1.3"/><circle cx="176" cy="8" r="1.1"/></g>
+    <g fill="#2B3352"><rect x="8" y="54" width="26" height="66"/><rect x="40" y="38" width="20" height="82"/>
+    <rect x="66" y="62" width="30" height="58"/><rect x="146" y="44" width="24" height="76"/><rect x="176" y="58" width="20" height="62"/></g>
+    <path d="M108 54l14-16 14 16v66h-28z" fill="#33406B"/>
+    <g fill="#F7D774"><rect x="13" y="62" width="4" height="5"/><rect x="21" y="62" width="4" height="5"/>
+    <rect x="13" y="74" width="4" height="5"/><rect x="25" y="74" width="4" height="5"/><rect x="45" y="48" width="4" height="5"/>
+    <rect x="53" y="48" width="4" height="5"/><rect x="45" y="60" width="4" height="5"/><rect x="72" y="70" width="4" height="5"/>
+    <rect x="82" y="70" width="4" height="5"/><rect x="151" y="54" width="4" height="5"/><rect x="161" y="54" width="4" height="5"/>
+    <rect x="181" y="68" width="4" height="5"/><rect x="189" y="68" width="4" height="5"/></g>
+    <g stroke="#9FE3F5" stroke-width="2.5" opacity=".9" stroke-linecap="round"><path d="M100 118V92M110 118V82M120 118V74M130 118V84M140 118V96"/></g>
+    <rect y="116" width="200" height="4" fill="#1A2038"/>
+  </symbol>
+
+  <symbol id="i-road" viewBox="0 0 200 120">
+    <rect width="200" height="120" fill="url(#sky)"/>
+    <path d="M0 58l30-16 34 12 36-18 34 16 34-12 32 18v10H0z" fill="#B99A6E" opacity=".8"/>
+    <path d="M0 66h200v54H0z" fill="#C9A878"/>
+    <path d="M84 66h32l46 54H38z" fill="#6D6A66"/>
+    <path d="M96 66h8l14 54h-14z" fill="#E8DFC8" opacity=".9"/>
+    <g fill="#8C5A3C"><rect x="24" y="44" width="4" height="22"/><rect x="172" y="48" width="4" height="18"/></g>
+    <path d="M14 44h24V30H14z" fill="#D8C49A" stroke="#8C5A3C" stroke-width="2"/>
+    <text x="26" y="41" font-size="11" font-weight="700" fill="#8C5A3C" text-anchor="middle">66</text>
+    <g fill="#5E7A4E"><path d="M158 66l6-14 6 14zM178 66l5-11 5 11z"/></g>
+  </symbol>
+
+  <symbol id="i-dam" viewBox="0 0 200 120">
+    <rect width="200" height="120" fill="url(#sky)"/>
+    <path d="M0 120V26l34 6 12 44v44z" fill="#A08258"/>
+    <path d="M200 120V30l-36 8-14 42v40z" fill="#8E7149"/>
+    <path d="M46 76h104v44H46z" fill="#DCD6C6"/>
+    <path d="M46 76q52 18 104 0v44H46z" fill="#C8C1AE"/>
+    <path d="M46 62h104v14H46z" fill="#EDE8DA"/>
+    <path d="M56 32h84v30H56z" fill="#5E90A6"/>
+    <path d="M56 44q22 6 42 0t42 0v18H56z" fill="#4C7D93" opacity=".7"/>
+    <g stroke="#B5AE9B" stroke-width="1.6"><path d="M62 76v44M78 76v44M94 76v44M110 76v44M126 76v44M142 76v44"/></g>
+  </symbol>
+
+  <symbol id="i-boat" viewBox="0 0 200 120">
+    <rect width="200" height="120" fill="url(#sky)"/>
+    <path d="M0 40l26-14 22 10 20-8 24 12 22-10 24 12 22-8 20 10v14H0z" fill="#8FA08C" opacity=".7"/>
+    <path d="M0 54h200v66H0z" fill="#5A8EA4"/>
+    <path d="M0 62q25 6 50 0t50 0 50 0 50 0v58H0z" fill="#487C93" opacity=".6"/>
+    <g fill="#F4EFE2"><path d="M22 74h54l-8 16H30z"/><path d="M96 78h48l-7 14H103z"/></g>
+    <g fill="#C7BEA9"><rect x="46" y="52" width="3" height="22"/><rect x="118" y="58" width="3" height="20"/></g>
+    <path d="M50 54h18l-18 18z" fill="#D8695A"/><path d="M122 60h14l-14 16z" fill="#E0B05C"/>
+    <g fill="#E9E2D0"><rect x="150" y="66" width="12" height="16"/><rect x="166" y="60" width="14" height="22"/><rect x="184" y="70" width="10" height="12"/></g>
+    <g fill="#9BA79F"><rect x="152" y="58" width="8" height="8"/><rect x="168" y="52" width="10" height="8"/></g>
+    <path d="M0 100q14-5 28 0t28 0 28 0 28 0 28 0 28 0 32 0" stroke="#EAF0EF" stroke-width="2" fill="none" opacity=".7"/>
+  </symbol>
+
+  <symbol id="i-plane" viewBox="0 0 200 120">
+    <rect width="200" height="120" fill="url(#dusk)"/>
+    <circle cx="44" cy="34" r="16" fill="#FBE9BE" opacity=".8"/>
+    <g fill="#F4EDE0" opacity=".65"><ellipse cx="146" cy="30" rx="30" ry="9"/><ellipse cx="124" cy="34" rx="18" ry="7"/>
+    <ellipse cx="40" cy="80" rx="34" ry="9"/><ellipse cx="70" cy="86" rx="20" ry="7"/></g>
+    <g fill="#EDEDF0"><path d="M52 62l86-8 22 4-18 10-84 6z"/><path d="M96 56l-14-20h10l24 18zM92 66l-12 20h10l22-18z"/>
+    <path d="M140 54l16-14h7l-8 16z"/></g>
+    <path d="M52 62l86-8 22 4-108 6z" fill="#C3C6D0"/>
+    <g fill="#3C6A9A"><circle cx="70" cy="62" r="2"/><circle cx="82" cy="61" r="2"/><circle cx="94" cy="60" r="2"/><circle cx="106" cy="59" r="2"/></g>
+    <path d="M0 108h200v12H0z" fill="#6E5B7A" opacity=".5"/>
+  </symbol>
+</defs>
+</svg>
+
+<div class="wrap">
+
+<input class="dayradio" type="radio" name="day" id="r1" checked>
+<input class="dayradio" type="radio" name="day" id="r2">
+<input class="dayradio" type="radio" name="day" id="r3">
+<input class="dayradio" type="radio" name="day" id="r4">
+<input class="dayradio" type="radio" name="day" id="r5">
+<input class="dayradio" type="radio" name="day" id="r6">
+<input class="dayradio" type="radio" name="day" id="r7">
+<input class="dayradio" type="radio" name="day" id="r8">
+<input class="dayradio" type="radio" name="day" id="rall">
+
+<div class="brandbar">
+  <div class="sign">
+    <div class="badge">ROUTE<span>US-W</span></div>
+    <h1>미국 서부 로드트립<small>2026.10.03(토) ~ 10.12(월) · 4인 · Suburban</small></h1>
+  </div>
+  <div class="infobar">
+    <div><div class="l">출국</div><div class="v">10/3 16:00</div></div>
+    <div><div class="l">귀국편</div><div class="v">10/10 23:50</div></div>
+    <div><div class="l">렌터카</div><div class="v">Suburban</div></div>
+    <div><div class="l">총 주행</div><div class="v">~3,000km</div></div>
+  </div>
+</div>
+
+<div class="tabsbar">
+  <div class="tabs">
+    <label for="r1"><b>DAY1</b> 10/3</label><label for="r2"><b>DAY2</b> 10/4</label>
+    <label for="r3"><b>DAY3</b> 10/5</label><label for="r4"><b>DAY4</b> 10/6</label>
+    <label for="r5"><b>DAY5</b> 10/7</label><label for="r6"><b>DAY6</b> 10/8</label>
+    <label for="r7"><b>DAY7</b> 10/9</label><label for="r8"><b>DAY8</b> 10/10</label>
+    <label for="rall"><b>전체</b> 보기</label>
+  </div>
+</div>
+
+<div class="days">
+
+<!-- ============ DAY 1 ============ -->
+<section class="day" data-d="1">
+  <div class="dhead"><span class="n">DAY 1</span><span class="dt">10/3 (토)</span><span class="rt">인천 → 샌프란시스코 · 소살리토</span></div>
+  <div class="dbody">
+
+  <div class="flight">
+    <div class="hd">✈️ 대한항공 KE023 · 예약번호 FSCPI9</div>
+    <table>
+      <tr><td>기종</td><td><b>보잉 787-10</b></td></tr>
+      <tr><td>출발</td><td><b>인천 (ICN) 제2터미널</b> · 10/3(토) 16:00</td></tr>
+      <tr><td>공항 도착</td><td><span class="hl">13:00~13:30 도착 필수</span></td></tr>
+      <tr><td>도착</td><td><b>샌프란시스코 (SFO) 제1터미널</b> · 같은 날 10:40 AM (현지)</td></tr>
+      <tr><td>렌터카</td><td>Dollar · <b>12:00~12:30 픽업</b> (Suburban 7인승)</td></tr>
+    </table>
+  </div>
+
+  <div class="mapbox">
+    <div class="mt">▸ 주행 경로 · 샌프란시스코 베이 일대</div>
+    <svg class="usmap" viewBox="0 0 400 270"><use href="#usw"/>
+      <circle cx="61.9" cy="101.5" r="26" fill="none" stroke="#A6503A" stroke-width="1.6" stroke-dasharray="4 4"/>
+      <polyline points="62.9,105.1 61.9,101.5 60.2,99.4 61.9,101.5" fill="none" stroke="#A6503A" stroke-width="3.5" stroke-linecap="round"/>
+      <circle cx="61.9" cy="101.5" r="5" fill="#33503E" stroke="#fff" stroke-width="1.8"/>
+      <circle cx="60.2" cy="99.4" r="4" fill="#A6503A" stroke="#fff" stroke-width="1.5"/>
+      <g font-size="10" font-weight="800" fill="#2B2A28">
+        <text x="94" y="112">샌프란시스코</text><text x="94" y="96">소살리토</text></g>
+      <g stroke="#6B665C" stroke-width="1"><path d="M68 108h24M66 94h26"/></g>
+      <text x="200" y="258" font-size="10" fill="#6B665C" text-anchor="middle">첫날은 베이 일대만 · 약 70km</text>
+    </svg>
+    <div class="rstats">
+      <div><div class="l">시내 주행</div><div class="v">~70 km</div></div>
+      <div><div class="l">운전</div><div class="v">2시간</div></div>
+      <div><div class="l">시차</div><div class="v">−16시간</div></div>
+    </div>
+  </div>
+
+  <div class="drive">
+    <div class="t">🚗 운전 · 주차 메모</div>
+    <ul>
+      <li>도착 첫날 = 시차 최악. <b>무리한 일정 금지</b></li>
+      <li>금문교를 건너 <b>소살리토까지 갔다가 돌아오는 코스</b>가 동선상 가장 자연스럽습니다</li>
+      <li>SF 언덕 주차 시 <b>바퀴를 연석 쪽으로 꺾어두는 것이 법규</b></li>
+      <li>차량 내 물건 노출 금지 — SF는 차량털이 다발 지역</li>
+      <li>호텔 주차 <b>선결제 완료</b> — 체크인 시 차량번호 등록</li>
+    </ul>
+  </div>
+
+  <table class="sched">
+    <tr><td class="t">10:40</td><td>SFO 도착 · 입국심사</td></tr>
+    <tr><td class="t">12:00</td><td><b>렌터카 픽업</b><span class="memo">국제운전면허증 + 한국 면허증 + 여권 + 결제 카드</span></td></tr>
+    <tr><td class="t">오후</td><td>파인아트 → 금문교 → <b>소살리토</b><span class="memo">다리 건너 북쪽 · 점심 또는 커피</span></td></tr>
+    <tr><td class="t">늦은 오후</td><td>피셔맨스워프 → 롬바드 → 트윈픽스<span class="memo">트윈픽스 일몰 약 18:50</span></td></tr>
+    <tr><td class="t nt">21:00</td><td><b>해리스 스테이크하우스 (예약 완료)</b><span class="memo">2100 Van Ness Ave · 오픈테이블 예약</span></td></tr>
+  </table>
+
+  <p class="spots-t">📍 갈 만한 곳</p>
+  <p class="spots-s">명소 이름을 누르면 나무위키에서 열립니다</p>
+  <div class="chips">
+    <a href="https://namu.wiki/Search?q=팰리스%20오브%20파인%20아트" target="_blank" rel="noopener">팰리스 오브 파인 아트<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=금문교" target="_blank" rel="noopener">금문교<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=소살리토" target="_blank" rel="noopener">소살리토<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=피셔맨스%20워프" target="_blank" rel="noopener">피셔맨스 워프<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=기라델리%20스퀘어" target="_blank" rel="noopener">기라델리 스퀘어 🍫<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=부댕%20베이커리" target="_blank" rel="noopener">부댕 베이커리 🥖<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=롬바드%20스트리트" target="_blank" rel="noopener">롬바드 스트리트<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=트윈%20픽스%20샌프란시스코" target="_blank" rel="noopener">트윈 픽스<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=유니언%20스퀘어%20샌프란시스코" target="_blank" rel="noopener">유니언 스퀘어<span class="nw">↗</span></a>
+    <a href="https://www.harrisrestaurant.com/" target="_blank" rel="noopener">해리스 스테이크하우스 🍽<span class="nw">↗</span></a>
+  </div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-city"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=팰리스%20오브%20파인%20아트" target="_blank" rel="noopener">팰리스 오브 파인 아트</a><span class="tag free">무료</span></div>
+    <div class="ds">로마 신전풍 돔과 호수. 금문교 가는 길목이라 15분만 들러도 사진이 잘 나옵니다.</div>
+    <div class="pk">🅿️ 길가 무료 주차 · 체류 15~20분</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-bridge"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=금문교" target="_blank" rel="noopener">금문교 · 배터리 스펜서</a><span class="tag must">필수</span><span class="tag car">차량</span></div>
+    <div class="ds">다리를 건너 북쪽에서 봐야 전체가 잡힙니다. 배터리 스펜서(Conzelman Rd, Sausalito — 금문교 건너 Alexander Ave 출구에서 좌회전)가 최고의 각도이고, 여기서 소살리토까지 5분입니다. 9~10월은 안개가 적어 방문객이 많습니다.</div>
+    <div class="pk">🅿️ 약 12~20대 규모로 매우 협소 — 갓길 또는 North Tower 주차장도 대안 · 주차장에서 전망 포인트까지 도보 300야드(짧지만 가파름) · 일부 일방통행 구간 주의 · 해 있는 시간대 방문 권장 · 남향 복귀 시 통행료 자동 청구(렌터카 업체 정산)</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-boat"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=소살리토" target="_blank" rel="noopener">소살리토 (Sausalito)</a><span class="tag must">추가</span><span class="tag car">차량</span></div>
+    <div class="ds">금문교 북단의 요트 항구 마을. 지중해풍 해안가에 카페와 갤러리가 늘어서 있고, 만 건너편으로 샌프란시스코 스카이라인이 보입니다. <b>수상가옥(houseboat) 거리</b>가 이곳만의 볼거리예요. 차로 다리를 건넌 김에 들르기 딱 좋은 위치입니다.<br>
+    🍦 <b>Lappert's Ice Cream</b> (689 Bridgeway) — 하와이식 핸드메이드 아이스크림, 대표 맛 Kauai Pie<br>
+    🦀 <b>Scoma's of Sausalito</b> (588 Bridgeway) — 워터프론트 해산물, 크랩·클램차우더·치오피노, 1인 $31~50, OpenTable 예약 권장</div>
+    <div class="pk">🚗 금문교에서 10분 · 🅿️ Bridgeway 거리 유료 주차(주말 혼잡, Anchor St 공영주차장도 대안) · 체류 1시간~1시간 30분 · 페리로 SF 복귀도 가능하지만 <b>차가 있으니 그대로 운전 복귀</b>가 편합니다</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-wharf"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=피셔맨스%20워프" target="_blank" rel="noopener">피셔맨스 워프 · 피어 39</a></div>
+    <div class="ds">바다사자 무리와 클램차우더. 아이들이 가장 좋아하는 코스입니다.</div>
+    <div class="pk">🅿️ 시간당 유료 ($10~15/시간) · 체류 1시간 30분</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-wharf"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=기라델리%20스퀘어" target="_blank" rel="noopener">기라델리 스퀘어</a><span class="tag free">무료</span></div>
+    <div class="ds">1852년 창립 초콜릿 브랜드의 옛 공장 부지. 대형 선디가 유명합니다. (900 North Point St)</div>
+    <div class="pk">🕐 광장 9am~10pm(금·토 11pm) · 초콜릿샵은 보통 더 늦게까지 · 🅿️ Larkin St 쪽 주차장</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-wharf"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=부댕%20베이커리" target="_blank" rel="noopener">부댕 베이커리</a></div>
+    <div class="ds">1849년부터 이어온 샌프란시스코 사워도우 원조. 클램차우더 브레드볼이 대표 메뉴입니다. (160 Jefferson St, Bakers Hall)</div>
+    <div class="pk">🕐 매일 8am~9pm(금·토 10pm) · 베이커리 박물관 투어 $3(11세 이하 무료)</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-city"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=롬바드%20스트리트" target="_blank" rel="noopener">롬바드 스트리트</a><span class="tag car">차량</span></div>
+    <div class="ds">8번 꺾이는 꽃길 내리막. 차로 직접 내려가는 게 포인트 — Hyde St 위쪽에서 진입합니다.</div>
+    <div class="pk">⚠️ Suburban은 회전 반경 주의 · 대기줄 10~20분</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-city"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=트윈%20픽스%20샌프란시스코" target="_blank" rel="noopener">트윈 픽스</a><span class="tag car">차량</span><span class="tag free">무료</span></div>
+    <div class="ds">정상까지 차로 올라갑니다. SF 시내 전체가 발밑에 펼쳐지는 일몰·야경 명소.</div>
+    <div class="pk">🅿️ 정상 무료 주차장 · 바람이 강하니 겉옷 필수</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-city"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=유니언%20스퀘어%20샌프란시스코" target="_blank" rel="noopener">유니언 스퀘어</a></div>
+    <div class="ds">숙소 바로 앞. 차를 호텔에 두고 걸어서 저녁 해결하기 좋습니다.</div>
+    <div class="pk">🚶 도보권 · 밤 늦은 시간 뒷골목은 피하세요</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-city"/></svg>
+    <div class="info"><div class="nm"><a href="https://www.harrisrestaurant.com/" target="_blank" rel="noopener">해리스 스테이크하우스</a><span class="tag must">예약 완료</span></div>
+    <div class="ds">1984년부터 이어온 샌프란시스코 대표 클래식 스테이크하우스. 드라이에이징 비프로 유명합니다. <b>21:00 예약 (오픈테이블)</b></div>
+    <div class="pk">📍 2100 Van Ness Ave · 트윈픽스에서 차로 15분 · 🅿️ 발레파킹 있음 · <b>드레스코드</b>: 스마트 캐주얼 권장</div></div></div>
+
+  <div class="drive warn">
+    <div class="t">🕘 21:00 식사 — 시차를 고려하세요</div>
+    <ul>
+      <li>한국 시각으로는 <b>10/4(일) 오후 1시</b>. 인천 출발부터 따지면 거의 24시간 깨어 있는 셈입니다</li>
+      <li>트윈픽스 일몰(약 18:50) 보고 → 숙소 잠깐 휴식 → 21:00 식사 동선이 가장 무리 없습니다</li>
+      <li>아이들이 버티기 힘들면 <b>오픈테이블에서 시간 앞당기기</b>를 미리 검토해두세요</li>
+    </ul>
+  </div>
+
+  <div class="drive">
+    <div class="t">📌 참고 — 오늘 동선 밖이라 일정엔 안 넣었지만</div>
+    <ul>
+      <li><b>미션 돌로레스 공원</b> — 시내 스카이라인이 보이는 피크닉 명소지만 유니언스퀘어 동선과 반대 방향(Dolores St & 19th St). 다른 날 짬이 나면 고려해보세요</li>
+      <li><b>필즈 커피</b> — 원조 미션점은 폐점, 현재 Castro(549 Castro St)·Noe Valley 지점이 가장 가깝지만 역시 반대 방향</li>
+    </ul>
+  </div>
+
+  <div class="stay"><div class="hd">숙박 · 샌프란시스코</div>
+    <table>
+      <tr><td>숙소</td><td><b>힐튼 샌프란시스코 유니언 스퀘어</b></td></tr>
+      <tr><td>객실</td><td>더블베드 2개 + 킹베드 1개</td></tr>
+      <tr><td>예약번호</td><td><span class="resv">3531186463</span></td></tr>
+      <tr><td>예약처</td><td><b>힐튼 공식</b></td></tr>
+      <tr><td>주차</td><td>호텔 주차 <b>선결제 완료</b></td></tr>
+    </table></div>
+
+  <div class="pager"><label class="ghost" for="r1">—</label><label for="r2">DAY 2 →</label></div>
+  </div>
+</section>
+
+<!-- ============ DAY 2 ============ -->
+<section class="day" data-d="2">
+  <div class="dhead"><span class="n">DAY 2</span><span class="dt">10/4 (일)</span><span class="rt">샌프란시스코 → 요세미티</span></div>
+  <div class="dbody">
+
+  <div class="mapbox">
+    <div class="mt">▸ 주행 경로 · 캘리포니아 내륙 횡단</div>
+    <svg class="usmap" viewBox="0 0 400 270"><use href="#usw"/>
+      <polyline points="61.9,101.5 99.6,101.5 120.7,108.5 131,102" fill="none" stroke="#A6503A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="61.9" cy="101.5" r="5.5" fill="#33503E" stroke="#fff" stroke-width="2"/>
+      <circle cx="99.6" cy="101.5" r="3.5" fill="#A6503A" stroke="#fff" stroke-width="1.3"/>
+      <circle cx="120.7" cy="108.5" r="3.5" fill="#A6503A" stroke="#fff" stroke-width="1.3"/>
+      <circle cx="131" cy="102" r="5.5" fill="#8C2F2F" stroke="#fff" stroke-width="2"/>
+      <g font-size="10" font-weight="800" fill="#2B2A28">
+        <text x="30" y="118">샌프란시스코</text><text x="88" y="128">오크데일</text><text x="141" y="96">요세미티</text></g>
+      <g stroke="#6B665C" stroke-width="1"><path d="M99.6 106v16M131 99v-4"/></g>
+    </svg>
+    <div class="rstats">
+      <div><div class="l">거리</div><div class="v">~300 km</div></div>
+      <div><div class="l">운전</div><div class="v">4시간</div></div>
+      <div><div class="l">경로</div><div class="v">CA-120/140</div></div>
+    </div>
+  </div>
+
+  <div class="drive">
+    <div class="t">🚗 운전 · 주유 메모</div>
+    <ul>
+      <li><b>공원 안에는 사실상 주유소가 없습니다</b> — 오크데일 또는 마리포사에서 만탱크</li>
+      <li>밸리 주차장은 오전 10시면 만차. 주차 후 <b>무료 셔틀</b>이 정답</li>
+      <li>공원 입구에서 <b>연간패스 + 여권 4인분</b> 제시</li>
+    </ul>
+  </div>
+
+  <table class="sched">
+    <tr><td class="t">오전</td><td>샌프란시스코 출발 · 오크데일 주유/간식</td></tr>
+    <tr><td class="t">정오</td><td><b>요세미티 국립공원 도착</b></td></tr>
+    <tr><td class="t">오후</td><td><b>미스트 트레일</b> (버널 폭포 정상)<span class="memo">왕복 4km · 2시간 30분~3시간 · 트레킹화 필수</span></td></tr>
+    <tr><td class="t nt">일몰</td><td>글레이셔 포인트 (선택)<span class="memo">편도 1시간 운전 · 체력 남으면 강력 추천</span></td></tr>
+  </table>
+
+  <p class="spots-t">📍 갈 만한 곳</p>
+  <p class="spots-s">명소 이름을 누르면 나무위키에서 열립니다</p>
+  <div class="chips">
+    <a href="https://namu.wiki/Search?q=요세미티%20국립공원" target="_blank" rel="noopener">요세미티 국립공원<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=터널뷰%20요세미티" target="_blank" rel="noopener">터널 뷰<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=브라이덜베일%20폭포" target="_blank" rel="noopener">브라이달베일 폭포<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=엘%20캐피탄" target="_blank" rel="noopener">엘 캐피탄<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=버널%20폭포" target="_blank" rel="noopener">버널 폭포<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=하프돔" target="_blank" rel="noopener">글레이셔 포인트 · 하프돔<span class="nw">↗</span></a>
+  </div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-granite"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=요세미티%20국립공원" target="_blank" rel="noopener">밸리 뷰 (Valley View)</a><span class="tag free">무료</span></div>
+    <div class="ds">머세드 강가에서 엘 캐피탄과 브라이달베일이 한 프레임에. 터널뷰보다 훨씬 한산합니다.</div>
+    <div class="pk">🅿️ 강변 갓길 주차 · 체류 15분</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-granite"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=터널뷰%20요세미티" target="_blank" rel="noopener">터널 뷰 (Tunnel View)</a><span class="tag must">필수</span></div>
+    <div class="ds">요세미티를 대표하는 그 장면. 엘 캐피탄·하프돔·브라이달베일이 한눈에 들어옵니다.</div>
+    <div class="pk">🅿️ 터널 양쪽 주차장 · 아침 빛이 가장 좋습니다</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-falls"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=브라이덜베일%20폭포" target="_blank" rel="noopener">브라이달베일 폭포</a></div>
+    <div class="ds">낙차 189m. 주차장에서 왕복 15분이면 폭포 바로 아래까지 갑니다.</div>
+    <div class="pk">⚠️ 10월은 수량이 적어 가늘게 흐릅니다 · 바닥 미끄러움</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-granite"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=엘%20캐피탄" target="_blank" rel="noopener">엘 캐피탄 메도우</a><span class="tag free">무료</span></div>
+    <div class="ds">914m 화강암 수직 절벽 아래 초원. 쌍안경이 있으면 암벽 등반가들이 보입니다.</div>
+    <div class="pk">🅿️ 도로변 주차 · 체류 20분</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-falls"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=버널%20폭포" target="_blank" rel="noopener">미스트 트레일 · 버널 폭포</a><span class="tag must">오늘의 핵심</span></div>
+    <div class="ds">돌계단 600개를 올라 폭포 정상까지. 이번 여행에서 가장 본격적인 트레킹입니다.</div>
+    <div class="pk">⏱ 왕복 4km / 2시간 30분~3시간 · 물 1인 1L · 해피아일 셔틀 정류장에서 시작</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-granite"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=하프돔" target="_blank" rel="noopener">글레이셔 포인트</a><span class="tag car">차량 필수</span></div>
+    <div class="ds">해발 2,199m에서 하프돔을 정면으로 마주 봅니다. 렌터카가 있으니 꼭 가볼 만한 곳 — 일몰이 압권.</div>
+    <div class="pk">🚗 밸리에서 편도 1시간(50km) · 10월 개방 여부 확인</div></div></div>
+
+  <div class="stay"><div class="hd">숙박 · 요세미티</div>
+    <table>
+      <tr><td>숙소</td><td><b>Yosemite Valley Lodge</b></td></tr>
+      <tr><td>객실</td><td>Traditional Room (2 Double Beds) × <b>2실</b></td></tr>
+      <tr><td>예약번호</td><td><span class="resv">10005M0VC</span></td></tr>
+      <tr><td>예약처</td><td><b>요세미티 공식</b> (recreation.gov)</td></tr>
+    </table></div>
+
+  <div class="pager"><label for="r1">← DAY 1</label><label for="r3">DAY 3 →</label></div>
+  </div>
+</section>
+
+<!-- ============ DAY 3 ============ -->
+<section class="day" data-d="3">
+  <div class="dhead"><span class="n">DAY 3</span><span class="dt">10/5 (월)</span><span class="rt">요세미티 → 라스베이거스 (최장거리)</span></div>
+  <div class="dbody">
+
+  <div class="mapbox">
+    <div class="mt">▸ 주행 경로 · 티오가 패스 → US-395 남하</div>
+    <svg class="usmap" viewBox="0 0 400 270"><use href="#usw"/>
+      <polyline points="131,102 137.8,98.2 141.1,97 158.4,111.4 166.6,129.4 214.3,161.5 236.6,139.9"
+                fill="none" stroke="#A6503A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="131" cy="102" r="5.5" fill="#33503E" stroke="#fff" stroke-width="2"/>
+      <circle cx="141.1" cy="97" r="3.5" fill="#A6503A" stroke="#fff" stroke-width="1.3"/>
+      <circle cx="158.4" cy="111.4" r="3.5" fill="#A6503A" stroke="#fff" stroke-width="1.3"/>
+      <circle cx="166.6" cy="129.4" r="3.5" fill="#A6503A" stroke="#fff" stroke-width="1.3"/>
+      <circle cx="236.6" cy="139.9" r="5.5" fill="#8C2F2F" stroke="#fff" stroke-width="2"/>
+      <g font-size="10" font-weight="800" fill="#2B2A28">
+        <text x="86" y="96">요세미티</text><text x="150" y="88">모노 호수</text>
+        <text x="172" y="112">비숍</text><text x="176" y="134">론파인</text><text x="248" y="137">라스베이거스</text></g>
+      <g stroke="#6B665C" stroke-width="1"><path d="M126 99h-3M145 94l6-4M162 110h8M170 129h4"/></g>
+    </svg>
+    <div class="rstats">
+      <div><div class="l">거리</div><div class="v">~640 km</div></div>
+      <div><div class="l">운전</div><div class="v">8~9시간</div></div>
+      <div><div class="l">경로</div><div class="v">CA-120→US-395</div></div>
+    </div>
+  </div>
+
+  <div class="drive warn">
+    <div class="t">⚠️ 오늘은 가장 주의가 필요한 날</div>
+    <ul>
+      <li><b>티오가 패스(CA-120) 개방 여부를 전날 밤 nps.gov에서 반드시 확인.</b> 폐쇄 시 남쪽 우회 <b>+3시간</b></li>
+      <li>US-395는 주유소 간격이 넓습니다 → <b>리 바이닝 · 비숍 · 론파인</b>에서 나눠 주유</li>
+      <li>총 8~9시간 운전. <b>교대 운전 필수</b>, 2시간마다 휴게</li>
+      <li>캘리포니아 유가가 네바다보다 20~30% 비쌉니다</li>
+      <li>티오가 패스 해발 3,031m — 고산 체증 가능</li>
+    </ul>
+  </div>
+
+  <table class="sched">
+    <tr><td class="t">일출</td><td><b>터널뷰 일출</b><span class="memo">숙소에서 15분 · 방한 필수</span></td></tr>
+    <tr><td class="t">오전</td><td>티오가 로드 횡단<span class="memo">올름스테드 포인트 · 테나야 호수 · 투올러미 메도우</span></td></tr>
+    <tr><td class="t">점심</td><td>리 바이닝 / 비숍<span class="memo">주유 · 식사</span></td></tr>
+    <tr><td class="t">오후</td><td>앨라배마 힐스 (론파인)</td></tr>
+    <tr><td class="t nt">저녁</td><td>세븐 매직 마운틴 → <b>라스베이거스 도착</b></td></tr>
+  </table>
+
+  <p class="spots-t">📍 갈 만한 곳</p>
+  <p class="spots-s">명소 이름을 누르면 나무위키에서 열립니다</p>
+  <div class="chips">
+    <a href="https://namu.wiki/Search?q=티오가%20패스" target="_blank" rel="noopener">올름스테드 포인트<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=테나야%20호수" target="_blank" rel="noopener">테나야 호수<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=투올러미%20메도우" target="_blank" rel="noopener">투올러미 메도우<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=모노%20호수" target="_blank" rel="noopener">모노 호수<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=앨라배마%20힐스" target="_blank" rel="noopener">앨라배마 힐스<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=세븐%20매직%20마운틴" target="_blank" rel="noopener">세븐 매직 마운틴<span class="nw">↗</span></a>
+  </div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-granite"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=티오가%20패스" target="_blank" rel="noopener">올름스테드 포인트</a><span class="tag free">무료</span></div>
+    <div class="ds">하프돔의 <b>뒷모습</b>을 볼 수 있는 유일한 도로변 전망대. 빙하가 남긴 매끈한 화강암 위를 걸을 수 있습니다.</div>
+    <div class="pk">🅿️ 도로변 주차장 · 체류 20분</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-lake"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=테나야%20호수" target="_blank" rel="noopener">테나야 호수</a></div>
+    <div class="ds">해발 2,484m 고산 호수. 수면이 거울처럼 산을 반사합니다.</div>
+    <div class="pk">🅿️ 호수변 무료 주차 · 체류 15분</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-lake"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=투올러미%20메도우" target="_blank" rel="noopener">투올러미 메도우</a></div>
+    <div class="ds">시에라네바다 최대의 고산 초원. 10월엔 황금빛으로 물듭니다.</div>
+    <div class="pk">🅿️ 방문자센터 주차 · 화장실 마지막 기회</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-lake"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=모노%20호수" target="_blank" rel="noopener">모노 호수 사우스 터파</a></div>
+    <div class="ds">소금 호수에서 솟아오른 석회질 기둥(터파)들이 외계 행성 같은 풍경을 만듭니다.</div>
+    <div class="pk">🅿️ 주차 후 도보 10분 · 1인 $3 내외 · 체류 30분</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-mesa"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=앨라배마%20힐스" target="_blank" rel="noopener">앨라배마 힐스 (론파인)</a><span class="tag car">차량 필수</span><span class="tag free">무료</span></div>
+    <div class="ds">둥근 바위 무더기 너머로 미국 본토 최고봉 휘트니산이 보입니다. 서부영화 수백 편의 촬영지 — <b>차가 없으면 절대 못 가는 곳</b>입니다.</div>
+    <div class="pk">🚗 Movie Road 비포장, Suburban으로 충분 · 입장료 없음 · 체류 40분</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-mesa"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=세븐%20매직%20마운틴" target="_blank" rel="noopener">세븐 매직 마운틴</a><span class="tag free">무료</span></div>
+    <div class="ds">사막 한가운데 형광색 돌기둥 7개. 라스베이거스 남쪽 I-15 바로 옆이라 마지막 스탑으로 딱입니다.</div>
+    <div class="pk">🅿️ 무료 주차 · 해 지기 전 도착해야 색이 삽니다</div></div></div>
+
+  <div class="stay"><div class="hd">숙박 · 라스베이거스</div>
+    <table>
+      <tr><td>숙소</td><td><b>Paris Las Vegas Resort &amp; Casino</b></td></tr>
+      <tr><td>객실</td><td>2실 · 객실타입 Assigned on Arrival</td></tr>
+      <tr><td>예약번호</td><td><span class="resv">7260825N696225</span> <span class="resv">7260825N493460</span></td></tr>
+      <tr><td>예약처</td><td><b>여기어때</b> (Naver Secret Deal) · rsv@triptopaz.com</td></tr>
+      <tr><td>현장결제</td><td>없음 — <b>주차·리조트피 모두 선결제 포함</b></td></tr>
+    </table></div>
+
+  <div class="pager"><label for="r2">← DAY 2</label><label for="r4">DAY 4 →</label></div>
+  </div>
+</section>
+
+<!-- ============ DAY 4 ============ -->
+<section class="day" data-d="4">
+  <div class="dhead"><span class="n">DAY 4</span><span class="dt">10/6 (화)</span><span class="rt">라스베이거스 → 세도나 → 그랜드캐년</span></div>
+  <div class="dbody">
+
+  <div class="mapbox">
+    <div class="mt">▸ 주행 경로 · 루트 66 → 세도나 → 사우스림</div>
+    <svg class="usmap" viewBox="0 0 400 270"><use href="#usw"/>
+      <polyline points="236.6,139.9 262.8,163.4 291.1,160.1 320.4,163.2 317.8,171.1 320.4,163.2 308.6,142.6"
+                fill="none" stroke="#A6503A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="236.6" cy="139.9" r="5.5" fill="#33503E" stroke="#fff" stroke-width="2"/>
+      <circle cx="262.8" cy="163.4" r="3.5" fill="#A6503A" stroke="#fff" stroke-width="1.3"/>
+      <circle cx="291.1" cy="160.1" r="3.5" fill="#A6503A" stroke="#fff" stroke-width="1.3"/>
+      <circle cx="317.8" cy="171.1" r="3.5" fill="#A6503A" stroke="#fff" stroke-width="1.3"/>
+      <circle cx="308.6" cy="142.6" r="5.5" fill="#8C2F2F" stroke="#fff" stroke-width="2"/>
+      <g font-size="10" font-weight="800" fill="#2B2A28">
+        <text x="182" y="136">라스베이거스</text><text x="236" y="176">킹맨</text>
+        <text x="272" y="152">셀리그만</text><text x="326" y="182">세도나</text><text x="262" y="138">그랜드캐년</text></g>
+      <g stroke="#6B665C" stroke-width="1"><path d="M258 168l-2 4M291 156v-5M320 176l-2 3M304 140h-2"/></g>
+    </svg>
+    <div class="rstats">
+      <div><div class="l">거리</div><div class="v">~650 km</div></div>
+      <div><div class="l">운전</div><div class="v">7~8시간</div></div>
+      <div><div class="l">경로</div><div class="v">I-40 · 89A</div></div>
+    </div>
+  </div>
+
+  <div class="drive warn">
+    <div class="t">⏱ 일정이 빡빡합니다 — 선택이 필요</div>
+    <ul>
+      <li>전부 돌면 <b>순수 운전만 7~8시간</b>. 세도나에서 시간을 다 쓰면 그랜드캐년 일몰을 놓칩니다</li>
+      <li><b>추천:</b> 세도나는 오크 크릭 드라이브 + 에어포트 메사 1곳만 → 17시 전 출발</li>
+      <li><b>시간대:</b> 애리조나는 서머타임 미적용 → 라스베이거스와 <b>시각 동일</b></li>
+      <li>킹맨에서 주유 (셀리그만 이후 주유소 드묾)</li>
+    </ul>
+  </div>
+
+  <table class="sched">
+    <tr><td class="t">이른 아침</td><td>라스베이거스 출발</td></tr>
+    <tr><td class="t">오전</td><td>후버댐 경유 (선택) → 킹맨 주유</td></tr>
+    <tr><td class="t">점심</td><td><b>셀리그만</b> (루트 66 올드타운)</td></tr>
+    <tr><td class="t">오후</td><td><b>세도나</b> — 오크 크릭 캐년 드라이브 · 카테드럴 록</td></tr>
+    <tr><td class="t nt">일몰</td><td><b>그랜드캐년 마더 포인트</b><span class="memo">일몰 후 별 관측 — 담요·핫팩</span></td></tr>
+  </table>
+
+  <p class="spots-t">📍 갈 만한 곳</p>
+  <p class="spots-s">명소 이름을 누르면 나무위키에서 열립니다</p>
+  <div class="chips">
+    <a href="https://namu.wiki/Search?q=후버%20댐" target="_blank" rel="noopener">후버댐<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=66번%20국도" target="_blank" rel="noopener">셀리그만 · 루트 66<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=오크%20크릭%20캐니언" target="_blank" rel="noopener">오크 크릭 캐년<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=세도나" target="_blank" rel="noopener">카테드럴 록 · 세도나<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=세도나" target="_blank" rel="noopener">에어포트 메사<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=그랜드%20캐니언" target="_blank" rel="noopener">마더 포인트<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=그랜드%20캐니언" target="_blank" rel="noopener">헬기투어 🚁 (선택)<span class="nw">↗</span></a>
+  </div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-dam"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=후버%20댐" target="_blank" rel="noopener">후버댐 · 오캘러헌–티먼 대교</a><span class="tag car">차량</span></div>
+    <div class="ds">높이 221m 콘크리트 아치댐. 대교 보행로에서 댐 전경을 내려다볼 수 있습니다. 출발 직후 경로상이라 1시간이면 충분.</div>
+    <div class="pk">🅿️ 주차 $10 · 시간이 빠듯하면 과감히 생략</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-road"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=66번%20국도" target="_blank" rel="noopener">셀리그만 (루트 66)</a><span class="tag must">필수</span></div>
+    <div class="ds">영화 〈카〉의 모델이 된 마을. 낡은 주유소와 올드카 간판이 그대로 남아 있습니다.</div>
+    <div class="pk">🅿️ 길가 무료 주차 · 체류 40분~1시간</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-redrock"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=오크%20크릭%20캐니언" target="_blank" rel="noopener">오크 크릭 캐년 시닉 드라이브 (89A)</a><span class="tag car">차량 필수</span></div>
+    <div class="ds">플래그스태프에서 세도나로 내려오는 붉은 협곡 도로. <b>운전 자체가 관광</b>인 구간입니다.</div>
+    <div class="pk">🚗 편도 40분 · 중간 전망대 무료 주차</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-redrock"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=세도나" target="_blank" rel="noopener">카테드럴 록 · 벨 록</a></div>
+    <div class="ds">세도나를 상징하는 붉은 사암 봉우리. 멀리서 차 세우고 보는 것만으로도 충분히 인상적입니다.</div>
+    <div class="pk">🅿️ Red Rock Pass 필요할 수 있음 · 주차장 혼잡</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-redrock"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=세도나" target="_blank" rel="noopener">에어포트 메사</a></div>
+    <div class="ds">세도나 시내가 한눈에 들어오는 일몰 포인트. 짧게 올라갔다 내려올 수 있어 효율이 좋습니다.</div>
+    <div class="pk">🅿️ 주차 협소·유료 · 일몰 1시간 전 도착 권장</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-canyon"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=그랜드%20캐니언" target="_blank" rel="noopener">마더 포인트</a><span class="tag must">오늘의 핵심</span></div>
+    <div class="ds">그랜드캐년 사우스림 대표 일몰 전망대. 방문자센터 바로 옆이라 접근이 쉽습니다.</div>
+    <div class="pk">🅿️ 방문자센터 주차 후 도보 5분 · 밤 기온 0~5℃ · <b>숙소(투사얀)까지 복귀 20분 추가</b></div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-canyon"/></svg>
+    <div class="info"><div class="nm">그랜드캐년 헬기투어<span class="tag free" style="background:#F6E6E3;color:var(--rust);border-color:#D8A99F">선택</span></div>
+    <div class="ds">사우스림 25~30분 코스가 오후 $299 / 오전 $319부터 (Hummer 지상투어 포함 시 $414~), 45분 코스는 $429~449. 체크인은 출발 45분 전, 탑승 전 몸무게 측정이 있습니다. 넣고 싶으면 오늘 오후 일정을 줄여야 합니다.</div>
+    <div class="pk">✈️ 에어온리는 국립공원 입장료 대상 아님 · Hummer 포함 상품은 비거주자 추가요금 있을 수 있음 · 넣을 경우 세도나 체류를 줄여야 시간이 맞습니다</div></div></div>
+
+  <div class="drive warn">
+    <div class="t">⚠️ 숙소 변경 — 공원 밖 투사얀, 동선 다시 계산 필요</div>
+    <ul>
+      <li>공원 내 롯지가 <b>홍수 피해로 운영 중단</b>되어 투사얀(Tusayan) 호텔로 변경했습니다</li>
+      <li>투사얀은 사우스림 입구에서 <b>차로 약 15~20분(16~24km)</b> 떨어져 있습니다 — 걸어서 전망대에 갈 수 있던 기존 계획과 다릅니다</li>
+      <li><b>오늘 저녁 마더 포인트 일몰·별관측 후 숙소 복귀까지 추가로 20분</b> 감안하세요 (호텔 체크인은 그 전에 미리 해두는 게 편합니다)</li>
+      <li><b>내일 새벽 사우스 카이밥 트레일 셔틀</b>도 공원 안에서 타야 하므로, 일출 기준 시각에서 <b>20~30분 더 일찍 출발</b>해야 합니다 — DAY5 일정에 반영해뒀습니다</li>
+    </ul>
+  </div>
+
+  <div class="stay"><div class="hd">숙박 · 그랜드캐년 (투사얀)</div>
+    <table>
+      <tr><td>우리 방</td><td><b>Grand Canyon Plaza Hotel</b> · Deluxe Room</td></tr>
+      <tr><td>예약</td><td><span class="resv">20081687</span> · <b>아고다</b></td></tr>
+      <tr><td>부모님</td><td><b>Grand Canyon Hotel &amp; Suites</b> · Standard Room</td></tr>
+      <tr><td>예약</td><td><span class="resv">1780072623</span> · <b>아고다</b></td></tr>
+      <tr><td>위치</td><td>둘 다 투사얀 · 사우스림 입구에서 약 15~20분 · 무료 자체 주차</td></tr>
+    </table></div>
+
+  <div class="pager"><label for="r3">← DAY 3</label><label for="r5">DAY 5 →</label></div>
+  </div>
+</section>
+
+<!-- ============ DAY 5 ============ -->
+<section class="day" data-d="5">
+  <div class="dhead"><span class="n">DAY 5</span><span class="dt">10/7 (수)</span><span class="rt">그랜드캐년 → 모뉴먼트밸리 → 페이지</span></div>
+  <div class="dbody">
+
+  <div class="mapbox">
+    <div class="mt">▸ 주행 경로 · 나바호 자치구역 순환</div>
+    <svg class="usmap" viewBox="0 0 400 270"><use href="#usw"/>
+      <polyline points="308.6,142.6 316.1,143 326.2,147.6 356.2,120 325,122.2"
+                fill="none" stroke="#A6503A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="308.6" cy="142.6" r="5.5" fill="#33503E" stroke="#fff" stroke-width="2"/>
+      <circle cx="316.1" cy="143" r="3.5" fill="#A6503A" stroke="#fff" stroke-width="1.3"/>
+      <circle cx="326.2" cy="147.6" r="3.5" fill="#A6503A" stroke="#fff" stroke-width="1.3"/>
+      <circle cx="356.2" cy="120" r="4.5" fill="#A6503A" stroke="#fff" stroke-width="1.5"/>
+      <circle cx="325" cy="122.2" r="5.5" fill="#8C2F2F" stroke="#fff" stroke-width="2"/>
+      <g font-size="10" font-weight="800" fill="#2B2A28">
+        <text x="246" y="150">그랜드캐년</text><text x="316" y="160">카메론</text>
+        <text x="300" y="112">모뉴먼트밸리</text><text x="288" y="130">페이지</text></g>
+      <g stroke="#6B665C" stroke-width="1"><path d="M304 145l-2 2M326 152v3M352 118h-4M321 124h-4"/></g>
+    </svg>
+    <div class="rstats">
+      <div><div class="l">거리</div><div class="v">~520 km</div></div>
+      <div><div class="l">운전</div><div class="v">6시간</div></div>
+      <div><div class="l">경로</div><div class="v">Hwy 64·163·98</div></div>
+    </div>
+  </div>
+
+  <div class="drive warn">
+    <div class="t">🕐 시간대 함정 주의</div>
+    <ul>
+      <li>애리조나 본토는 서머타임 미적용이지만 <b>나바호 자치구역(모뉴먼트밸리)은 적용</b> → <b>1시간 빠름</b></li>
+      <li>주유소가 매우 드뭅니다 → <b>카메론에서 주유</b>, 페이지 도착 후 <b>만탱크</b></li>
+      <li>사막 구간 휴대폰 신호 끊김 — 구글맵 <b>오프라인 지도 미리 저장</b></li>
+    </ul>
+  </div>
+
+  <table class="sched">
+    <tr><td class="t nt">새벽</td><td>투사얀 숙소 출발<span class="memo">공원 입구까지 15~20분 + 셔틀 대기 — 일출 기준 역산해서 출발</span></td></tr>
+    <tr><td class="t">일출</td><td><b>사우스 카이밥 트레일</b> (우아 포인트)<span class="memo">왕복 2.6km</span></td></tr>
+    <tr><td class="t">오전</td><td>데저트뷰 워치타워 → 동쪽 출구</td></tr>
+    <tr><td class="t">점심</td><td>카메론 트레이딩 포스트<span class="memo">주유 · 나바호 공예품</span></td></tr>
+    <tr><td class="t">오후</td><td><b>모뉴먼트밸리</b> · 포레스트 검프 포인트</td></tr>
+    <tr><td class="t nt">일몰</td><td><b>호슈밴드</b> → 페이지 숙소</td></tr>
+  </table>
+
+  <p class="spots-t">📍 갈 만한 곳</p>
+  <p class="spots-s">명소 이름을 누르면 나무위키에서 열립니다</p>
+  <div class="chips">
+    <a href="https://namu.wiki/Search?q=그랜드%20캐니언" target="_blank" rel="noopener">사우스 카이밥 트레일<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=데저트%20뷰%20워치타워" target="_blank" rel="noopener">데저트뷰 워치타워<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=모뉴먼트%20밸리" target="_blank" rel="noopener">포레스트 검프 포인트<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=모뉴먼트%20밸리" target="_blank" rel="noopener">모뉴먼트밸리 드라이브<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=글렌%20캐니언%20댐" target="_blank" rel="noopener">글렌캐년 댐<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=호스슈%20벤드" target="_blank" rel="noopener">호슈밴드<span class="nw">↗</span></a>
+  </div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-canyon"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=그랜드%20캐니언" target="_blank" rel="noopener">사우스 카이밥 트레일 (우아 포인트)</a><span class="tag must">필수</span></div>
+    <div class="ds">협곡 <b>안으로</b> 걸어 들어가는 코스. 능선을 따라가 시야가 360도로 트입니다.</div>
+    <div class="pk">⏱ 왕복 2.6km / 1시간 30분 · 개인차량 진입 불가, <b>셔틀버스만</b> 접근 가능</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-canyon"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=데저트%20뷰%20워치타워" target="_blank" rel="noopener">데저트뷰 워치타워</a><span class="tag must">경로상</span></div>
+    <div class="ds">사우스림 동쪽 끝의 석조 전망탑. <b>어차피 동쪽 출구로 나가는 길목</b>이라 시간 손해가 없습니다.</div>
+    <div class="pk">🅿️ 무료 주차 · 체류 30분</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-mesa"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=모뉴먼트%20밸리" target="_blank" rel="noopener">포레스트 검프 포인트</a><span class="tag car">차량 필수</span><span class="tag free">무료</span></div>
+    <div class="ds">US-163 도로 한가운데서 모뉴먼트밸리를 정면으로 바라보는 그 장면. <b>입장료도 없고 차만 있으면 되는</b> 최고의 사진 포인트.</div>
+    <div class="pk">⚠️ 실제 차가 다니는 도로 — 갓길에 완전히 주차하고 촬영 · 체류 20분</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-mesa"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=모뉴먼트%20밸리" target="_blank" rel="noopener">모뉴먼트밸리 밸리 드라이브</a><span class="tag car">차량 필수</span></div>
+    <div class="ds">17마일 비포장 순환로를 <b>내 차로</b> 도는 코스. Suburban이면 충분히 주파 가능합니다.</div>
+    <div class="pk">🚗 나바호 부족 공원 입장료 별도(국립공원 패스 사용 불가) · 2~3시간</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-dam"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=글렌%20캐니언%20댐" target="_blank" rel="noopener">글렌캐년 댐 전망대</a><span class="tag free">무료</span></div>
+    <div class="ds">페이지 진입 직전 경로상. 에메랄드빛 콜로라도강과 댐을 위에서 내려다봅니다.</div>
+    <div class="pk">🅿️ 무료 주차 · 체류 15분</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-canyon"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=호스슈%20벤드" target="_blank" rel="noopener">호슈밴드</a><span class="tag must">오늘의 핵심</span></div>
+    <div class="ds">콜로라도강이 270도로 휘감아 도는 말굽 협곡. 일몰 시간대의 빛이 가장 극적입니다.</div>
+    <div class="pk">🅿️ 주차 $10 · 왕복 2.4km 모래길 30분 · 난간 없음, <b>아이들 손 꼭 잡으세요</b></div></div></div>
+
+  <div class="stay"><div class="hd">숙박 · 페이지</div>
+    <table>
+      <tr><td>숙소</td><td><b>Comfort Inn &amp; Suites Page at Lake Powell</b></td></tr>
+      <tr><td>객실</td><td>Standard (Queen × 2) × <b>2실</b> · 무료 주차 · 조식</td></tr>
+      <tr><td>예약번호</td><td><span class="resv">26082613009D13ES1</span></td></tr>
+      <tr><td>예약처</td><td><b>여기어때</b></td></tr>
+    </table></div>
+
+  <div class="pager"><label for="r4">← DAY 4</label><label for="r6">DAY 6 →</label></div>
+  </div>
+</section>
+
+<!-- ============ DAY 6 ============ -->
+<section class="day" data-d="6">
+  <div class="dhead"><span class="n">DAY 6</span><span class="dt">10/8 (목)</span><span class="rt">엔텔롭 → 브라이스 → 자이언 → 라스베이거스</span></div>
+  <div class="dbody">
+
+  <div class="mapbox">
+    <div class="mt">▸ 주행 경로 · 유타 국립공원 종단</div>
+    <svg class="usmap" viewBox="0 0 400 270"><use href="#usw"/>
+      <polyline points="325,122.2 307.4,105.8 288.5,112.8 274.1,117.6 236.6,139.9"
+                fill="none" stroke="#A6503A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="325" cy="122.2" r="5.5" fill="#33503E" stroke="#fff" stroke-width="2"/>
+      <circle cx="307.4" cy="105.8" r="4.5" fill="#A6503A" stroke="#fff" stroke-width="1.5"/>
+      <circle cx="288.5" cy="112.8" r="4.5" fill="#A6503A" stroke="#fff" stroke-width="1.5"/>
+      <circle cx="236.6" cy="139.9" r="5.5" fill="#8C2F2F" stroke="#fff" stroke-width="2"/>
+      <g font-size="10" font-weight="800" fill="#2B2A28">
+        <text x="332" y="126">페이지</text><text x="314" y="100">브라이스</text>
+        <text x="258" y="108">자이언</text><text x="182" y="137">라스베이거스</text></g>
+      <g stroke="#6B665C" stroke-width="1"><path d="M312 104h-2M284 110l-2-3M241 139h-4"/></g>
+    </svg>
+    <div class="rstats">
+      <div><div class="l">거리</div><div class="v">~630 km</div></div>
+      <div><div class="l">운전</div><div class="v">7시간</div></div>
+      <div><div class="l">경로</div><div class="v">US-89 · I-15</div></div>
+    </div>
+  </div>
+
+  <div class="drive warn">
+    <div class="t">⚠️ 자이언 터널 — 사전 확인 필수</div>
+    <ul>
+      <li>Zion–Mt Carmel 터널은 <b>폭 7'10"(약 2.39m) 초과 차량 통행 금지</b>. Suburban은 통과 가능하지만 <b>대형차 통행 허가 $15 + 일방통행 통제</b> 대상이 될 수 있습니다</li>
+      <li>불가 판정 시 → <b>콜롭 캐년</b>으로 대체 (I-15 바로 옆, 터널 안 지나감)</li>
+      <li>페이지 → 브라이스 US-89 구간은 주유소가 드묾 → <b>페이지에서 만탱크</b></li>
+    </ul>
+  </div>
+
+  <table class="sched">
+    <tr><td class="t">08:00</td><td><b>로어 엔텔롭 캐년</b> · Ken's Tours <span class="resv">KEN-371178</span><span class="memo">08:00~09:00 · 4인 결제 완료 · 시간 엄수 · 가방 반입 제한 · <b>가이드 팁 별도</b></span></td></tr>
+    <tr><td class="t">오전</td><td>US-89 북상 → 레드 캐니언 경유</td></tr>
+    <tr><td class="t">정오</td><td><b>브라이스 캐년</b><span class="memo">선라이즈 · 선셋 · 인스퍼레이션 포인트</span></td></tr>
+    <tr><td class="t">오후</td><td><b>자이언</b> (터널 통행 가능 시)<span class="memo">불가 시 콜롭 캐년으로 대체</span></td></tr>
+    <tr><td class="t nt">저녁</td><td>라스베이거스 도착 · <b>자유시간</b></td></tr>
+  </table>
+
+  <p class="spots-t">📍 갈 만한 곳</p>
+  <p class="spots-s">명소 이름을 누르면 나무위키에서 열립니다</p>
+  <div class="chips">
+    <a href="https://namu.wiki/Search?q=앤털로프%20캐니언" target="_blank" rel="noopener">로어 엔텔롭 캐년<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=레드%20캐니언%20유타" target="_blank" rel="noopener">레드 캐니언<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=브라이스%20캐니언%20국립공원" target="_blank" rel="noopener">브라이스 선셋 포인트<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=브라이스%20캐니언%20국립공원" target="_blank" rel="noopener">나바호 루프 트레일<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=자이언%20국립공원" target="_blank" rel="noopener">캐년 오버룩 트레일<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=자이언%20국립공원" target="_blank" rel="noopener">콜롭 캐년<span class="nw">↗</span></a>
+  </div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-slot"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=앤털로프%20캐니언" target="_blank" rel="noopener">로어 엔텔롭 캐년</a><span class="tag must">예약 완료</span></div>
+    <div class="ds">물결치는 사암 벽 사이로 빛줄기가 떨어지는 슬롯 캐년. 08:00 가이드 투어로 예약되어 있습니다.</div>
+    <div class="pk">⏱ 1시간 30분 · 사다리 구간 · 삼각대·큰 가방 반입 불가 · 신분증 지참</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-hoodoo"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=레드%20캐니언%20유타" target="_blank" rel="noopener">레드 캐니언 (Hwy 12)</a><span class="tag free">무료</span></div>
+    <div class="ds">브라이스로 들어가는 길목의 붉은 바위 터널 구간. <b>경로상이라 시간 손해 없이</b> 인상적인 사진을 건집니다.</div>
+    <div class="pk">🅿️ 도로변 전망대 무료 주차 · 체류 15분</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-hoodoo"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=브라이스%20캐니언%20국립공원" target="_blank" rel="noopener">브라이스 선셋 · 인스퍼레이션 포인트</a><span class="tag must">필수</span></div>
+    <div class="ds">주황빛 후두(hoodoo) 수천 개가 원형극장처럼 펼쳐집니다. 전망대만 돌아도 핵심은 다 봅니다.</div>
+    <div class="pk">🅿️ 각 포인트 주차장 · 해발 2,400m로 <b>쌀쌀합니다</b></div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-hoodoo"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=브라이스%20캐니언%20국립공원" target="_blank" rel="noopener">나바호 루프 트레일 (선택)</a></div>
+    <div class="ds">후두 사이 협곡으로 <b>내려가는</b> 짧은 코스. 위에서 보는 것과 완전히 다른 경험입니다.</div>
+    <div class="pk">⏱ 왕복 2.2km / 1시간 · 급경사 지그재그</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-redrock"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=자이언%20국립공원" target="_blank" rel="noopener">캐년 오버룩 트레일</a></div>
+    <div class="ds">자이언 터널 <b>동쪽 입구</b> 바로 옆. 짧은 코스로 자이언 협곡 전경을 내려다봅니다.</div>
+    <div class="pk">⏱ 왕복 1.6km / 1시간 · 주차 매우 협소</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-redrock"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=자이언%20국립공원" target="_blank" rel="noopener">콜롭 캐년</a><span class="tag car">대안 코스</span></div>
+    <div class="ds">자이언 북서쪽 구역. <b>터널을 지나지 않고</b> I-15에서 바로 진입합니다. 라스베이거스 복귀 동선에도 잘 맞습니다.</div>
+    <div class="pk">🚗 I-15 Exit 40 · 국립공원 패스 사용 가능 · <b>터널 문제 시 최선의 플랜 B</b></div></div></div>
+
+  <div class="drive">
+    <div class="t">🍽️ 도착 첫날 저녁 — 뷔페로 가볍게</div>
+    <ul>
+      <li>장거리 운전 후 도착이라 <b>뷔페 하나로 해결</b>하는 게 가장 편합니다 — DAY7 체크리스트에 3대 뷔페 비교를 넣어뒀습니다</li>
+      <li>가벼운 한식이 당기면 <b>무봉리 순대</b>(3385 S Decatur Blvd) — 순대국·매운 감자탕, 매일 10am~11pm</li>
+      <li>해산물이 당기면 <b>핫앤쥬시 크로피시</b>(Miracle Mile Shops 지점) — 봉지째 손으로 먹는 케이준 시푸드, 1인 $20~30</li>
+    </ul>
+  </div>
+
+  <div class="stay"><div class="hd">숙박 · 라스베이거스 (2박)</div>
+    <table>
+      <tr><td>숙소</td><td><b>Bellagio Las Vegas</b> · 10/8~10/10 <b>2박 연박</b></td></tr>
+      <tr><td>객실 1</td><td>PREMIER (2 Queen Beds) · <span class="resv">260828150113B4ES1</span></td></tr>
+      <tr><td>객실 2</td><td>PREMIER (King Bed) · <span class="resv">26082815013B6AES1</span></td></tr>
+      <tr><td>예약처</td><td><b>여기어때</b></td></tr>
+      <tr><td>현장결제</td><td class="chk">리조트피 + 주차비 — 체크아웃 시 별도 청구</td></tr>
+    </table></div>
+
+  <div class="pager"><label for="r5">← DAY 5</label><label for="r7">DAY 7 →</label></div>
+  </div>
+</section>
+
+<!-- ============ DAY 7 ============ -->
+<section class="day" data-d="7">
+  <div class="dhead"><span class="n">DAY 7</span><span class="dt">10/9 (금)</span><span class="rt">라스베이거스 · 스피어 · O쇼</span></div>
+  <div class="dbody">
+
+  <div class="mapbox">
+    <div class="mt">▸ 근교 선택지 · 차로 30분~1시간</div>
+    <svg class="usmap" viewBox="0 0 400 270"><use href="#usw"/>
+      <polyline points="236.6,139.9 250.8,132.5" fill="none" stroke="#A6503A" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 5"/>
+      <polyline points="236.6,139.9 229.7,140.9" fill="none" stroke="#3A6B7A" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 5"/>
+      <circle cx="236.6" cy="139.9" r="6" fill="#33503E" stroke="#fff" stroke-width="2"/>
+      <circle cx="250.8" cy="132.5" r="4.5" fill="#A6503A" stroke="#fff" stroke-width="1.5"/>
+      <circle cx="229.7" cy="140.9" r="4.5" fill="#3A6B7A" stroke="#fff" stroke-width="1.5"/>
+      <g font-size="10" font-weight="800" fill="#2B2A28">
+        <text x="232" y="154">라스베이거스</text><text x="258" y="128">밸리 오브 파이어</text><text x="150" y="144">레드록 캐년</text></g>
+      <g stroke="#6B665C" stroke-width="1"><path d="M225 141h-12"/></g>
+      <text x="200" y="258" font-size="10" fill="#6B665C" text-anchor="middle">오전 근교 드라이브 · 오후 스트립 휴식</text>
+    </svg>
+    <div class="rstats">
+      <div><div class="l">밸리오브파이어</div><div class="v">편도 1시간</div></div>
+      <div><div class="l">레드록</div><div class="v">편도 30분</div></div>
+      <div><div class="l">스트립</div><div class="v">도보권</div></div>
+    </div>
+  </div>
+
+  <div class="flight">
+    <div class="hd">🎫 스피어(Sphere) 공연 · 예약 완료</div>
+    <table>
+      <tr><td>일시</td><td><b>10/9(금) 14:00</b> · <span class="hl">입장 13:00까지</span></td></tr>
+      <tr><td>좌석</td><td><b>207구역 16열 3~6번</b> (4인)</td></tr>
+      <tr><td>예약처</td><td>Ticketmaster · <b>결제 완료</b></td></tr>
+      <tr><td>입장</td><td>이메일 또는 <b>모바일 바코드</b> — 출발 전 앱에 미리 저장</td></tr>
+    </table>
+  </div>
+
+  <div class="flight">
+    <div class="hd">🎭 태양의 서커스 O쇼 · 예약 완료</div>
+    <table>
+      <tr><td>일시</td><td><b>10/9(금) 21:00</b></td></tr>
+      <tr><td>장소</td><td><b>'O' Theatre at Bellagio</b> — 숙소 안이라 이동 불필요</td></tr>
+      <tr><td>좌석</td><td><b>Sec 102, Row D, Seat 13~16</b> (4인)</td></tr>
+      <tr><td>예약처</td><td>Ticketmaster · <b>결제 완료</b></td></tr>
+    </table>
+  </div>
+
+  <div class="drive">
+    <div class="t">🍽️ 라스베이거스 3대 뷔페 비교</div>
+    <ul>
+      <li><b>위키드 스푼</b> (코스모폴리탄) — 가장 저렴 $50~60 · 평일 아침 $49.99/점심 $54.99, 주말 브런치 $59.99 · <b>브런치 시간대만 운영, 디너 없음</b></li>
+      <li><b>윈 더 뷔페</b> — 중간 $65~85 · 고메 브런치(8am~1pm) $64.99 / 해산물 디너(1pm~9pm) $84.99 · 라이브 쿡 스테이션 16곳</li>
+      <li><b>바카날 뷔페</b> (시저스 팰리스) — 가장 고급 $70~95 · 주말 크랩 브런치 $91.99, 디너 금~일 $92~95+ · 9개 라이브 스테이션</li>
+      <li>전부 <b>OpenTable 예약 가능</b> · 3~10세는 대부분 반값, 어린이 기준은 업체마다 달라 예약 시 확인</li>
+    </ul>
+  </div>
+
+  <div class="drive warn">
+    <div class="t">⏰ 오늘은 공연 2개 — 시간이 꽉 짜여 있습니다</div>
+    <ul>
+      <li>13:00 스피어 입장 마감 → 늦어도 <b>12:00에는 스트립으로 복귀</b>해야 합니다</li>
+      <li><b>밸리 오브 파이어는 비추천</b> — 왕복 2시간 + 관람 2시간이라 빠듯합니다</li>
+      <li><b>레드록 캐년 추천</b> — 8시 출발하면 11시 전 복귀 가능 (왕복 1시간 + 순환도로 2시간)</li>
+      <li>스피어(~16시 종료 예상)와 O쇼(21:00) 사이 <b>약 5시간 여유</b> — 저녁 식사와 휴식에 쓰면 됩니다</li>
+      <li>O쇼는 <b>벨라지오 안에서 열려서 이동이 필요 없습니다</b> — 20:30쯤 공연장으로 내려가면 충분합니다</li>
+    </ul>
+  </div>
+
+  <table class="sched">
+    <tr><td class="t">08:00</td><td>레드록 캐년 시닉 드라이브 (선택)<span class="memo">늦어도 11:30 복귀 · 생략 시 호텔 휴식</span></td></tr>
+    <tr><td class="t">12:00</td><td>스트립 복귀 · 점심</td></tr>
+    <tr><td class="t nt">13:00</td><td><b>스피어 입장 마감</b><span class="memo">벨라지오에서 차로 10분 · 주차 시간 여유 두기</span></td></tr>
+    <tr><td class="t nt">14:00</td><td><b>스피어 공연</b> · 207구역 16열</td></tr>
+    <tr><td class="t">오후</td><td>하이롤러 · 아웃렛 · 수영장</td></tr>
+    <tr><td class="t">18:00</td><td>저녁 식사<span class="memo">벨라지오 안이라 이동 부담 없음</span></td></tr>
+    <tr><td class="t nt">21:00</td><td><b>태양의 서커스 O쇼</b><span class="memo">'O' Theatre at Bellagio · Sec 102 Row D</span></td></tr>
+  </table>
+
+  <p class="spots-t">📍 갈 만한 곳</p>
+  <p class="spots-s">명소 이름을 누르면 나무위키에서 열립니다</p>
+  <div class="chips">
+    <a href="https://namu.wiki/Search?q=밸리%20오브%20파이어" target="_blank" rel="noopener">밸리 오브 파이어<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=레드%20록%20캐니언" target="_blank" rel="noopener">레드록 캐년<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=벨라지오" target="_blank" rel="noopener">벨라지오 분수쇼<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=스피어%20라스베이거스" target="_blank" rel="noopener">더 스피어<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=태양의%20서커스" target="_blank" rel="noopener">O쇼 🎭<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=하이%20롤러" target="_blank" rel="noopener">하이롤러<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=프리몬트%20스트리트" target="_blank" rel="noopener">프리몬트 스트리트 · 집라인<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=AREA15" target="_blank" rel="noopener">AREA15<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=벨라지오" target="_blank" rel="noopener">더 볼트 🔞<span class="nw">↗</span></a>
+  </div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-redrock"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=밸리%20오브%20파이어" target="_blank" rel="noopener">밸리 오브 파이어 주립공원</a><span class="tag car">차량 필수</span><span class="tag must">추천</span></div>
+    <div class="ds">불타는 듯한 붉은 사암 지대. 파이어 웨이브, 엘리펀트 록 등 차로 돌며 짧게 걸어볼 포인트가 많습니다. <b>렌터카 여행자만의 특권.</b></div>
+    <div class="pk">🚗 편도 1시간(80km) · 국립공원 패스 사용 불가, 차량당 $15 내외 · <b>반나절 소요 — 공연날 오전엔 시간이 부족합니다</b></div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-redrock"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=레드%20록%20캐니언" target="_blank" rel="noopener">레드록 캐년 시닉 드라이브</a><span class="tag car">차량 필수</span></div>
+    <div class="ds">13마일 일방통행 순환도로. 차에서 내리지 않고도 붉은 절벽을 감상할 수 있어 <b>시간이 부족할 때 최적</b>입니다.</div>
+    <div class="pk">🚗 편도 30분 · 성수기 <b>시간대 예약제</b> 가능 — recreation.gov 확인 · 2시간</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-neon"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=벨라지오" target="_blank" rel="noopener">벨라지오 분수쇼 · 식물원</a><span class="tag free">무료</span></div>
+    <div class="ds">숙소가 벨라지오이니 가장 편한 코스. 분수쇼는 저녁엔 15분 간격, 식물원은 가을 테마로 꾸며집니다.</div>
+    <div class="pk">🚶 호텔 내부 · 분수쇼는 해 진 뒤가 훨씬 좋습니다</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-neon"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=스피어%20라스베이거스" target="_blank" rel="noopener">더 스피어 (Sphere)</a></div>
+    <div class="ds">지름 157m 구형 LED 공연장. 16K 해상도 내부 스크린이 시야를 완전히 감쌉니다.</div>
+    <div class="pk">🎟 <b>10/9 14:00 예약 완료</b> (207구역 16열 3~6번) · 입장 13:00까지 · 벨라지오에서 차로 10분</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-neon"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=태양의%20서커스" target="_blank" rel="noopener">태양의 서커스 O쇼</a><span class="tag must">예약 완료</span></div>
+    <div class="ds">물을 테마로 한 태양의 서커스 대표 상설 공연. 'O' Theatre는 벨라지오 안에 있어서 <b>숙소 밖으로 나갈 필요가 없습니다</b>. 공연 중 수중·공중 퍼포먼스가 이어집니다.</div>
+    <div class="pk">🎭 <b>10/9 21:00 예약 완료</b> (Sec 102, Row D, Seat 13~16) · 벨라지오 내부 — 20:30쯤 이동하면 충분</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-neon"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=하이%20롤러" target="_blank" rel="noopener">하이롤러 관람차</a></div>
+    <div class="ds">높이 167m(550ft). 한 바퀴 30분 동안 스트립 전경이 펼쳐집니다. 해 질 무렵이 가장 좋습니다.</div>
+    <div class="pk">🎟 성인 주간 $23.50 / 애니타임(야간 포함) $34.75 · 청소년 $8.50/$17.50 · 야경 보려면 애니타임 티켓 · LINQ 주차장 이용</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-neon"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=프리몬트%20스트리트" target="_blank" rel="noopener">프리몬트 스트리트 (다운타운)</a><span class="tag car">차량</span></div>
+    <div class="ds">스트립과는 완전히 다른 올드 베이거스. 천장 전체가 LED 스크린이고 <b>SlotZilla 집라인</b>도 있습니다 — 낮은 Zip Line($49~, 77ft) 또는 엎드려 나는 Zoom Line($69~, 114ft). 야간 네온 캐노피 아래서 타는 게 인기입니다.</div>
+    <div class="pk">🚗 스트립에서 차로 15분 · 밤이 본편 · 체중 제한 있음(가족 예약 전 확인) · 소요 30초~1분</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-neon"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=AREA15" target="_blank" rel="noopener">AREA15</a><span class="tag car">차량</span></div>
+    <div class="ds">체험형 아트·엔터테인먼트 공간. 낮 시간 Level 0 패스로 입장은 무료이고, Omega Mart($54~64)·LIFTOFF($20) 같은 개별 체험은 유료입니다. 레이저 미로도 있어 아이들도 좋아합니다.</div>
+    <div class="pk">🚗 스트립에서 차로 10분 · 무료 주차(낮 시간) · 패스·번들은 1인 $32~225</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-neon"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=벨라지오" target="_blank" rel="noopener">더 볼트 (The Vault)</a><span class="tag car">성인 전용</span></div>
+    <div class="ds">벨라지오 카지노 플로어의 표식 없는 황금 문 뒤 비밀 바. 숙소 안이라 이동이 필요 없습니다. 칵테일 평균 $50~55. <b>아이들 동반 없이 부부끼리 들를 만한 곳.</b></div>
+    <div class="pk">🕔 5pm~1am · 예약 필수 — Instagram @thevaultbellagio DM 또는 (702) 693-7111 · 약 50석 소규모</div></div></div>
+
+  <div class="stay"><div class="hd">숙박 · 라스베이거스</div>
+    <table>
+      <tr><td>숙소</td><td><b>Bellagio Las Vegas</b> (2박째) · <b>여기어때</b></td></tr>
+      <tr><td>예약번호</td><td><span class="resv">260828150113B4ES1</span> <span class="resv">26082815013B6AES1</span></td></tr>
+    </table></div>
+
+  <div class="pager"><label for="r6">← DAY 6</label><label for="r8">DAY 8 →</label></div>
+  </div>
+</section>
+
+<!-- ============ DAY 8 ============ -->
+<section class="day" data-d="8">
+  <div class="dhead"><span class="n">DAY 8</span><span class="dt">10/10 (토)</span><span class="rt">라스베이거스 → 인천</span></div>
+  <div class="dbody">
+
+  <div class="drive">
+    <div class="t">🚗 렌터카 반납 — 19:30로 확정</div>
+    <ul>
+      <li>LAS 렌터카 센터는 터미널과 떨어져 있어 <b>셔틀로 15~20분</b> 걸립니다</li>
+      <li>19:30 반납 → 20:00 셔틀 탑승 → <b>20:30~20:50 제3터미널 도착</b></li>
+      <li><b>Dollar에 반납 시각 변경을 미리 알려두세요</b> (기존 예약 21:00)</li>
+      <li>반납 전 <b>만탱크 주유 필수</b> — 미주유 반납은 시세의 2~3배 청구</li>
+      <li>차량 내부 소지품 최종 확인 — 특히 트렁크 하단, 좌석 밑</li>
+    </ul>
+  </div>
+
+  <table class="sched">
+    <tr><td class="t">오전</td><td>자유시간 · 체크아웃<span class="memo">쇼핑 · 마지막 식사</span></td></tr>
+    <tr><td class="t">오후</td><td>짐 정리 · 주유</td></tr>
+    <tr><td class="t">19:30</td><td><b>렌터카 반납</b> (LAS 렌터카 센터)</td></tr>
+    <tr><td class="t nt">20:50</td><td><b>LAS 제3터미널 도착</b><span class="memo">국제선은 3터미널 — 렌터카 센터에서 셔틀</span></td></tr>
+    <tr><td class="t nt">23:50</td><td><b>KE006 출발</b></td></tr>
+  </table>
+
+  <div class="flight">
+    <div class="hd">✈️ 대한항공 KE006 · 예약번호 FSCPI9</div>
+    <table>
+      <tr><td>기종</td><td><b>보잉 777-300ER</b></td></tr>
+      <tr><td>출발</td><td><b>해리 리드 공항 (LAS) 제3터미널</b> · 10/10(토) 23:50</td></tr>
+      <tr><td>공항 도착</td><td><span class="hl">20:50 도착 필수</span></td></tr>
+      <tr><td>체크인 마감</td><td>22:50 · 탑승 시작 23:20</td></tr>
+      <tr><td>도착</td><td><b>인천 (ICN) 제2터미널</b> · <b>10/12(월) 04:40</b></td></tr>
+    </table>
+  </div>
+
+  <p class="spots-t">📍 남는 시간에</p>
+  <p class="spots-s">명소 이름을 누르면 나무위키에서 열립니다</p>
+  <div class="chips">
+    <a href="https://namu.wiki/Search?q=라스베이거스%20프리미엄%20아울렛" target="_blank" rel="noopener">프리미엄 아웃렛<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=벨라지오" target="_blank" rel="noopener">벨라지오 식물원<span class="nw">↗</span></a>
+    <a href="https://namu.wiki/Search?q=대한항공" target="_blank" rel="noopener">대한항공 KE006<span class="nw">↗</span></a>
+  </div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-neon"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=라스베이거스%20프리미엄%20아울렛" target="_blank" rel="noopener">라스베이거스 프리미엄 아웃렛 노스</a><span class="tag car">차량</span></div>
+    <div class="ds">마지막 쇼핑 코스. 야외형이라 오전이 쾌적하고, 공항 방향과도 동선이 맞습니다. 180개+ 매장, 최대 25~65% 할인(Coach, Michael Kors, Nike, Burberry 등). (875 S Grand Central Pkwy)</div>
+    <div class="pk">🕐 월~토 10am~8pm, 일 10am~7pm · 🅿️ 주차 유료+발레, 다운타운 루프 무료 셔틀도 가능 · <b>South Premium Outlets와는 다른 매장</b>이니 내비 설정 주의 · 체크아웃 후 짐 싣고 바로 이동 가능</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-neon"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=벨라지오" target="_blank" rel="noopener">벨라지오 식물원 · 갤러리</a><span class="tag free">무료</span></div>
+    <div class="ds">체크아웃 후 짐을 맡기고 가볍게 둘러보기 좋습니다. 이동이 없어 마지막 날에 최적.</div>
+    <div class="pk">🚶 호텔 내부 · 벨보이에게 짐 보관 요청</div></div></div>
+
+  <div class="spot"><svg class="thumb"><use href="#i-plane"/></svg>
+    <div class="info"><div class="nm"><a href="https://namu.wiki/Search?q=대한항공" target="_blank" rel="noopener">KE006 · 태평양 횡단</a></div>
+    <div class="ds">11시간 비행 후 10/12(월) 새벽 인천 도착. 날짜변경선을 지나 하루가 건너뜁니다.</div>
+    <div class="pk">💺 기내 건조 — 물 자주 · 새벽 도착이라 공항철도 첫차 시간 확인</div></div></div>
+
+  <div class="pager"><label for="r7">← DAY 7</label><label class="ghost" for="r8">—</label></div>
+  </div>
+</section>
+
+</div><!-- /days -->
+
+<!-- ============ 전체 경로 ============ -->
+<div class="card">
+  <h2>🗺️ 전체 주행 경로 (약 3,000km)</h2>
+  <svg class="usmap" viewBox="0 0 400 270"><use href="#usw"/>
+    <polyline points="61.9,101.5 99.6,101.5 120.7,108.5 131,102" fill="none" stroke="#3A6B7A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="131,102 141.1,97 158.4,111.4 166.6,129.4 214.3,161.5 236.6,139.9" fill="none" stroke="#33503E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="236.6,139.9 262.8,163.4 291.1,160.1 320.4,163.2 317.8,171.1 320.4,163.2 308.6,142.6" fill="none" stroke="#A6503A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="308.6,142.6 316.1,143 326.2,147.6 356.2,120 325,122.2" fill="none" stroke="#B08428" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="325,122.2 307.4,105.8 288.5,112.8 274.1,117.6 236.6,139.9" fill="none" stroke="#8C2F2F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <g stroke="#fff" stroke-width="1.8">
+      <circle cx="61.9" cy="101.5" r="5" fill="#3A6B7A"/><circle cx="131" cy="102" r="5" fill="#33503E"/>
+      <circle cx="236.6" cy="139.9" r="6" fill="#2B2A28"/><circle cx="308.6" cy="142.6" r="5" fill="#A6503A"/>
+      <circle cx="356.2" cy="120" r="4" fill="#B08428"/><circle cx="325" cy="122.2" r="5" fill="#B08428"/>
+      <circle cx="307.4" cy="105.8" r="4" fill="#8C2F2F"/><circle cx="288.5" cy="112.8" r="4" fill="#8C2F2F"/>
+    </g>
+    <g font-size="9.5" font-weight="800" fill="#2B2A28">
+      <text x="14" y="116">샌프란시스코</text><text x="104" y="94">요세미티</text>
+      <text x="186" y="136">라스베이거스</text><text x="252" y="152">그랜드캐년</text>
+      <text x="300" y="114">모뉴먼트밸리</text><text x="316" y="132">페이지</text>
+      <text x="304" y="100">브라이스</text><text x="252" y="110">자이언</text></g>
+  </svg>
+  <div class="legend">
+    <span><i class="sw" style="background:#3A6B7A"></i>DAY2 SF→요세미티</span>
+    <span><i class="sw" style="background:#33503E"></i>DAY3 →라스베이거스</span>
+    <span><i class="sw" style="background:#A6503A"></i>DAY4 →그랜드캐년</span>
+    <span><i class="sw" style="background:#B08428"></i>DAY5 →페이지</span>
+    <span><i class="sw" style="background:#8C2F2F"></i>DAY6 →라스베이거스</span>
+  </div>
+</div>
+
+<div class="card">
+  <h2>📋 전체 예약 내역 <span style="font-size:10px;font-weight:600;color:var(--ink-soft)">· 결제 완료분</span></h2>
+  <table class="book">
+    <tr><th colspan="2">✈️ 항공 · 렌터카</th></tr>
+    <tr><td>대한항공</td><td><b>KE023</b> B787-10 · 10/3(토) 16:00 <b>인천 T2</b> → <b>SFO T1</b> 10:40<br>
+      <b>KE006</b> B777-300ER · 10/10(토) 23:50 <b>LAS T3</b> → <b>인천 T2</b> 10/12(월) 04:40<br>
+      <span class="resv">FSCPI9</span></td></tr>
+    <tr><td>Dollar 렌터카</td><td>Chevrolet Suburban 7인승<br>SFO 10/3 12:30 픽업 → LAS <b>10/10 19:30 반납</b></td></tr>
+
+    <tr><th colspan="2">🏨 숙박 (7박)</th></tr>
+    <tr><td>10/3~4 SF</td><td>힐튼 SF 유니언 스퀘어 · 더블2+킹1 · <b>힐튼 공식</b><br>
+      <span class="resv">3531186463</span> · 주차 선결제 완료</td></tr>
+    <tr><td>10/4~5 요세미티</td><td>Yosemite Valley Lodge · Traditional 2실 · <b>요세미티 공식</b><br>
+      <span class="resv">10005M0VC</span></td></tr>
+    <tr><td>10/5~6 LV</td><td>Paris Las Vegas · 2실 · <b>여기어때</b> (Naver Secret Deal)<br>
+      <span class="resv">7260825N696225</span> <span class="resv">7260825N493460</span><br>
+      <b>주차·리조트피 선결제 포함 — 현장 결제 없음</b></td></tr>
+    <tr><td>10/6~7 그랜드캐년</td><td><span class="chk">공원 내 롯지 홍수로 운영중단 → 투사얀으로 변경</span><br>
+      Grand Canyon Plaza Hotel · Deluxe (우리 방) · <b>아고다</b> · <span class="resv">20081687</span><br>
+      Grand Canyon Hotel &amp; Suites · Standard (부모님) · <b>아고다</b> · <span class="resv">1780072623</span><br>
+      <span style="color:var(--ink-soft)">둘 다 투사얀 · 사우스림 입구 15~20분</span></td></tr>
+    <tr><td>10/7~8 페이지</td><td>Comfort Inn &amp; Suites Page · Queen×2 2실 · <b>여기어때</b><br>
+      <span class="resv">26082613009D13ES1</span> · 무료 주차 · 조식 포함</td></tr>
+    <tr><td>10/8~10 LV</td><td>Bellagio · PREMIER 2 Queen <span class="resv">260828150113B4ES1</span><br>
+      PREMIER King <span class="resv">26082815013B6AES1</span> · <b>여기어때</b><br>
+      <span class="chk">리조트피 + 주차비 현장 청구</span></td></tr>
+
+    <tr><th colspan="2">🎫 액티비티 · 식사 · 패스</th></tr>
+    <tr><td>10/3 21:00</td><td>해리스 스테이크하우스 · <b>오픈테이블 예약</b> (식사비는 현장 결제)</td></tr>
+    <tr><td>10/8 08:00</td><td>로어 엔텔롭 캐년 · Ken's Tours · 4인 · <span class="resv">KEN-371178</span></td></tr>
+    <tr><td>10/9 14:00</td><td>Sphere 공연 · 207구역 16열 3~6번 · <b>Ticketmaster</b><br>
+      <span class="chk">입장 13:00까지 · 모바일 바코드 미리 저장</span></td></tr>
+    <tr><td>10/9 21:00</td><td>태양의 서커스 O쇼 · 'O' Theatre at Bellagio · Sec 102, Row D, Seat 13~16 · <b>Ticketmaster</b></td></tr>
+    <tr><td>연간패스</td><td>America the Beautiful · <b>구매 완료</b> · recreation.gov<br>
+      요세미티·그랜드캐년·브라이스·자이언 적용 · <b>패스 소지자 여권 필수</b><br>
+      <span style="color:var(--ink-soft)">※ 모뉴먼트밸리·밸리오브파이어는 미적용 (별도 입장료)</span></td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h2>💳 현장에서 따로 낼 돈 <span style="font-size:10px;font-weight:600;color:var(--ink-soft)">· 추정치</span></h2>
+  <table class="book">
+    <tr><th colspan="2">🏨 숙박 부대비용</th></tr>
+    <tr><td>벨라지오</td><td>리조트피 약 <b>$50/박·실</b> × 2박 × 2실 ≈ <b>$200</b><br>
+      주차 약 <b>$25/일</b> × 2일 ≈ <b>$50</b><br>
+      <span style="color:var(--ink-soft)">체크아웃 시 카드 청구 · 여기어때 예약이라 선결제에 미포함</span></td></tr>
+    <tr><td>그랜드캐년</td><td>롯지 주차 무료 · 부대비용 없음</td></tr>
+    <tr><td>패리스 / 페이지 / 힐튼</td><td>해당 없음 (선결제 포함)</td></tr>
+
+    <tr><th colspan="2">🎟️ 입장료 · 통행료</th></tr>
+    <tr><td>모뉴먼트밸리</td><td>나바호 부족공원 <b>1인 $8</b> × 4인 ≈ <b>$32</b><br>
+      <span style="color:var(--ink-soft)">연간패스 사용 불가</span></td></tr>
+    <tr><td>호슈밴드</td><td>주차 <b>$10</b> (차량당)</td></tr>
+    <tr><td>밸리 오브 파이어</td><td>차량당 <b>$15</b> (가는 경우만)</td></tr>
+    <tr><td>세도나</td><td>Red Rock Pass <b>$5~15</b> (트레일 주차 시)</td></tr>
+    <tr><td>자이언 터널</td><td>대형차 통행 허가 <b>$15</b> (필요 판정 시)</td></tr>
+    <tr><td>모노 호수</td><td>사우스 터파 <b>1인 $3</b> ≈ <b>$12</b></td></tr>
+    <tr><td>금문교</td><td>남향 통행료 <b>$9~10</b> · 렌터카 업체가 수수료 붙여 후청구</td></tr>
+
+    <tr><th colspan="2">⛽ 주유</th></tr>
+    <tr><td>총 주유비</td><td>약 3,000km · Suburban 실연비 감안 <b>$380~500</b><br>
+      <span style="color:var(--ink-soft)">캘리포니아 구간이 20~30% 비쌈 · 네바다/애리조나에서 채우면 절약</span></td></tr>
+
+    <tr><th colspan="2">💵 팁 (미국 관행)</th></tr>
+    <tr><td>식당</td><td>세전 금액의 <b>18~20%</b> · 해리스 스테이크하우스 4인이면 <b>$80~120</b> 예상</td></tr>
+    <tr><td>발레파킹</td><td>차 받을 때 <b>$3~5</b></td></tr>
+    <tr><td>하우스키핑</td><td><b>$3~5/박</b> · 베개 위에 두기</td></tr>
+    <tr><td>벨보이</td><td>가방 1개당 <b>$2</b></td></tr>
+    <tr><td>투어 가이드</td><td>엔텔롭 캐년 <b>1인 $5~10</b> ≈ <b>$20~40</b></td></tr>
+
+    <tr><th colspan="2">🍽️ 미예약 · 변동</th></tr>
+    <tr><td>식비</td><td>해리스 외 전부 미예약<br>
+      1일 4인 기준 <b>$120~200</b> (캐주얼) / <b>$250~400</b> (레스토랑)<br>
+      8일 총 <b>$1,200~2,000</b> 예상</td></tr>
+    <tr><td>하이롤러</td><td>4인 약 <b>$100~140</b> (탑승 시)</td></tr>
+    <tr><td>쇼핑·기념품</td><td>변동</td></tr>
+  </table>
+  <p style="font-size:10.5px;color:var(--ink-soft);margin-top:10px;line-height:1.6">
+    ※ 입장료·주차비·팁 관행은 현지 사정에 따라 달라질 수 있습니다. 벨라지오 리조트피와 주유비가 현장 지출의 대부분을 차지합니다.
+  </p>
+</div>
+
+<div class="card">
+  <h2>✅ 출발 전 확인 (미결 사항)</h2>
+  <ul>
+    <li><b>America the Beautiful 연간패스</b> — <b style="color:var(--green)">구매 완료</b> · 디지털 발급본 + 패스 소지자 여권 지참</li>
+    <li><b>렌터카 반납 19:30로 변경</b> — Dollar에 반납 시각 변경 요청 <span class="chk">(기존 예약 21:00)</span></li>
+    <li><b>벨라지오 리조트피·주차비</b> — 체크아웃 시 현장 청구, 카드 한도 확인</li>
+    <li><b>스피어 모바일 바코드</b> — 출발 전 Ticketmaster 앱에 저장</li>
+    <li><b>해리스 스테이크하우스</b> — 10/3 21:00 · 오픈테이블 예약 확인</li>
+    <li><b>자이언 터널 통행</b> — 방문자센터 사전 문의 (Suburban 폭)</li>
+    <li><b>티오가 패스(CA-120)</b> — 10/5 전날 nps.gov 개방 확인</li>
+    <li><b>국제운전면허증 + 한국 면허증 + 여권</b> — 4인 전원 지참</li>
+    <li><b>구글맵 오프라인 지도</b> — 사막 구간용 사전 다운로드</li>
+    <li><b>Mobile Passport Control(MPC) 앱</b> — SFO·LAS 입국심사 전용 줄 이용 가능 <span class="chk">(ESTA 첫 입국은 대상 아닐 수 있음 — CBP 공식 페이지 확인)</span><br>
+      <span style="color:var(--ink-soft)">대상이어도 ESTA·여권 실물 제시는 그대로 필수 · 프로필 미리 생성, 제출은 도착 4시간 이내에만 가능 · 가족 한 기기로 함께 제출 가능</span></li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>🚗 렌터카 공통 수칙</h2>
+  <ul>
+    <li>캘리포니아 유가가 네바다·애리조나보다 <b>20~30% 비쌉니다</b></li>
+    <li>국립공원·사막 구간은 주유소 간격이 넓습니다. 연료 1/2 이하면 무조건 주유</li>
+    <li>차량 내 물건 노출 금지 (특히 SF·LV 주차장)</li>
+    <li>장거리 구간(DAY3·4·6)은 <b>교대 운전</b> · 2시간마다 휴게소</li>
+    <li>반납 전 <b>만탱크</b></li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>💵 환전 권종 (₩200만 기준)</h2>
+  <ul>
+    <li>$100 × 10 · $20 × 12 · $10 × 10 · $5 × 16 · $1 × 30</li>
+    <li>$1·$5는 <b>팁과 발레파킹용</b>으로 넉넉히 — 벨보이, 하우스키핑, 투어 가이드</li>
+    <li>모뉴먼트밸리 부족공원 입장료, 호슈밴드 주차는 <b>현금이 빠릅니다</b></li>
+    <li>주유·식당은 카드가 편하지만, 나바호 구역 소규모 상점은 현금만 받는 곳이 있습니다</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>🕐 시간대 정리</h2>
+  <ul>
+    <li><b>캘리포니아·네바다</b> (SF, 요세미티, LV) — 태평양시, 서머타임 적용</li>
+    <li><b>애리조나 본토</b> (그랜드캐년, 세도나, 페이지) — 서머타임 <b>미적용</b> → LV와 시각 동일</li>
+    <li><b>나바호 자치구역</b> (모뉴먼트밸리) — 서머타임 <b>적용</b> → 애리조나보다 <b>1시간 빠름</b></li>
+    <li><b>유타</b> (브라이스, 자이언) — 산악시, 서머타임 적용</li>
+  </ul>
+</div>
+
+<p class="foot">
+  자바스크립트 없이 동작 · 지도와 일러스트 모두 파일 내장이라 오프라인에서도 표시됩니다<br>
+  지도는 실제 경위도를 옮긴 개념도입니다 (실제 도로 형상과는 다름)
+</p>
+
+</div>
+</body>
+</html>
