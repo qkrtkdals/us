@@ -71,6 +71,32 @@ h1{margin:0;font-size:26px;font-weight:800;line-height:1.25;}
 .item input:checked+.t small{color:var(--ink-soft);}
 .sec .tip{margin:0 16px 14px;padding:10px 12px;border-radius:10px;background:var(--paper-2);font-size:14px;color:var(--ink-soft);}
 
+.memo-btn{display:block;margin:-4px 0 12px 44px;border:1px solid var(--blue);background:var(--paper-2);color:var(--blue-d);
+  border-radius:8px;padding:8px 12px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;}
+.memo{position:fixed;inset:0;z-index:100;background:rgba(23,28,56,.55);display:flex;align-items:center;justify-content:center;
+  padding:calc(14px + env(safe-area-inset-top,0px)) 12px calc(14px + env(safe-area-inset-bottom,0px));}
+.memo[hidden]{display:none;}
+.memo-sheet{background:var(--white);border-radius:14px;width:100%;max-width:560px;max-height:100%;display:flex;flex-direction:column;overflow:hidden;}
+.memo-head{display:flex;align-items:center;gap:10px;padding:14px 16px;background:var(--blue);color:var(--white);border-bottom:4px solid var(--red);}
+.memo-head h2{margin:0;flex:1;font-size:18px;}
+.memo-close{border:0;background:rgba(255,255,255,.18);color:var(--white);width:34px;height:34px;border-radius:50%;font-size:16px;cursor:pointer;}
+.memo-body{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 16px 18px;}
+.memo-body h3{margin:16px 0 8px;font-size:15px;color:var(--blue);}
+.memo-body h3:first-child{margin-top:0;}
+.memo-card{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--paper);}
+.memo-card .en{font-size:17px;font-weight:800;line-height:1.4;}
+.memo-card .addr{font-size:16px;margin-top:4px;}
+.memo-card .ko{font-size:13px;color:var(--ink-soft);margin-top:6px;}
+.memo-body table{width:100%;border-collapse:collapse;font-size:15px;}
+.memo-body td{padding:7px 4px;border-bottom:1px dashed var(--line);vertical-align:top;}
+.memo-body td:first-child{white-space:nowrap;font-weight:800;color:var(--blue-d);padding-right:10px;font-variant-numeric:tabular-nums;}
+.memo-body tr:last-child td{border-bottom:0;}
+.qa{list-style:none;margin:0;padding:0;display:grid;gap:10px;}
+.qa li{border-left:3px solid var(--red);padding:2px 0 2px 10px;}
+.qa .q{font-size:14px;color:var(--ink-soft);}
+.qa .a{font-size:16px;font-weight:800;margin-top:2px;}
+.qa .k{font-size:13px;color:var(--ink-soft);}
+body.lock{overflow:hidden;}
 .tools{display:flex;gap:10px;justify-content:space-between;align-items:center;margin-top:20px;font-size:13px;color:var(--ink-soft);}
 .tools button{border:1px solid var(--line);background:var(--white);color:var(--ink-soft);border-radius:8px;padding:8px 12px;font-size:14px;font-weight:700;cursor:pointer;}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
@@ -105,13 +131,52 @@ h1{margin:0;font-size:26px;font-weight:800;line-height:1.25;}
 
 </div>
 
+<!-- 입국 심사 메모 팝업 : 심사관에게 화면을 그대로 보여주거나 읽어도 되도록 영어 위주 -->
+<div class="memo" id="memo" role="dialog" aria-modal="true" aria-labelledby="memoTitle" hidden>
+  <div class="memo-sheet">
+    <div class="memo-head"><h2 id="memoTitle">🛂 입국 심사 메모</h2><button class="memo-close" type="button" aria-label="닫기">✕</button></div>
+    <div class="memo-body">
+      <h3>First hotel · 첫 숙소</h3>
+      <div class="memo-card">
+        <div class="en">Hilton San Francisco Union Square</div>
+        <div class="addr">333 O'Farrell St, San Francisco, CA 94102</div>
+        <div class="addr">Oct 3 – Oct 4 (1 night) · Conf. #3531186463</div>
+        <div class="ko">힐튼 샌프란시스코 유니언 스퀘어 · 10/3~4 1박 · 힐튼 공식 예약</div>
+      </div>
+
+      <h3>Itinerary · 여행 일정 (7 nights, family of 4, rental car)</h3>
+      <table>
+        <tr><td>Oct 3</td><td>Arrive SFO (KE023) · San Francisco — Hilton SF Union Square</td></tr>
+        <tr><td>Oct 4</td><td>Yosemite National Park — Yosemite Valley Lodge</td></tr>
+        <tr><td>Oct 5</td><td>Las Vegas — Paris Las Vegas</td></tr>
+        <tr><td>Oct 6</td><td>Sedona · Grand Canyon — Grand Canyon Plaza Hotel (Tusayan)</td></tr>
+        <tr><td>Oct 7</td><td>Monument Valley · Page, AZ — Comfort Inn &amp; Suites Page</td></tr>
+        <tr><td>Oct 8–9</td><td>Bryce · Zion · Las Vegas — Bellagio</td></tr>
+        <tr><td>Oct 10</td><td>Depart LAS 23:50 · Korean Air KE006 to Seoul</td></tr>
+      </table>
+
+      <h3>Q &amp; A · 자주 묻는 질문</h3>
+      <ul class="qa">
+        <li><div class="q">What is the purpose of your visit?</div><div class="a">Sightseeing. It's a family road trip.</div><div class="k">관광, 가족 로드트립이에요</div></li>
+        <li><div class="q">How long will you stay?</div><div class="a">Seven nights. We leave on October 10th.</div><div class="k">7박, 10월 10일에 떠나요</div></li>
+        <li><div class="q">Where are you staying?</div><div class="a">Hilton San Francisco Union Square tonight. Then Yosemite, Las Vegas and the Grand Canyon.</div><div class="k">오늘은 힐튼 유니언 스퀘어, 그다음 요세미티·라스베이거스·그랜드캐년</div></li>
+        <li><div class="q">Who are you traveling with?</div><div class="a">With my family. Four of us.</div><div class="k">가족 4명이에요</div></li>
+        <li><div class="q">Do you have a return ticket?</div><div class="a">Yes. Korean Air KE006 from Las Vegas on October 10th.</div><div class="k">네, 10월 10일 라스베이거스 출발 대한항공 KE006</div></li>
+        <li><div class="q">How are you getting around?</div><div class="a">We rented a car at SFO and return it in Las Vegas.</div><div class="k">SFO에서 렌터카 빌려서 라스베이거스에서 반납해요</div></li>
+        <li><div class="q">Are you bringing any food?</div><div class="a">No. / Only some snacks.</div><div class="k">아니요 / 간식만 조금 (가져가면 꼭 신고)</div></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
 <script>
 /* 체크리스트 데이터 : [섹션 id, 제목, 안내문, 항목들, 팁]
-   항목은 '이름' 또는 ['이름','보충 설명'] 또는 ['이름','보충 설명',1] (1 = 이미 챙김: 체크 고정) */
+   항목은 '이름' 또는 ['이름','보충 설명'] 또는 ['이름','보충 설명',1] (1 = 이미 챙김: 체크 고정)
+   4번째 값 'immig' = 항목 아래에 입국 심사 메모 팝업 버튼 */
 var LIST = [
   ['pre','🇺🇸 출발 전 최종 체크','',[
     '여권',['신분증','주민등록증 또는 운전면허증 — 공항·귀국 후 대비'],'ESTA 승인 확인','항공권','첫날 숙소 예약내역·주소 캡처','여행자보험','한국 운전면허증','국제운전면허증',
-    '렌터카 예약내역',['운전자 전원 서류','여권·한국 면허증·국제면허증 — 렌터카 픽업 때 운전자마다 모두 필요'],'해외결제 카드 2장 이상',['운전자 본인 명의 신용카드','렌터카 보증금용 — 체크카드는 거절될 수 있음'],'소액 달러',['팁용 소액권','$1·$5 지폐 — 호텔 짐 운반·하우스키핑'],['eSIM 설치 및 활성화 방법 캡처','',1],['여권 사본·사진','휴대폰에 사진 저장 + 종이 사본 1장은 캐리어에'],['입국 심사용 메모','첫 숙소 주소·여행 일정을 영어로'],['국립공원 입장료/연간패스','요세미티·그랜드캐년·브라이스·자이언 — 2026년 외국인 요금 확인'],['티오가 패스(CA-120) 도로 상황','10월엔 눈으로 갑자기 닫힐 수 있음 — 출발 직전 확인']
+    '렌터카 예약내역',['운전자 전원 서류','여권·한국 면허증·국제면허증 — 렌터카 픽업 때 운전자마다 모두 필요'],'해외결제 카드 2장 이상',['운전자 본인 명의 신용카드','렌터카 보증금용 — 체크카드는 거절될 수 있음'],'소액 달러',['팁용 소액권','$1·$5 지폐 — 호텔 짐 운반·하우스키핑'],['eSIM 설치 및 활성화 방법 캡처','',1],['여권 사본·사진','휴대폰에 사진 저장 + 종이 사본 1장은 캐리어에'],['입국 심사용 메모','첫 숙소 주소·여행 일정을 영어로',0,'immig'],['국립공원 입장료/연간패스','요세미티·그랜드캐년·브라이스·자이언 — 2026년 외국인 요금 확인'],['티오가 패스(CA-120) 도로 상황','10월엔 눈으로 갑자기 닫힐 수 있음 — 출발 직전 확인']
   ],''],
   ['cabin','🎒 기내 가방','캐리어(위탁)에 넣으면 안 되는 것 주의',[
     '여권·지갑·휴대폰',['보조배터리','위탁수하물 X · 1개씩 비닐봉투에 담거나 단자에 절연테이프 · 선반 말고 몸에 지니기'],'충전 케이블','이어폰','목베개·안대','얇은 겉옷','평소 복용약',
@@ -176,6 +241,10 @@ var MUST = [
       if(fixed){ cb.disabled=true; li.querySelector('.item').classList.add('fixed'); }
       var t=li.querySelector('.t'), nm=document.createElement('span'); nm.className='n'; nm.textContent=name; t.appendChild(nm);
       if(note){ var s=document.createElement('small'); s.textContent=note; t.appendChild(s); }
+      if(typeof it!=='string' && it[3]==='immig'){
+        var mb=document.createElement('button'); mb.type='button'; mb.className='memo-btn'; mb.textContent='🛂 입국 심사 메모 보기';
+        mb.addEventListener('click',openMemo); li.appendChild(mb);
+      }
       ul.appendChild(li);
     });
     d.appendChild(ul);
@@ -214,6 +283,12 @@ var MUST = [
     [].forEach.call(wrap.querySelectorAll('input'),function(b){ b.checked=false; });
     paint();
   });
+  var memo=document.getElementById('memo'), memoBtn=null;
+  function openMemo(e){ memoBtn=e.currentTarget; memo.hidden=false; document.body.classList.add('lock'); memo.querySelector('.memo-close').focus(); }
+  function closeMemo(){ memo.hidden=true; document.body.classList.remove('lock'); if(memoBtn) memoBtn.focus(); }
+  memo.querySelector('.memo-close').addEventListener('click',closeMemo);
+  memo.addEventListener('click',function(e){ if(e.target===memo) closeMemo(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape' && !memo.hidden) closeMemo(); });
   paint();
 })();
 </script>
