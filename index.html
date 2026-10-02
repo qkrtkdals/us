@@ -173,13 +173,16 @@ table.book tr:last-child td{border-bottom:none;}
 .foot{text-align:center;font-size:calc(10.5*var(--u));color:var(--ink-soft);margin-top:calc(18*var(--u));}
 
 /* ===== 스탬프판 (플로팅 버튼 + 팝업) ===== */
+/* 버튼: 빨간 잉크로 찍힌 원형 도장(인장) 모양 */
 .stamp-fab{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:100;
-  width:calc(38*var(--u));height:calc(38*var(--u));border-radius:50%;border:0;background:var(--rust);color:var(--white);
-  font-size:calc(17*var(--u));line-height:1;cursor:pointer;box-shadow:0 6px 16px rgba(23,28,56,.28);-webkit-tap-highlight-color:transparent;}
-.stamp-fab:active{transform:scale(.94);}
-.stamp-fab .cnt{position:absolute;top:calc(-4*var(--u));right:calc(-4*var(--u));min-width:calc(16*var(--u));height:calc(16*var(--u));
-  padding:0 calc(4*var(--u));border-radius:calc(8*var(--u));background:var(--green);color:var(--white);border:2px solid var(--white);
-  font-size:calc(8.5*var(--u));font-weight:800;line-height:calc(12*var(--u));}
+  width:calc(46*var(--u));height:calc(46*var(--u));border-radius:50%;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent;
+  background:rgba(255,255,255,.96);color:var(--rust);border:calc(2.5*var(--u)) solid var(--rust);
+  box-shadow:inset 0 0 0 calc(2*var(--u)) #fff,inset 0 0 0 calc(3*var(--u)) var(--rust),0 6px 16px rgba(23,28,56,.25);
+  transform:rotate(-12deg);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;font-family:inherit;}
+.stamp-fab b{font-size:calc(7*var(--u));font-weight:900;letter-spacing:.08em;}
+.stamp-fab .star{font-size:calc(7*var(--u));margin:calc(1.5*var(--u)) 0;letter-spacing:.2em;}
+.stamp-fab .cnt{font-size:calc(7.5*var(--u));font-weight:800;}
+.stamp-fab:active{transform:rotate(-12deg) scale(.92);}
 .stamp-modal{position:fixed;inset:0;z-index:200;display:none;background:rgba(23,28,56,.55);
   padding:calc(16px + env(safe-area-inset-top,0px)) 12px calc(16px + env(safe-area-inset-bottom,0px));}
 .stamp-modal.open{display:flex;align-items:center;justify-content:center;}
@@ -1633,7 +1636,7 @@ body.stamp-lock{overflow:hidden;}
 })();
 </script>
 <!-- ===== 스탬프판 ===== -->
-<button class="stamp-fab" type="button" aria-label="스탬프판 열기" aria-haspopup="dialog">🏅<span class="cnt" hidden>0</span></button>
+<button class="stamp-fab" type="button" aria-label="스탬프판 열기" aria-haspopup="dialog"><b>STAMP</b><span class="star">★★★</span><span class="cnt">0/0</span></button>
 <div class="stamp-modal" role="dialog" aria-modal="true" aria-labelledby="stampTitle">
   <div class="stamp-sheet">
     <div class="stamp-head"><h3 id="stampTitle">🏅 다녀온 곳 스탬프</h3><span class="prog"></span>
@@ -1676,7 +1679,7 @@ var STAMPS = {
     });
   });
   prog.textContent=n+' / '+total; bar.style.width=(total?n/total*100:0)+'%';
-  cnt.textContent=n; cnt.hidden=!n;
+  cnt.textContent=n+'/'+total;
   function open(){ modal.classList.add('open'); document.body.classList.add('stamp-lock'); modal.querySelector('.stamp-close').focus(); }
   function close(){ modal.classList.remove('open'); document.body.classList.remove('stamp-lock'); fab.focus(); }
   fab.addEventListener('click',open);
