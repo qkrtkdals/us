@@ -282,9 +282,18 @@ var MUST = [
       li.classList.toggle('on',MUST[i][1].every(function(k){ var cb=wrap.querySelector('input[data-key="'+k+'"]'); return cb&&cb.checked; }));
     });
   }
+  /* 같은 이름의 항목(예: 선글라스)은 여러 섹션에 있어도 함께 체크/해제 */
+  function nameOf(k){ return k.slice(k.indexOf(':')+1); }
+  function twins(name){ return [].filter.call(wrap.querySelectorAll('input[data-key]'),function(b){ return !b.disabled && nameOf(b.getAttribute('data-key'))===name; }); }
+  function setName(name,on){
+    twins(name).forEach(function(b){ var k=b.getAttribute('data-key'); b.checked=on; if(on) state[k]=1; else delete state[k]; });
+  }
+  /* 처음 열 때: 이전에 한쪽만 체크된 중복 항목도 맞춰 줌 */
+  [].forEach.call(wrap.querySelectorAll('input[data-key]:checked:not(:disabled)'),function(b){ setName(nameOf(b.getAttribute('data-key')),true); });
+  save();
   wrap.addEventListener('change',function(e){
     var k=e.target.getAttribute('data-key'); if(!k) return;
-    if(e.target.checked) state[k]=1; else delete state[k];
+    setName(nameOf(k),e.target.checked);
     save(); paint();
   });
   document.getElementById('resetBtn').addEventListener('click',function(){
