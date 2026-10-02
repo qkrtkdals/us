@@ -1463,10 +1463,30 @@ table.book tr:last-child td{border-bottom:none;}
 </div>
 
 <p class="foot">
-  자바스크립트 없이 동작 · 지도와 일러스트 모두 파일 내장이라 오프라인에서도 표시됩니다<br>
+  자바스크립트 없이도 동작 · 지도와 일러스트 모두 파일 내장이라 오프라인에서도 표시됩니다<br>
   지도는 실제 경위도를 옮긴 개념도입니다 (실제 도로 형상과는 다름)
 </p>
 
 </div>
+<script>
+/* 오늘 날짜(휴대폰 현지 시각)에 해당하는 DAY 탭을 자동으로 열기
+   DAY1 = 2026-10-03 … DAY8 = 2026-10-10, 기간 밖이면 기본(DAY1) 유지.
+   페이지를 열어둔 채 자정이 지나면 다음 DAY로 넘어감 (날짜가 바뀔 때만 적용) */
+(function(){
+  var start=new Date(2026,9,3), last=null;
+  function sync(){
+    var now=new Date(), today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    var key=today.getTime();
+    if(key===last) return;
+    last=key;
+    var n=Math.round((today-start)/864e5)+1;
+    var r=document.getElementById('r'+n);
+    if(n>=1 && n<=8 && r && !r.checked){ r.checked=true; window.scrollTo(0,0); }
+  }
+  sync();
+  setInterval(sync,60000);
+  document.addEventListener('visibilitychange',function(){ if(!document.hidden) sync(); });
+})();
+</script>
 </body>
 </html>
