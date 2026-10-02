@@ -32,7 +32,7 @@ h1{margin:0;font-size:26px;font-weight:800;line-height:1.25;}
 .bar i{display:block;height:100%;width:0;background:var(--blue);transition:width .25s;}
 .bar.done i{background:var(--ok);}
 
-/* 오늘 밤 필수 9개: 해당 항목을 체크하면 자동으로 켜짐 */
+/* 오늘 밤 필수 8개: 해당 항목을 체크하면 자동으로 켜짐 */
 .must{background:var(--white);border:2px solid var(--red);border-radius:14px;padding:16px;margin-bottom:18px;}
 .must h2{margin:0 0 4px;font-size:18px;color:var(--red);}
 .must p{margin:0 0 12px;font-size:14px;color:var(--ink-soft);}
@@ -120,7 +120,7 @@ body.lock{overflow:hidden;}
 
 <section class="must" aria-labelledby="mustTitle">
   <h2 id="mustTitle">⚠️ 오늘 밤 이것만은 무조건 확인</h2>
-  <p>아래 목록에서 해당 항목을 체크하면 자동으로 초록색이 돼요. 이 9개만 챙겨도 현지에서 돈으로 해결하기 어려운 실수는 대부분 막을 수 있어요.</p>
+  <p>아래 목록에서 해당 항목을 체크하면 자동으로 초록색이 돼요. 이 8개만 챙겨도 현지에서 돈으로 해결하기 어려운 실수는 대부분 막을 수 있어요.</p>
   <ol id="mustList"></ol>
 </section>
 
@@ -210,7 +210,7 @@ var LIST = [
     '물','선크림','선글라스','모자','립밤','보조배터리','간식','물티슈','경량패딩/바람막이','밴드','휴대용 우산 또는 우비',['헤드랜턴·작은 손전등','일출·일몰 때 걷기용']
   ],'']
 ];
-/* 오늘 밤 필수 9개 → 연결된 항목(섹션id:이름)이 모두 체크되면 완료 */
+/* 오늘 밤 필수 8개 → 연결된 항목(섹션id:이름)이 모두 체크되면 완료 */
 var MUST = [
   ['여권',['pre:여권']],
   ['신분증',['pre:신분증']],
@@ -219,8 +219,7 @@ var MUST = [
   ['해외결제 카드',['pre:해외결제 카드 2장 이상']],
   ['eSIM',['pre:eSIM 설치 및 활성화 방법 캡처']],
   ['보조배터리',['tech:보조배터리']],
-  ['돼지코',['tech:110V 미국용 돼지코']],
-  ['경량패딩',['clothes:경량패딩 또는 따뜻한 아우터']]
+  ['돼지코',['tech:110V 미국용 돼지코']]
 ];
 
 (function(){
