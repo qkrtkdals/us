@@ -40,6 +40,9 @@ h1 small{display:block;line-height:1.5;font-size:calc(11*var(--u));font-weight:6
 .infobar div{background:var(--white);border:1px solid var(--line);border-radius:calc(6*var(--u));padding:calc(5*var(--u)) calc(6*var(--u));text-align:center;}
 .infobar .l{font-size:calc(9*var(--u));color:var(--ink-soft);font-weight:700;}
 .infobar .v{font-size:calc(11.5*var(--u));font-weight:800;color:var(--green-d);}
+.packlink{display:flex;justify-content:space-between;align-items:center;margin-top:calc(8*var(--u));padding:calc(9*var(--u)) calc(12*var(--u));
+  background:var(--white);border:1px solid var(--line);border-left:calc(3*var(--u)) solid var(--rust);border-radius:calc(6*var(--u));
+  font-size:calc(11.5*var(--u));font-weight:800;color:var(--green-d);text-decoration:none;}
 .tabs{scroll-behavior:smooth;display:flex;gap:calc(5*var(--u));overflow-x:auto;padding-bottom:calc(3*var(--u));-webkit-overflow-scrolling:touch;}
 .tabs::-webkit-scrollbar{display:none;}
 .tabs label{flex-shrink:0;background:var(--white);border:1px solid var(--line);border-radius:calc(18*var(--u));
@@ -492,6 +495,7 @@ body.stamp-lock{overflow:hidden;}
     <div><div class="l">렌터카</div><div class="v">Suburban</div></div>
     <div><div class="l">총 주행</div><div class="v">~3,000km</div></div>
   </div>
+  <a class="packlink" href="checklist.html">🧳 짐 싸기 체크리스트 <span aria-hidden="true">→</span></a>
 </div>
 
 <div class="tabsbar">

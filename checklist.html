@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>짐 싸기 체크리스트 · 미국 서부 로드트립</title>
+<style>
+:root{
+  /* 메인 페이지와 같은 미국 국기 색 (톤 다운) */
+  --paper:#F6F8FD; --paper-2:#E9EEFA; --white:#FFFFFF;
+  --ink:#171C38; --ink-soft:#50597A; --line:#CED6EE;
+  --blue:#2F4A9E; --blue-d:#22377A; --red:#C8283A; --red-soft:#FCEFF0; --ok:#2E7D4F;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{margin:0;background:var(--paper);color:var(--ink);word-break:keep-all;overflow-wrap:anywhere;
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;font-size:17px;line-height:1.55;
+  padding:env(safe-area-inset-top,0px) 16px calc(40px + env(safe-area-inset-bottom,0px));}
+.wrap{max-width:680px;margin:0 auto;}
+
+/* 상단: 제목 + 전체 진행률 (스크롤해도 진행률 고정) */
+.top{padding:18px 0 4px;}
+.back{display:inline-block;font-size:14px;font-weight:700;color:var(--blue);text-decoration:none;margin-bottom:10px;}
+h1{margin:0;font-size:26px;font-weight:800;line-height:1.25;}
+.sub{margin:4px 0 0;color:var(--ink-soft);font-size:15px;font-weight:600;}
+.progress{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);padding:12px 0;
+  border-bottom:3px solid var(--red);margin-bottom:16px;}
+.progress .row{display:flex;justify-content:space-between;align-items:baseline;font-weight:800;}
+.progress .row span{color:var(--ink-soft);font-size:14px;font-weight:700;}
+.progress .num{font-size:20px;color:var(--blue);font-variant-numeric:tabular-nums;}
+.bar{height:10px;border-radius:5px;background:var(--paper-2);overflow:hidden;margin-top:8px;}
+.bar i{display:block;height:100%;width:0;background:var(--blue);transition:width .25s;}
+.bar.done i{background:var(--ok);}
+
+/* 오늘 밤 필수 8개: 해당 항목을 체크하면 자동으로 켜짐 */
+.must{background:var(--white);border:2px solid var(--red);border-radius:14px;padding:16px;margin-bottom:18px;}
+.must h2{margin:0 0 4px;font-size:18px;color:var(--red);}
+.must p{margin:0 0 12px;font-size:14px;color:var(--ink-soft);}
+.must ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+.must li{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:10px;background:var(--red-soft);
+  font-size:15px;font-weight:700;color:var(--ink);}
+.must li::before{content:"";flex:none;width:20px;height:20px;border-radius:50%;border:2px solid var(--red);background:var(--white);}
+.must li.on{background:#E7F3EC;color:var(--ok);}
+.must li.on::before{border-color:var(--ok);background:var(--ok) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3L15 6.5' fill='none' stroke='%23fff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat;}
+
+/* 섹션 */
+.sec{background:var(--white);border:1px solid var(--line);border-radius:14px;margin-bottom:14px;overflow:hidden;}
+.sec>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:14px 16px;
+  background:var(--blue);color:var(--white);-webkit-tap-highlight-color:transparent;}
+.sec>summary::-webkit-details-marker{display:none;}
+.sec>summary h2{margin:0;font-size:18px;font-weight:800;flex:1;min-width:0;}
+.sec>summary .cnt{font-size:14px;font-weight:800;background:rgba(255,255,255,.18);border-radius:999px;padding:3px 10px;font-variant-numeric:tabular-nums;}
+.sec>summary .chev{transition:transform .2s;font-size:13px;}
+.sec[open]>summary .chev{transform:rotate(180deg);}
+.sec.done>summary{background:var(--ok);}
+.sec .hint{margin:0;padding:12px 16px 4px;font-size:14px;color:var(--ink-soft);}
+.sec ul{list-style:none;margin:0;padding:6px 8px 8px;}
+.sec li+li{border-top:1px dashed var(--line);}
+.item{display:flex;align-items:flex-start;gap:12px;padding:12px 8px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.item input{appearance:none;-webkit-appearance:none;flex:none;margin:1px 0 0;width:24px;height:24px;border-radius:7px;
+  border:2px solid var(--line);background:var(--white);cursor:pointer;}
+.item input:checked{border-color:var(--blue);background:var(--blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3L15 6.5' fill='none' stroke='%23fff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat;}
+.item input:focus-visible{outline:3px solid var(--red);outline-offset:2px;}
+.item .t{flex:1;min-width:0;}
+.item .t small{display:block;font-size:13.5px;color:var(--red);font-weight:700;margin-top:2px;}
+.item input:checked+.t{color:var(--ink-soft);text-decoration:line-through;text-decoration-color:var(--line);}
+.item input:checked+.t small{color:var(--ink-soft);}
+.sec .tip{margin:0 16px 14px;padding:10px 12px;border-radius:10px;background:var(--paper-2);font-size:14px;color:var(--ink-soft);}
+
+.tools{display:flex;gap:10px;justify-content:space-between;align-items:center;margin-top:20px;font-size:13px;color:var(--ink-soft);}
+.tools button{border:1px solid var(--line);background:var(--white);color:var(--ink-soft);border-radius:8px;padding:8px 12px;font-size:14px;font-weight:700;cursor:pointer;}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="top">
+  <a class="back" href="index.html">← 여행 일정으로</a>
+  <h1>🧳 짐 싸기 체크리스트</h1>
+  <p class="sub">10/3(토) 출발 · 샌프란시스코 → 요세미티 → 라스베이거스 → 세도나 → 그랜드캐년 → 모뉴먼트밸리</p>
+</div>
+
+<div class="progress">
+  <div class="row"><span>전체 진행</span><b class="num" id="totalNum">0 / 0</b></div>
+  <div class="bar" id="totalBar"><i></i></div>
+</div>
+
+<section class="must" aria-labelledby="mustTitle">
+  <h2 id="mustTitle">⚠️ 오늘 밤 이것만은 무조건 확인</h2>
+  <p>아래 목록에서 해당 항목을 체크하면 자동으로 초록색이 돼요. 이 8개만 챙겨도 현지에서 돈으로 해결하기 어려운 실수는 대부분 막을 수 있어요.</p>
+  <ol id="mustList"></ol>
+</section>
+
+<div id="sections"></div>
+
+<div class="tools">
+  <span>체크 상태는 이 기기 브라우저에 저장돼요</span>
+  <button type="button" id="resetBtn">전체 초기화</button>
+</div>
+
+</div>
+
+<script>
+/* 체크리스트 데이터 : [섹션 id, 제목, 안내문, 항목들, 팁]
+   항목은 '이름' 또는 ['이름','보충 설명'] */
+var LIST = [
+  ['pre','🇺🇸 출발 전 최종 체크','',[
+    '여권','ESTA 승인 확인','항공권','첫날 숙소 예약내역·주소 캡처','여행자보험','한국 운전면허증','국제운전면허증',
+    '렌터카 예약내역','해외결제 카드 2장 이상','소액 달러','eSIM 설치 및 활성화 방법 캡처'
+  ],''],
+  ['cabin','🎒 기내 가방','캐리어(위탁)에 넣으면 안 되는 것 주의',[
+    '여권·지갑·휴대폰',['보조배터리','위탁수하물 X — 반드시 기내로'],'충전 케이블','이어폰','목베개·안대','얇은 겉옷','평소 복용약',
+    '칫솔·치약','립밤·핸드크림 등',['액체/크림/젤류','용기당 100mL 이하, 1L 투명 지퍼백 1개'],['15g(0.52oz) 제품','기내 반입 OK']
+  ],''],
+  ['clothes','👕 옷','도시 + 요세미티/그랜드캐년 · 10월 미국 서부는 지역별 온도 차이가 커서 두꺼운 한 벌보다 레이어드가 좋아요',[
+    '반팔','긴팔','맨투맨/후드/니트',['경량패딩 또는 따뜻한 아우터','요세미티·그랜드캐년 이른 아침/저녁용으로 꼭'],'바람막이','긴바지','속옷',
+    '양말 넉넉하게','잠옷','편한 운동화','트레킹화 (있다면)','모자','선글라스','얇은 장갑 (추위를 많이 타면)'
+  ],''],
+  ['beauty','🧴 화장품·세면도구','',[
+    '스킨/토너','앰플','크림','선크림','클렌징','샴푸·트리트먼트','칫솔·치약','화장품','립밤','빗','면봉','헤어제품','마스크팩',
+    '생리용품','렌즈/안경 (필요 시)','지퍼백 여분'
+  ],'100mL 넘는 화장품은 위탁 캐리어로 보내면 돼요.'],
+  ['meds','💊 약','',[
+    '진통제','소화제','지사제','감기약','알레르기약','멀미약','밴드','평소 먹는 약/영양제'
+  ],'로드트립은 약국이 바로 안 나오는 구간이 있어서, 평소 잘 쓰는 약은 한국에서 챙기는 게 편해요.'],
+  ['tech','🔌 전자기기','',[
+    '휴대폰','충전기','110V 미국용 돼지코','보조배터리','스마트워치 충전기','카메라/충전기','멀티 충전기','차량용 충전기',
+    'AirTag 등 캐리어 위치추적기'
+  ],'충전기에 INPUT 100–240V라고 적혀 있으면 돼지코만 있으면 되고, 별도 변압기는 필요 없어요.'],
+  ['road','🚙 이번 여행에서 특히 챙길 것','장거리 로드트립이라 이쪽이 은근 중요해요',[
+    '차량용 휴대폰 거치대','차량 충전 케이블','선글라스','텀블러','물티슈','휴지','쓰레기봉투','에코백','작은 보냉백 (있으면 유용)',
+    '오프라인 지도 다운로드','숙소·관광지 주소 캡처','운전자끼리 운전 가능한 보험/등록 여부 확인'
+  ],''],
+  ['park','🏔️ 요세미티·그랜드캐년 가방','차에서 내려 바로 들고 다닐 작은 백팩 하나를 만들어 두세요',[
+    '물','선크림','선글라스','모자','립밤','보조배터리','간식','물티슈','경량패딩/바람막이','밴드','휴대용 우산 또는 우비'
+  ],'']
+];
+/* 오늘 밤 필수 8개 → 연결된 항목(섹션id:이름)이 모두 체크되면 완료 */
+var MUST = [
+  ['여권',['pre:여권']],
+  ['ESTA',['pre:ESTA 승인 확인']],
+  ['운전면허증·국제면허증',['pre:한국 운전면허증','pre:국제운전면허증']],
+  ['해외결제 카드',['pre:해외결제 카드 2장 이상']],
+  ['eSIM',['pre:eSIM 설치 및 활성화 방법 캡처']],
+  ['보조배터리',['tech:보조배터리']],
+  ['돼지코',['tech:110V 미국용 돼지코']],
+  ['경량패딩',['clothes:경량패딩 또는 따뜻한 아우터']]
+];
+
+(function(){
+  var KEY='usw-packing-v1', state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY))||{}; }catch(e){ state={}; }
+  function save(){ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} }
+  var openState={};
+  try{ openState=JSON.parse(localStorage.getItem(KEY+'-open'))||{}; }catch(e){}
+
+  var wrap=document.getElementById('sections'), n=0;
+  LIST.forEach(function(sec){
+    var id=sec[0], d=document.createElement('details');
+    d.className='sec'; d.id='sec-'+id; d.open=openState[id]!==false;
+    d.innerHTML='<summary><h2></h2><span class="cnt"></span><span class="chev" aria-hidden="true">▼</span></summary>';
+    d.querySelector('h2').textContent=sec[1];
+    if(sec[2]){ var h=document.createElement('p'); h.className='hint'; h.textContent=sec[2]; d.appendChild(h); }
+    var ul=document.createElement('ul');
+    sec[3].forEach(function(it){
+      var name=typeof it==='string'?it:it[0], note=typeof it==='string'?'':it[1], key=id+':'+name, cid='c'+(n++);
+      var li=document.createElement('li');
+      li.innerHTML='<label class="item" for="'+cid+'"><input type="checkbox" id="'+cid+'"><span class="t"></span></label>';
+      var cb=li.querySelector('input'); cb.setAttribute('data-key',key); cb.checked=!!state[key];
+      var t=li.querySelector('.t'); t.textContent=name;
+      if(note){ var s=document.createElement('small'); s.textContent=note; t.appendChild(s); }
+      ul.appendChild(li);
+    });
+    d.appendChild(ul);
+    if(sec[4]){ var tip=document.createElement('p'); tip.className='tip'; tip.textContent='💡 '+sec[4]; d.appendChild(tip); }
+    d.addEventListener('toggle',function(){ openState[id]=d.open; try{ localStorage.setItem(KEY+'-open',JSON.stringify(openState)); }catch(e){} });
+    wrap.appendChild(d);
+  });
+
+  var mustList=document.getElementById('mustList');
+  MUST.forEach(function(m){ var li=document.createElement('li'); li.textContent=m[0]; mustList.appendChild(li); });
+
+  function paint(){
+    var all=0, done=0;
+    LIST.forEach(function(sec){
+      var d=document.getElementById('sec-'+sec[0]), boxes=d.querySelectorAll('input'), c=0;
+      [].forEach.call(boxes,function(b){ if(b.checked) c++; });
+      all+=boxes.length; done+=c;
+      d.querySelector('.cnt').textContent=c+'/'+boxes.length;
+      d.classList.toggle('done',c===boxes.length);
+    });
+    document.getElementById('totalNum').textContent=done+' / '+all;
+    var bar=document.getElementById('totalBar'); bar.querySelector('i').style.width=(all?done/all*100:0)+'%';
+    bar.classList.toggle('done',done===all);
+    [].forEach.call(mustList.children,function(li,i){
+      li.classList.toggle('on',MUST[i][1].every(function(k){ return state[k]; }));
+    });
+  }
+  wrap.addEventListener('change',function(e){
+    var k=e.target.getAttribute('data-key'); if(!k) return;
+    if(e.target.checked) state[k]=1; else delete state[k];
+    save(); paint();
+  });
+  document.getElementById('resetBtn').addEventListener('click',function(){
+    if(!confirm('체크한 항목을 모두 지울까요?')) return;
+    state={}; save();
+    [].forEach.call(wrap.querySelectorAll('input'),function(b){ b.checked=false; });
+    paint();
+  });
+  paint();
+})();
+</script>
+</body>
+</html>
