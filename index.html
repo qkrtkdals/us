@@ -121,8 +121,10 @@ img.thumb{object-fit:cover;background:var(--paper-2);}
 .credits ol{margin:calc(6*var(--u)) 0 0;padding-left:calc(18*var(--u));line-height:1.6;}
 .credits a{color:var(--ink-soft);}
 .spot .info{min-width:0;flex:1;}
-.spot .nm{font-size:calc(13*var(--u));font-weight:800;margin-bottom:2px;line-height:1.35;}
-.spot .nm a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid var(--line);}
+.spot .nm{font-size:calc(14*var(--u));font-weight:800;margin-bottom:calc(6*var(--u));line-height:1.4;color:var(--green-d);}
+.spot .nm a{color:var(--green-d);text-decoration:none;}
+/* 밑줄 대신 제목 앞 빨간 세로 막대로 구분 */
+.spot .nm{padding-left:calc(8*var(--u));border-left:calc(3*var(--u)) solid var(--rust);}
 .spot .nm a:active{color:var(--green);}
 .spot .nm .tags{display:inline-block;white-space:nowrap;vertical-align:1px;} /* 뱃지는 한 묶음으로 줄바꿈 */
 .spot .nm .tag+.tag{margin-left:calc(4*var(--u));}
@@ -130,8 +132,8 @@ img.thumb{object-fit:cover;background:var(--paper-2);}
 .tag.must{background:#E5EAFA;color:var(--green);border:1px solid #BAC6EC;}
 .tag.car{background:#FBE7E9;color:var(--rust);border:1px solid #EBAAB2;}
 .tag.free{background:#E2EEF9;color:var(--ocean);border:1px solid #B0CDE9;}
-.spot .ds{font-size:calc(11.5*var(--u));line-height:1.6;}
-.spot .pk{font-size:calc(10.5*var(--u));color:var(--ink-soft);margin-top:calc(4*var(--u));line-height:1.5;}
+.spot .ds{font-size:calc(11.5*var(--u));line-height:1.75;}
+.spot .pk{font-size:calc(10.5*var(--u));color:var(--ink-soft);margin-top:calc(8*var(--u));padding-top:calc(8*var(--u));border-top:1px dashed var(--line);line-height:1.6;}
 
 .stay{background:var(--paper-2);border-left:calc(4*var(--u)) solid var(--ocean);border-radius:0 calc(7*var(--u)) calc(7*var(--u)) 0;padding:calc(10*var(--u)) calc(12*var(--u));font-size:calc(12*var(--u));line-height:1.7;margin-top:calc(13*var(--u));}
 .stay .hd{font-size:calc(10*var(--u));font-weight:800;color:var(--ocean);margin-bottom:calc(4*var(--u));}
@@ -175,7 +177,10 @@ table.book tr:last-child td{border-bottom:none;}
   .rstats{grid-template-columns:repeat(2,1fr);}
   .rstats>div:nth-child(3){grid-column:1 / -1;} /* 3번째 칸(경로·시차 등)은 아래에 넓게 */
   html{scroll-padding-top:calc(80*var(--u));}
-  .spot{flex-direction:column;}
+  /* 좌우 여백은 줄여 글자 폭을 넓히고, 위아래 간격으로 여유를 줌 */
+  .dbody{padding:calc(14*var(--u)) calc(10*var(--u)) calc(16*var(--u));}
+  .spot{flex-direction:column;gap:calc(12*var(--u));padding:calc(8*var(--u)) calc(8*var(--u)) calc(14*var(--u));margin-bottom:calc(12*var(--u));}
+  .spot .info{padding:0 calc(4*var(--u));}
   .thumb{width:100%;height:calc(120*var(--u));}
   .dhead .rt{margin-left:0;width:100%;text-align:left;}
   /* 탭 바를 화면 끝까지 넓혀 스크롤되는 탭이 컨테이너 중간에서 잘리지 않게 */
