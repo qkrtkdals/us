@@ -77,7 +77,16 @@ h1 small{display:block;line-height:1.5;font-size:calc(11*var(--u));font-weight:6
 .rstats{display:grid;grid-template-columns:repeat(3,1fr);gap:calc(6*var(--u));margin-top:calc(9*var(--u));}
 .rstats div{background:var(--white);border:1px solid var(--line);border-radius:calc(6*var(--u));padding:calc(6*var(--u)) calc(4*var(--u));text-align:center;}
 .rstats .l{font-size:calc(9*var(--u));color:var(--ink-soft);font-weight:700;}
-.rstats .v{font-size:calc(12.5*var(--u));font-weight:800;color:var(--rust);}
+.rstats .v{font-size:calc(11.5*var(--u));font-weight:800;color:var(--rust);}
+/* 요약 칸: 같은 줄의 라벨 박스끼리, 값 박스끼리 높이를 맞춤 */
+.infobar>div,.rstats>div{display:flex;flex-direction:column;gap:calc(4*var(--u));}
+.infobar .l,.infobar .v,.rstats .l,.rstats .v{display:flex;align-items:center;justify-content:center;}
+.infobar .v,.rstats .v{flex:1;line-height:1.35;}
+@supports (grid-template-rows:subgrid){
+  .infobar,.rstats{grid-auto-rows:auto;}
+  .infobar>div,.rstats>div{display:grid;grid-row:span 2;grid-template-rows:subgrid;gap:calc(4*var(--u));}
+}
+
 
 .drive{background:#FCEFF0;border-left:calc(4*var(--u)) solid var(--rust);border-radius:0 calc(7*var(--u)) calc(7*var(--u)) 0;padding:calc(10*var(--u)) calc(12*var(--u));margin-bottom:calc(13*var(--u));font-size:calc(12*var(--u));line-height:1.7;}
 .drive .t{font-size:calc(10.5*var(--u));font-weight:800;color:var(--rust);margin-bottom:calc(4*var(--u));}
@@ -161,6 +170,8 @@ table.book tr:last-child td{border-bottom:none;}
 
 @media (max-width:520px){
   .infobar{grid-template-columns:repeat(2,1fr);}
+  .rstats{grid-template-columns:repeat(2,1fr);}
+  .rstats>div:nth-child(3){grid-column:1 / -1;} /* 3번째 칸(경로·시차 등)은 아래에 넓게 */
   html{scroll-padding-top:calc(80*var(--u));}
   .spot{flex-direction:column;}
   .thumb{width:100%;height:calc(120*var(--u));}
