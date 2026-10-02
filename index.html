@@ -40,7 +40,7 @@ h1 small{display:block;line-height:1.5;font-size:calc(11*var(--u));font-weight:6
 .infobar div{background:var(--white);border:1px solid var(--line);border-radius:calc(6*var(--u));padding:calc(5*var(--u)) calc(6*var(--u));text-align:center;}
 .infobar .l{font-size:calc(9*var(--u));color:var(--ink-soft);font-weight:700;}
 .infobar .v{font-size:calc(11.5*var(--u));font-weight:800;color:var(--green-d);}
-.tabs{display:flex;gap:calc(5*var(--u));overflow-x:auto;padding-bottom:calc(3*var(--u));-webkit-overflow-scrolling:touch;}
+.tabs{scroll-behavior:smooth;display:flex;gap:calc(5*var(--u));overflow-x:auto;padding-bottom:calc(3*var(--u));-webkit-overflow-scrolling:touch;}
 .tabs::-webkit-scrollbar{display:none;}
 .tabs label{flex-shrink:0;background:var(--white);border:1px solid var(--line);border-radius:calc(18*var(--u));
   padding:calc(7*var(--u)) calc(13*var(--u));font-size:calc(12*var(--u));font-weight:700;color:var(--ink-soft);cursor:pointer;
@@ -1576,9 +1576,13 @@ table.book tr:last-child td{border-bottom:none;}
     var l=r && tabs.querySelector('label[for="'+r.id+'"]');
     if(!l || tabs.scrollWidth<=tabs.clientWidth) return;
     var pad=parseFloat(getComputedStyle(tabs).paddingLeft)||0; /* 선택 탭을 탭 줄 맨 앞(왼쪽)에 노출 */
-    tabs.scrollTo({left:tabs.scrollLeft+l.getBoundingClientRect().left-tabs.getBoundingClientRect().left-pad,behavior:'smooth'});
+    /* scrollTo(옵션)을 지원하지 않는 구형 사파리도 동작하도록 scrollLeft 직접 지정 (부드러운 이동은 CSS) */
+    tabs.scrollLeft=tabs.scrollLeft+l.getBoundingClientRect().left-tabs.getBoundingClientRect().left-pad;
   }
-  [].forEach.call(document.querySelectorAll('.dayradio'),function(r){ r.addEventListener('change',showTab); });
+  function later(){ setTimeout(function(){ requestAnimationFrame(showTab); },30); }
+  [].forEach.call(document.querySelectorAll('.dayradio'),function(r){ r.addEventListener('change',later); });
+  /* 일부 모바일 브라우저는 숨긴 라디오의 change가 늦거나 빠지므로 탭·이전/다음 버튼 클릭에도 연결 */
+  [].forEach.call(document.querySelectorAll('label[for^="r"]'),function(l){ l.addEventListener('click',later); });
   showTab();
   document.addEventListener('visibilitychange',function(){ if(!document.hidden) sync(); });
 })();
