@@ -60,10 +60,14 @@ h1{margin:0;font-size:26px;font-weight:800;line-height:1.25;}
 .item input{appearance:none;-webkit-appearance:none;flex:none;margin:1px 0 0;width:24px;height:24px;border-radius:7px;
   border:2px solid var(--line);background:var(--white);cursor:pointer;}
 .item input:checked{border-color:var(--blue);background:var(--blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3L15 6.5' fill='none' stroke='%23fff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat;}
+.item.fixed{cursor:default;}
+.item input:disabled{cursor:default;opacity:.55;}
+.item.fixed .t small,.item.fixed input:checked+.t small{color:var(--ok);}
 .item input:focus-visible{outline:3px solid var(--red);outline-offset:2px;}
 .item .t{flex:1;min-width:0;}
 .item .t small{display:block;font-size:13.5px;color:var(--red);font-weight:700;margin-top:2px;}
-.item input:checked+.t{color:var(--ink-soft);text-decoration:line-through;text-decoration-color:var(--line);}
+.item input:checked+.t{color:var(--ink-soft);}
+.item input:checked+.t .n{text-decoration:line-through;text-decoration-color:var(--line);}
 .item input:checked+.t small{color:var(--ink-soft);}
 .sec .tip{margin:0 16px 14px;padding:10px 12px;border-radius:10px;background:var(--paper-2);font-size:14px;color:var(--ink-soft);}
 
@@ -103,7 +107,7 @@ h1{margin:0;font-size:26px;font-weight:800;line-height:1.25;}
 
 <script>
 /* 체크리스트 데이터 : [섹션 id, 제목, 안내문, 항목들, 팁]
-   항목은 '이름' 또는 ['이름','보충 설명'] */
+   항목은 '이름' 또는 ['이름','보충 설명'] 또는 ['이름','보충 설명',1] (1 = 이미 챙김: 체크 고정) */
 var LIST = [
   ['pre','🇺🇸 출발 전 최종 체크','',[
     '여권','ESTA 승인 확인','항공권','첫날 숙소 예약내역·주소 캡처','여행자보험','한국 운전면허증','국제운전면허증',
@@ -121,8 +125,9 @@ var LIST = [
     '스킨/토너','앰플','크림','선크림','클렌징','샴푸·트리트먼트','칫솔·치약','화장품','립밤','빗','면봉','헤어제품','마스크팩',
     '생리용품','렌즈/안경 (필요 시)','지퍼백 여분'
   ],'100mL 넘는 화장품은 위탁 캐리어로 보내면 돼요.'],
-  ['meds','💊 약','',[
-    '진통제','소화제','지사제','감기약','알레르기약','멀미약','밴드','평소 먹는 약/영양제'
+  ['meds','💊 약','공용으로 이미 챙긴 약이에요',[
+    ['진통제','공용으로 챙김',1],['소화제','공용으로 챙김',1],['감기약','공용으로 챙김',1],['알레르기약','공용으로 챙김',1],
+    ['평소 먹는 약/영양제','공용으로 챙김',1]
   ],'로드트립은 약국이 바로 안 나오는 구간이 있어서, 평소 잘 쓰는 약은 한국에서 챙기는 게 편해요.'],
   ['tech','🔌 전자기기','',[
     '휴대폰','충전기','110V 미국용 돼지코','보조배터리','스마트워치 충전기','카메라/충전기','멀티 충전기','차량용 충전기',
@@ -164,11 +169,13 @@ var MUST = [
     if(sec[2]){ var h=document.createElement('p'); h.className='hint'; h.textContent=sec[2]; d.appendChild(h); }
     var ul=document.createElement('ul');
     sec[3].forEach(function(it){
-      var name=typeof it==='string'?it:it[0], note=typeof it==='string'?'':it[1], key=id+':'+name, cid='c'+(n++);
+      var name=typeof it==='string'?it:it[0], note=typeof it==='string'?'':it[1], fixed=typeof it!=='string'&&!!it[2],
+          key=id+':'+name, cid='c'+(n++);
       var li=document.createElement('li');
       li.innerHTML='<label class="item" for="'+cid+'"><input type="checkbox" id="'+cid+'"><span class="t"></span></label>';
-      var cb=li.querySelector('input'); cb.setAttribute('data-key',key); cb.checked=!!state[key];
-      var t=li.querySelector('.t'); t.textContent=name;
+      var cb=li.querySelector('input'); cb.setAttribute('data-key',key); cb.checked=fixed||!!state[key];
+      if(fixed){ cb.disabled=true; li.querySelector('.item').classList.add('fixed'); }
+      var t=li.querySelector('.t'), nm=document.createElement('span'); nm.className='n'; nm.textContent=name; t.appendChild(nm);
       if(note){ var s=document.createElement('small'); s.textContent=note; t.appendChild(s); }
       ul.appendChild(li);
     });
