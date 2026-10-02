@@ -62,7 +62,6 @@ h1{margin:0;font-size:26px;font-weight:800;line-height:1.25;}
 .item input:checked{border-color:var(--blue);background:var(--blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3L15 6.5' fill='none' stroke='%23fff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat;}
 .item.fixed{cursor:default;}
 .item input:disabled{cursor:default;opacity:.55;}
-.item.fixed .t small,.item.fixed input:checked+.t small{color:var(--ok);}
 .item input:focus-visible{outline:3px solid var(--red);outline-offset:2px;}
 .item .t{flex:1;min-width:0;}
 .item .t small{display:block;font-size:13.5px;color:var(--red);font-weight:700;margin-top:2px;}
@@ -123,15 +122,13 @@ var LIST = [
   ],''],
   ['beauty','🧴 화장품·세면도구','',[
     '스킨/토너','앰플','크림','선크림','클렌징','샴푸·트리트먼트','칫솔·치약','화장품','립밤','빗','면봉','헤어제품','마스크팩',
-    '생리용품','렌즈/안경 (필요 시)','지퍼백 여분'
+    '렌즈/안경 (필요 시)','지퍼백 여분'
   ],'100mL 넘는 화장품은 위탁 캐리어로 보내면 돼요.'],
   ['meds','💊 약','공용으로 이미 챙긴 약이에요',[
-    ['진통제','공용으로 챙김',1],['소화제','공용으로 챙김',1],['감기약','공용으로 챙김',1],['알레르기약','공용으로 챙김',1],
-    ['평소 먹는 약/영양제','공용으로 챙김',1]
+    ['진통제','',1],['소화제','',1],['감기약','',1],['알레르기약','',1],['평소 먹는 약/영양제','',1]
   ],'로드트립은 약국이 바로 안 나오는 구간이 있어서, 평소 잘 쓰는 약은 한국에서 챙기는 게 편해요.'],
   ['tech','🔌 전자기기','',[
-    '휴대폰','충전기','110V 미국용 돼지코','보조배터리','스마트워치 충전기','카메라/충전기','멀티 충전기','차량용 충전기',
-    'AirTag 등 캐리어 위치추적기'
+    '휴대폰','충전기','110V 미국용 돼지코','보조배터리','스마트워치 충전기'
   ],'충전기에 INPUT 100–240V라고 적혀 있으면 돼지코만 있으면 되고, 별도 변압기는 필요 없어요.'],
   ['road','🚙 이번 여행에서 특히 챙길 것','장거리 로드트립이라 이쪽이 은근 중요해요',[
     '차량용 휴대폰 거치대','차량 충전 케이블','선글라스','텀블러','물티슈','휴지','쓰레기봉투','에코백','작은 보냉백 (있으면 유용)',
