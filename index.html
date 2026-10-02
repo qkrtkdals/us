@@ -172,6 +172,49 @@ table.book tr:last-child td{border-bottom:none;}
 .sw{width:calc(16*var(--u));height:calc(3*var(--u));border-radius:2px;display:inline-block;}
 .foot{text-align:center;font-size:calc(10.5*var(--u));color:var(--ink-soft);margin-top:calc(18*var(--u));}
 
+/* ===== 스탬프판 (플로팅 버튼 + 팝업) ===== */
+.stamp-fab{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:100;
+  width:calc(38*var(--u));height:calc(38*var(--u));border-radius:50%;border:0;background:var(--rust);color:var(--white);
+  font-size:calc(17*var(--u));line-height:1;cursor:pointer;box-shadow:0 6px 16px rgba(23,28,56,.28);-webkit-tap-highlight-color:transparent;}
+.stamp-fab:active{transform:scale(.94);}
+.stamp-fab .cnt{position:absolute;top:calc(-4*var(--u));right:calc(-4*var(--u));min-width:calc(16*var(--u));height:calc(16*var(--u));
+  padding:0 calc(4*var(--u));border-radius:calc(8*var(--u));background:var(--green);color:var(--white);border:2px solid var(--white);
+  font-size:calc(8.5*var(--u));font-weight:800;line-height:calc(12*var(--u));}
+.stamp-modal{position:fixed;inset:0;z-index:200;display:none;background:rgba(23,28,56,.55);
+  padding:calc(16px + env(safe-area-inset-top,0px)) 12px calc(16px + env(safe-area-inset-bottom,0px));}
+.stamp-modal.open{display:flex;align-items:center;justify-content:center;}
+.stamp-sheet{background:var(--white);border-radius:calc(14*var(--u));width:100%;max-width:760px;max-height:100%;display:flex;flex-direction:column;overflow:hidden;
+  box-shadow:0 18px 40px rgba(0,0,0,.3);}
+.stamp-head{display:flex;align-items:center;gap:calc(10*var(--u));padding:calc(14*var(--u)) calc(16*var(--u));background:var(--green);color:var(--white);
+  border-bottom:calc(4*var(--u)) solid var(--rust);}
+.stamp-head h3{margin:0;font-size:calc(13*var(--u));white-space:nowrap;font-weight:800;flex:1;}
+.stamp-head .prog{font-size:calc(11*var(--u));font-weight:700;opacity:.9;}
+.stamp-close{border:0;background:rgba(255,255,255,.18);color:var(--white);width:calc(26*var(--u));height:calc(26*var(--u));border-radius:50%;
+  font-size:calc(12*var(--u));cursor:pointer;}
+.stamp-bar{height:calc(6*var(--u));background:var(--paper-2);}
+.stamp-bar i{display:block;height:100%;width:0;background:var(--rust);transition:width .3s;}
+.stamp-body{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:calc(6*var(--u)) calc(14*var(--u)) calc(18*var(--u));}
+.stamp-day{font-size:calc(11*var(--u));font-weight:800;color:var(--green);margin:calc(14*var(--u)) 0 calc(8*var(--u));}
+.stamp-day small{color:var(--ink-soft);font-weight:700;margin-left:calc(4*var(--u));}
+.stamp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:calc(10*var(--u));}
+.stamp-cell{position:relative;text-align:center;color:var(--ink);}
+.stamp-cell .ph{position:relative;display:block;aspect-ratio:1;border-radius:50%;overflow:hidden;border:2px dashed var(--line);background:var(--paper-2);}
+.stamp-cell img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1);opacity:.55;transition:filter .2s,opacity .2s;}
+.stamp-cell .nm2{display:block;margin-top:calc(5*var(--u));font-size:calc(9.5*var(--u));font-weight:700;line-height:1.35;color:var(--ink-soft);}
+.stamp-cell.on .ph{border:2px solid var(--rust);}
+.stamp-cell.on img{filter:none;opacity:1;}
+.stamp-cell.on .nm2{color:var(--ink);}
+.stamp-cell .mark{position:absolute;inset:12%;border:3px solid var(--rust);border-radius:50%;color:var(--rust);background:rgba(255,255,255,.55);
+  display:none;flex-direction:column;align-items:center;justify-content:center;transform:rotate(-14deg);font-weight:900;line-height:1.1;}
+.stamp-cell .mark b{font-size:calc(8*var(--u));letter-spacing:.06em;}
+.stamp-cell .mark span{font-size:calc(8.5*var(--u));}
+.stamp-cell.on .mark{display:flex;animation:stamp-in .25s ease-out;}
+@keyframes stamp-in{from{transform:rotate(-14deg) scale(1.6);opacity:0;}to{transform:rotate(-14deg) scale(1);opacity:1;}}
+.stamp-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:calc(8*var(--u));padding:calc(10*var(--u)) calc(16*var(--u));
+  border-top:1px solid var(--line);font-size:calc(10*var(--u));color:var(--ink-soft);}
+body.stamp-lock{overflow:hidden;}
+@media print{.stamp-fab,.stamp-modal{display:none!important;}}
+
 @media (max-width:520px){
   .infobar{grid-template-columns:repeat(2,1fr);}
   .rstats{grid-template-columns:repeat(2,1fr);}
@@ -179,6 +222,8 @@ table.book tr:last-child td{border-bottom:none;}
   html{scroll-padding-top:calc(80*var(--u));}
   /* 좌우 여백은 줄여 글자 폭을 넓히고, 위아래 간격으로 여유를 줌 */
   .dbody{padding:calc(14*var(--u)) calc(10*var(--u)) calc(16*var(--u));}
+  .stamp-grid{grid-template-columns:repeat(3,1fr);gap:calc(8*var(--u));} /* 휴대폰: 스탬프 한 줄 3칸 */
+  .stamp-body{padding-left:calc(10*var(--u));padding-right:calc(10*var(--u));}
   .spot{flex-direction:column;gap:calc(12*var(--u));padding:calc(8*var(--u)) calc(8*var(--u)) calc(14*var(--u));margin-bottom:calc(12*var(--u));}
   .spot .info{padding:0 calc(4*var(--u));}
   .thumb{width:100%;height:calc(120*var(--u));}
@@ -1585,6 +1630,59 @@ table.book tr:last-child td{border-bottom:none;}
   [].forEach.call(document.querySelectorAll('label[for^="r"]'),function(l){ l.addEventListener('click',later); });
   showTab();
   document.addEventListener('visibilitychange',function(){ if(!document.hidden) sync(); });
+})();
+</script>
+<!-- ===== 스탬프판 ===== -->
+<button class="stamp-fab" type="button" aria-label="스탬프판 열기" aria-haspopup="dialog">🏅<span class="cnt" hidden>0</span></button>
+<div class="stamp-modal" role="dialog" aria-modal="true" aria-labelledby="stampTitle">
+  <div class="stamp-sheet">
+    <div class="stamp-head"><h3 id="stampTitle">🏅 다녀온 곳 스탬프</h3><span class="prog"></span>
+      <button class="stamp-close" type="button" aria-label="닫기">✕</button></div>
+    <div class="stamp-bar"><i></i></div>
+    <div class="stamp-body"></div>
+    <div class="stamp-foot"><span>다녀온 곳이 업데이트되면 도장이 찍혀요</span></div>
+  </div>
+</div>
+<script>
+/* ===== 스탬프판 데이터 : 다녀온 곳을 여기에 직접 추가/수정 =====
+   형식  '장소 이름': '날짜'   (장소 이름은 장소 카드 제목과 똑같이)
+   예)   '금문교 · 배터리 스펜서': '10/3',                                   */
+var STAMPS = {
+};
+
+/* 스탬프판: 장소 카드에서 이름·사진·DAY를 읽어 칸을 만들고, STAMPS 목록에 있는 곳에 도장 표시 */
+(function(){
+  var fab=document.querySelector('.stamp-fab'), cnt=fab.querySelector('.cnt'),
+      modal=document.querySelector('.stamp-modal'), body=modal.querySelector('.stamp-body'),
+      prog=modal.querySelector('.prog'), bar=modal.querySelector('.stamp-bar i');
+  var total=0, n=0;
+  [].forEach.call(document.querySelectorAll('.day[data-d]'),function(day){
+    var d=day.getAttribute('data-d'), dt=(day.querySelector('.dhead .dt')||{}).textContent||'';
+    var rt=(day.querySelector('.dhead .rt')||{}).textContent||'';
+    var spots=day.querySelectorAll('.spot'); if(!spots.length) return;
+    var h=document.createElement('div'); h.className='stamp-day';
+    h.innerHTML='DAY '+d+'<small></small>'; h.querySelector('small').textContent=dt+' · '+rt; body.appendChild(h);
+    var grid=document.createElement('div'); grid.className='stamp-grid'; body.appendChild(grid);
+    [].forEach.call(spots,function(sp){
+      var a=sp.querySelector('.nm a'), nm=(a?a.textContent:(sp.querySelector('.nm').firstChild||{}).textContent||'').trim();
+      if(!nm) return;
+      var img=sp.querySelector('img.thumb'), v=STAMPS[nm];
+      total++; if(v) n++;
+      var c=document.createElement('div'); c.className='stamp-cell'+(v?' on':'');
+      c.innerHTML='<span class="ph">'+(img?'<img src="'+img.getAttribute('src')+'" alt="" loading="lazy">':'')+
+        '<span class="mark"><b>VISITED</b><span></span></span></span><span class="nm2"></span>';
+      c.querySelector('.nm2').textContent=nm; c.querySelector('.mark span').textContent=v||'';
+      grid.appendChild(c);
+    });
+  });
+  prog.textContent=n+' / '+total; bar.style.width=(total?n/total*100:0)+'%';
+  cnt.textContent=n; cnt.hidden=!n;
+  function open(){ modal.classList.add('open'); document.body.classList.add('stamp-lock'); modal.querySelector('.stamp-close').focus(); }
+  function close(){ modal.classList.remove('open'); document.body.classList.remove('stamp-lock'); fab.focus(); }
+  fab.addEventListener('click',open);
+  modal.querySelector('.stamp-close').addEventListener('click',close);
+  modal.addEventListener('click',function(e){ if(e.target===modal) close(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape' && modal.classList.contains('open')) close(); });
 })();
 </script>
 </body>
