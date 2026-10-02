@@ -1575,7 +1575,8 @@ table.book tr:last-child td{border-bottom:none;}
     var r=document.querySelector('.dayradio:checked');
     var l=r && tabs.querySelector('label[for="'+r.id+'"]');
     if(!l || tabs.scrollWidth<=tabs.clientWidth) return;
-    tabs.scrollTo({left:l.offsetLeft-tabs.offsetLeft-(tabs.clientWidth-l.offsetWidth)/2,behavior:'smooth'});
+    var pad=parseFloat(getComputedStyle(tabs).paddingLeft)||0; /* 선택 탭을 탭 줄 맨 앞(왼쪽)에 노출 */
+    tabs.scrollTo({left:tabs.scrollLeft+l.getBoundingClientRect().left-tabs.getBoundingClientRect().left-pad,behavior:'smooth'});
   }
   [].forEach.call(document.querySelectorAll('.dayradio'),function(r){ r.addEventListener('change',showTab); });
   showTab();
