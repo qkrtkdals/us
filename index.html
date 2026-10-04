@@ -1660,6 +1660,8 @@ var STAMPS = {
   '롬바드 스트리트': '10/3',
   '유니언 스퀘어': '10/3',
 };
+/* 스탬프판에서 뺄 장소 (일정표 카드는 그대로) */
+var STAMP_SKIP = ['부댕 베이커리'];
 
 /* 스탬프판: 장소 카드에서 이름·사진·DAY를 읽어 칸을 만들고, STAMPS 목록에 있는 곳에 도장 표시 */
 (function(){
@@ -1676,7 +1678,7 @@ var STAMPS = {
     var grid=document.createElement('div'); grid.className='stamp-grid'; body.appendChild(grid);
     [].forEach.call(spots,function(sp){
       var a=sp.querySelector('.nm a'), nm=(a?a.textContent:(sp.querySelector('.nm').firstChild||{}).textContent||'').trim();
-      if(!nm) return;
+      if(!nm || STAMP_SKIP.indexOf(nm)>=0) return;
       var img=sp.querySelector('img.thumb'), v=STAMPS[nm];
       total++; if(v) n++;
       var c=document.createElement('div'); c.className='stamp-cell'+(v?' on':'');
