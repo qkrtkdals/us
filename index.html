@@ -1601,6 +1601,8 @@ body.stamp-lock{overflow:hidden;}
 <li>라스베이거스 프리미엄 아웃렛 노스 — <a href="https://commons.wikimedia.org/wiki/File:Premium_Outlets_North_Vegas_(7980195460).jpg" target="_blank" rel="noopener">Sean MacEntee from Monaghan, Ireland</a> · CC BY 2.0</li>
 <li>벨라지오 식물원 · 갤러리 — <a href="https://commons.wikimedia.org/wiki/File:Bellagio_Conservatory_%26_Botanical_Gardens_(14482253185).jpg" target="_blank" rel="noopener">Tomás Del Coro from Las Vegas, Nevada, USA</a> · CC BY-SA 2.0</li>
 <li>KE006 · 태평양 횡단 — <a href="https://commons.wikimedia.org/wiki/File:Korean_Air_Boeing_777-300ER_HL8008_departing_Boston,_April_2025.jpg" target="_blank" rel="noopener">4300streetcar</a> · CC BY 4.0</li>
+<li>Fog Harbor Fish House (스탬프판) — <a href="https://commons.wikimedia.org/wiki/File:Fog_Harbor_Fish_House_-_July_2025_-_Sarah_Stierch_01.jpg" target="_blank" rel="noopener">Missvain</a> · CC0</li>
+<li>Lappert's Ice Cream (스탬프판) — <a href="https://commons.wikimedia.org/wiki/File:DPP_0596.jpg" target="_blank" rel="noopener">greenjacket88</a> · CC BY-SA 2.0</li>
 </ol></details>
 
 </div>
@@ -1659,9 +1661,16 @@ var STAMPS = {
   '피셔맨스 워프 · 피어 39': '10/3',
   '롬바드 스트리트': '10/3',
   '유니언 스퀘어': '10/3',
+  'Fog Harbor Fish House': '10/3',
+  "Lappert's Ice Cream": '10/3',
 };
 /* 스탬프판에서 뺄 장소 (일정표 카드는 그대로) */
 var STAMP_SKIP = ['부댕 베이커리'];
+/* 일정표 카드에는 없지만 스탬프판에 넣을 장소 : [DAY, 이름, 사진] */
+var STAMP_EXTRA = [
+  [1,'Fog Harbor Fish House','img/stamp-fogharbor.jpg'],
+  [1,"Lappert's Ice Cream",'img/stamp-lapperts.jpg']
+];
 
 /* 스탬프판: 장소 카드에서 이름·사진·DAY를 읽어 칸을 만들고, STAMPS 목록에 있는 곳에 도장 표시 */
 (function(){
@@ -1676,17 +1685,22 @@ var STAMP_SKIP = ['부댕 베이커리'];
     var h=document.createElement('div'); h.className='stamp-day';
     h.innerHTML='DAY '+d+'<small></small>'; h.querySelector('small').textContent=dt+' · '+rt; body.appendChild(h);
     var grid=document.createElement('div'); grid.className='stamp-grid'; body.appendChild(grid);
-    [].forEach.call(spots,function(sp){
-      var a=sp.querySelector('.nm a'), nm=(a?a.textContent:(sp.querySelector('.nm').firstChild||{}).textContent||'').trim();
-      if(!nm || STAMP_SKIP.indexOf(nm)>=0) return;
-      var img=sp.querySelector('img.thumb'), v=STAMPS[nm];
+    function addCell(nm,src){
+      var v=STAMPS[nm];
       total++; if(v) n++;
       var c=document.createElement('div'); c.className='stamp-cell'+(v?' on':'');
-      c.innerHTML='<span class="ph">'+(img?'<img src="'+img.getAttribute('src')+'" alt="" loading="lazy">':'')+
+      c.innerHTML='<span class="ph">'+(src?'<img src="'+src+'" alt="" loading="lazy">':'')+
         '<span class="mark"><b>VISITED</b><span></span></span></span><span class="nm2"></span>';
       c.querySelector('.nm2').textContent=nm; c.querySelector('.mark span').textContent=v||'';
       grid.appendChild(c);
+    }
+    [].forEach.call(spots,function(sp){
+      var a=sp.querySelector('.nm a'), nm=(a?a.textContent:(sp.querySelector('.nm').firstChild||{}).textContent||'').trim();
+      if(!nm || STAMP_SKIP.indexOf(nm)>=0) return;
+      var img=sp.querySelector('img.thumb');
+      addCell(nm,img?img.getAttribute('src'):'');
     });
+    STAMP_EXTRA.forEach(function(x){ if(String(x[0])===d) addCell(x[1],x[2]); });
   });
   prog.textContent=n+' / '+total; bar.style.width=(total?n/total*100:0)+'%';
   cnt.textContent=n+'/'+total;
