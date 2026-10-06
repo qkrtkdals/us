@@ -1683,8 +1683,8 @@ var STAMPS = {
   '래퍼츠 아이스크림': '10/3',
   '해리스 스테이크하우스': '10/3',
   '페인티드 레이디스': '10/3',
-  '밸리 뷰 (Valley View)': '10/4',
-  '터널 뷰 (Tunnel View)': '10/4',
+  '밸리 뷰': '10/4',
+  '터널 뷰': '10/4',
   '브라이달베일 폭포': '10/4',
   '엘 캐피탄 메도우': '10/4',
   '미스트 트레일 · 버널 폭포': '10/4',
@@ -1744,7 +1744,8 @@ var STAMP_EXTRA = [
       var a=sp.querySelector('.nm a'), nm=(a?a.textContent:(sp.querySelector('.nm').firstChild||{}).textContent||'').trim();
       if(!nm || STAMP_SKIP.indexOf(nm)>=0) return;
       var img=sp.querySelector('img.thumb');
-      addCell(STAMP_RENAME[nm]||nm,img?img.getAttribute('src'):'');
+      /* 스탬프판에서는 이름 뒤 영어 괄호 표기 생략 (예: 밸리 뷰 (Valley View) → 밸리 뷰) */
+      addCell(STAMP_RENAME[nm]||nm.replace(/\s*\([A-Za-z][A-Za-z .'&-]*\)$/,''),img?img.getAttribute('src'):'');
     });
     STAMP_EXTRA.forEach(function(x){ if(String(x[0])===d) addCell(x[1],x[2]); });
   });
