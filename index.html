@@ -215,6 +215,18 @@ table.book tr:last-child td{border-bottom:none;}
 .stamp-cell .mark b{font-size:calc(8*var(--u));letter-spacing:.06em;}
 .stamp-cell .mark span{font-size:calc(8.5*var(--u));}
 .stamp-cell.on .mark{display:flex;animation:stamp-in .25s ease-out;}
+.stamp-cell .shut{display:none;}
+.stamp-cell.closed .ph{border:2px solid var(--line);}
+.stamp-cell.closed img{filter:grayscale(1) brightness(.75);opacity:.35;}
+.stamp-cell.closed .shut{display:flex;position:absolute;inset:0;align-items:center;justify-content:center;}
+.stamp-cell.closed .shut{font-size:calc(9*var(--u));font-weight:900;letter-spacing:.12em;color:var(--white);}
+.stamp-cell.closed .shut::before{content:"";position:absolute;left:8%;right:8%;top:50%;height:calc(18*var(--u));transform:translateY(-50%) rotate(-14deg);
+  background:var(--ink-soft);border-radius:calc(3*var(--u));z-index:-1;}
+.stamp-cell.closed .shut{z-index:1;transform:rotate(-14deg);}
+.stamp-cell.closed .shut::before{transform:translateY(-50%);}
+.stamp-cell.closed .nm2{color:var(--ink-soft);}
+.stamp-cell.closed .nm2 .n{text-decoration:line-through;text-decoration-color:var(--ink-soft);}
+.stamp-cell .why{display:block;text-decoration:none;font-size:calc(8.5*var(--u));font-weight:700;color:var(--ink-soft);margin-top:2px;}
 @keyframes stamp-in{from{transform:rotate(-14deg) scale(1.6);opacity:0;}to{transform:rotate(-14deg) scale(1);opacity:1;}}
 .stamp-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:calc(8*var(--u));padding:calc(10*var(--u)) calc(16*var(--u));
   border-top:1px solid var(--line);font-size:calc(10*var(--u));color:var(--ink-soft);}
@@ -1687,6 +1699,8 @@ var STAMPS = {
 var STAMP_SKIP = ['부댕 베이커리',
   /* DAY3은 실제로 간 3곳(미러 레이크·터널 뷰 일출·데스밸리)으로 교체 */
   '올름스테드 포인트','테나야 호수','투올러미 메도우','모노 호수 사우스 터파','앨라배마 힐스 (론파인)','세븐 매직 마운틴'];
+/* 폐쇄 등으로 못 간 곳 : 회색 CLOSED 표시, 전체 개수에서 제외 */
+var STAMP_CLOSED = {'글레이셔 포인트':'산불로 폐쇄'};
 /* 스탬프판에서만 다르게 보일 이름 (일정표 카드 제목 → 스탬프판 이름) */
 var STAMP_RENAME = {'유니언 스퀘어':'유니언 스퀘어 (숙소)'};
 /* 일정표 카드에는 없지만 스탬프판에 넣을 장소 : [DAY, 이름, 사진] */
@@ -1716,12 +1730,14 @@ var STAMP_EXTRA = [
     h.innerHTML='DAY '+d+'<small></small>'; h.querySelector('small').textContent=dt+' · '+rt; body.appendChild(h);
     var grid=document.createElement('div'); grid.className='stamp-grid'; body.appendChild(grid);
     function addCell(nm,src){
-      var v=STAMPS[nm];
-      total++; if(v) n++;
-      var c=document.createElement('div'); c.className='stamp-cell'+(v?' on':'');
+      var v=STAMPS[nm], closed=STAMP_CLOSED[nm];
+      if(!closed){ total++; if(v) n++; }
+      var c=document.createElement('div'); c.className='stamp-cell'+(closed?' closed':(v?' on':''));
       c.innerHTML='<span class="ph">'+(src?'<img src="'+src+'" alt="" loading="lazy">':'')+
-        '<span class="mark"><b>VISITED</b><span></span></span></span><span class="nm2"></span>';
-      c.querySelector('.nm2').textContent=nm; c.querySelector('.mark span').textContent=v||'';
+        '<span class="mark"><b>VISITED</b><span></span></span><span class="shut">CLOSED</span></span><span class="nm2"></span>';
+      var nn=document.createElement('span'); nn.className='n'; nn.textContent=nm; c.querySelector('.nm2').appendChild(nn);
+      c.querySelector('.mark span').textContent=v||'';
+      if(closed){ var r=document.createElement('small'); r.className='why'; r.textContent=closed; c.querySelector('.nm2').appendChild(r); }
       grid.appendChild(c);
     }
     [].forEach.call(spots,function(sp){
