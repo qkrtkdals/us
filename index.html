@@ -226,7 +226,8 @@ table.book tr:last-child td{border-bottom:none;}
 .stamp-cell.closed .shut::before{transform:translateY(-50%);}
 .stamp-cell.closed .nm2{color:var(--ink-soft);}
 .stamp-cell.closed .nm2 .n{text-decoration:line-through;text-decoration-color:var(--ink-soft);}
-.stamp-cell .why{display:block;text-decoration:none;font-size:calc(8.5*var(--u));font-weight:700;color:var(--ink-soft);margin-top:2px;}
+.stamp-cell .paren{font-size:calc(7.5*var(--u));font-weight:600;white-space:nowrap;}
+.stamp-cell .why{display:block;text-decoration:none;font-size:calc(7.5*var(--u));font-weight:700;color:var(--ink-soft);margin-top:2px;}
 @keyframes stamp-in{from{transform:rotate(-14deg) scale(1.6);opacity:0;}to{transform:rotate(-14deg) scale(1);opacity:1;}}
 .stamp-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:calc(8*var(--u));padding:calc(10*var(--u)) calc(16*var(--u));
   border-top:1px solid var(--line);font-size:calc(10*var(--u));color:var(--ink-soft);}
@@ -1735,7 +1736,11 @@ var STAMP_EXTRA = [
       var c=document.createElement('div'); c.className='stamp-cell'+(closed?' closed':(v?' on':''));
       c.innerHTML='<span class="ph">'+(src?'<img src="'+src+'" alt="" loading="lazy">':'')+
         '<span class="mark"><b>VISITED</b><span></span></span><span class="shut">CLOSED</span></span><span class="nm2"></span>';
-      var nn=document.createElement('span'); nn.className='n'; nn.textContent=nm; c.querySelector('.nm2').appendChild(nn);
+      var nn=document.createElement('span'); nn.className='n';
+      var pm=nm.match(/^(.*?)\s*(\([^)]*\))$/);   /* 끝의 (숙소)·(89A) 같은 괄호는 작게 */
+      if(pm){ nn.appendChild(document.createTextNode(pm[1]+' ')); var ps=document.createElement('small'); ps.className='paren'; ps.textContent=pm[2]; nn.appendChild(ps); }
+      else nn.textContent=nm;
+      c.querySelector('.nm2').appendChild(nn);
       c.querySelector('.mark span').textContent=v||'';
       if(closed){ var r=document.createElement('small'); r.className='why'; r.textContent=closed; c.querySelector('.nm2').appendChild(r); }
       grid.appendChild(c);
