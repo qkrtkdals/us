@@ -213,6 +213,7 @@ table.book tr:last-child td{border-bottom:none;}
 .stamp-cell .mark{position:absolute;inset:12%;border:3px solid var(--rust);border-radius:50%;color:var(--rust);background:rgba(255,255,255,.55);
   display:none;flex-direction:column;align-items:center;justify-content:center;transform:rotate(-14deg);font-weight:900;line-height:1.1;}
 .stamp-cell .mark b{font-size:calc(8*var(--u));letter-spacing:.06em;}
+.stamp-cell .mark span:empty{display:none;}
 .stamp-cell .mark span{font-size:calc(8.5*var(--u));}
 .stamp-cell.on .mark{display:flex;animation:stamp-in .25s ease-out;}
 /* 못 간 곳: VISITED 도장과 같은 모양, 사진은 진하게 딤 + 도장은 짙은 회색 */
@@ -1736,7 +1737,7 @@ var STAMP_EXTRA = [
       if(pm){ nn.appendChild(document.createTextNode(pm[1]+' ')); var ps=document.createElement('small'); ps.className='paren'; ps.textContent=pm[2]; nn.appendChild(ps); }
       else nn.textContent=nm;
       c.querySelector('.nm2').appendChild(nn);
-      c.querySelector('.mark span').textContent=closed?'':(v||'');
+      /* 도장 안에는 VISITED / CLOSED 글자만 (날짜는 STAMPS 목록에 기록만) */
       if(closed){ var r=document.createElement('small'); r.className='why'; r.textContent=closed; c.querySelector('.nm2').appendChild(r); }
       grid.appendChild(c);
     }
