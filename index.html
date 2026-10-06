@@ -1696,7 +1696,7 @@ var STAMP_SKIP = ['부댕 베이커리',
   /* DAY3은 실제로 간 3곳(미러 레이크·터널 뷰 일출·데스밸리)으로 교체 */
   '올름스테드 포인트','테나야 호수','투올러미 메도우','모노 호수 사우스 터파','앨라배마 힐스 (론파인)','세븐 매직 마운틴'];
 /* 폐쇄 등으로 못 간 곳 : 회색 CLOSED 표시, 전체 개수에서 제외 */
-var STAMP_CLOSED = {'글레이셔 포인트':['산불','(산불로 폐쇄)']};   /* [도장 안 짧은 사유, 이름 아래 사유] */
+var STAMP_CLOSED = {'글레이셔 포인트':'(산불로 폐쇄)'};   /* 이름 아래 사유 */
 /* 스탬프판에서만 다르게 보일 이름 (일정표 카드 제목 → 스탬프판 이름) */
 var STAMP_RENAME = {'유니언 스퀘어':'유니언 스퀘어 (숙소)'};
 /* 일정표 카드에는 없지만 스탬프판에 넣을 장소 : [DAY, 이름, 사진] */
@@ -1736,8 +1736,8 @@ var STAMP_EXTRA = [
       if(pm){ nn.appendChild(document.createTextNode(pm[1]+' ')); var ps=document.createElement('small'); ps.className='paren'; ps.textContent=pm[2]; nn.appendChild(ps); }
       else nn.textContent=nm;
       c.querySelector('.nm2').appendChild(nn);
-      c.querySelector('.mark span').textContent=closed?closed[0]:(v||'');
-      if(closed){ var r=document.createElement('small'); r.className='why'; r.textContent=closed[1]; c.querySelector('.nm2').appendChild(r); }
+      c.querySelector('.mark span').textContent=closed?'':(v||'');
+      if(closed){ var r=document.createElement('small'); r.className='why'; r.textContent=closed; c.querySelector('.nm2').appendChild(r); }
       grid.appendChild(c);
     }
     [].forEach.call(spots,function(sp){
