@@ -1665,7 +1665,7 @@ var STAMPS = {
   '금문교 · 배터리 스펜서': '10/3',
   '피셔맨스 워프 · 피어 39': '10/3',
   '롬바드 스트리트': '10/3',
-  '유니언 스퀘어': '10/3',
+  '유니언 스퀘어 (숙소)': '10/3',
   '포그 하버 피시 하우스': '10/3',
   '래퍼츠 아이스크림': '10/3',
   '해리스 스테이크하우스': '10/3',
@@ -1685,6 +1685,8 @@ var STAMPS = {
 var STAMP_SKIP = ['부댕 베이커리',
   /* DAY3은 실제로 간 3곳(미러 레이크·터널 뷰 일출·데스밸리)으로 교체 */
   '올름스테드 포인트','테나야 호수','투올러미 메도우','모노 호수 사우스 터파','앨라배마 힐스 (론파인)','세븐 매직 마운틴'];
+/* 스탬프판에서만 다르게 보일 이름 (일정표 카드 제목 → 스탬프판 이름) */
+var STAMP_RENAME = {'유니언 스퀘어':'유니언 스퀘어 (숙소)'};
 /* 일정표 카드에는 없지만 스탬프판에 넣을 장소 : [DAY, 이름, 사진] */
 var STAMP_EXTRA = [
   [1,'포그 하버 피시 하우스','img/stamp-fogharbor.jpg'],
@@ -1723,7 +1725,7 @@ var STAMP_EXTRA = [
       var a=sp.querySelector('.nm a'), nm=(a?a.textContent:(sp.querySelector('.nm').firstChild||{}).textContent||'').trim();
       if(!nm || STAMP_SKIP.indexOf(nm)>=0) return;
       var img=sp.querySelector('img.thumb');
-      addCell(nm,img?img.getAttribute('src'):'');
+      addCell(STAMP_RENAME[nm]||nm,img?img.getAttribute('src'):'');
     });
     STAMP_EXTRA.forEach(function(x){ if(String(x[0])===d) addCell(x[1],x[2]); });
   });
