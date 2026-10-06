@@ -194,7 +194,7 @@ table.book tr:last-child td{border-bottom:none;}
 .stamp-head{display:flex;align-items:center;gap:calc(10*var(--u));padding:calc(14*var(--u)) calc(16*var(--u));background:var(--green);color:var(--white);
   border-bottom:calc(4*var(--u)) solid var(--rust);}
 .stamp-head h3{margin:0;font-size:calc(13*var(--u));white-space:nowrap;font-weight:800;flex:1;}
-.stamp-head .prog{font-size:calc(11*var(--u));font-weight:700;opacity:.9;}
+.stamp-head .prog{white-space:nowrap;font-size:calc(11*var(--u));font-weight:700;opacity:.9;}
 .stamp-close{border:0;background:rgba(255,255,255,.18);color:var(--white);width:calc(26*var(--u));height:calc(26*var(--u));border-radius:50%;
   font-size:calc(12*var(--u));cursor:pointer;}
 .stamp-bar{height:calc(6*var(--u));background:var(--paper-2);}
@@ -1603,6 +1603,11 @@ body.stamp-lock{overflow:hidden;}
 <li>KE006 · 태평양 횡단 — <a href="https://commons.wikimedia.org/wiki/File:Korean_Air_Boeing_777-300ER_HL8008_departing_Boston,_April_2025.jpg" target="_blank" rel="noopener">4300streetcar</a> · CC BY 4.0</li>
 <li>포그 하버 피시 하우스 (스탬프판) — <a href="https://commons.wikimedia.org/wiki/File:Fog_Harbor_Fish_House_-_July_2025_-_Sarah_Stierch_01.jpg" target="_blank" rel="noopener">Missvain</a> · CC0</li>
 <li>래퍼츠 아이스크림 (스탬프판) — <a href="https://commons.wikimedia.org/wiki/File:DPP_0596.jpg" target="_blank" rel="noopener">greenjacket88</a> · CC BY-SA 2.0</li>
+<li>요세미티 밸리 롯지 (스탬프판) — <a href="https://commons.wikimedia.org/wiki/File:Yosemite_Lodge_(3020262929).jpg" target="_blank" rel="noopener">Rennett Stowe from USA</a> · CC BY 2.0</li>
+<li>패리스 라스베이거스 (스탬프판) — <a href="https://commons.wikimedia.org/wiki/File:The_hotel_Paris_Las_Vegas_as_seen_from_the_hotel_The_Bellagio.jpg" target="_blank" rel="noopener">Jürgen Matern</a> · CC BY-SA 3.0</li>
+<li>미러 레이크 (스탬프판) — <a href="https://commons.wikimedia.org/wiki/File:Yosemite_National_Park_(CA,_USA),_Yosemite_Valley,_Mirror_Lake_--_2022_--_2807.jpg" target="_blank" rel="noopener">Dietmar Rabich</a> · CC BY-SA 4.0</li>
+<li>터널 뷰 일출 (스탬프판) — <a href="https://commons.wikimedia.org/wiki/File:Tunnel_View_Yosemite_August_2013_panorama.jpg" target="_blank" rel="noopener">King of Hearts</a> · CC BY-SA 3.0</li>
+<li>데스밸리 (스탬프판) — 여행 중 직접 촬영</li>
 </ol></details>
 
 </div>
@@ -1672,6 +1677,9 @@ var STAMPS = {
   '미러 레이크': '10/5',
   '터널 뷰 일출': '10/5',
   '데스밸리': '10/5',
+  '티오가 패스': '10/5',
+  '요세미티 밸리 롯지 (숙소)': '10/4',
+  '패리스 라스베이거스 (숙소)': '10/5',
 };
 /* 스탬프판에서 뺄 장소 (일정표 카드는 그대로) */
 var STAMP_SKIP = ['부댕 베이커리',
@@ -1681,9 +1689,12 @@ var STAMP_SKIP = ['부댕 베이커리',
 var STAMP_EXTRA = [
   [1,'포그 하버 피시 하우스','img/stamp-fogharbor.jpg'],
   [1,'래퍼츠 아이스크림','img/stamp-lapperts.jpg'],
+  [2,'요세미티 밸리 롯지 (숙소)','img/stamp-yosemitelodge.jpg'],
   [3,'미러 레이크','img/stamp-mirrorlake.jpg'],
   [3,'터널 뷰 일출','img/stamp-tunnelsunrise.jpg'],
-  [3,'데스밸리','img/stamp-deathvalley.jpg']
+  [3,'티오가 패스','img/spot17.jpg'],
+  [3,'데스밸리','img/stamp-deathvalley.jpg'],
+  [3,'패리스 라스베이거스 (숙소)','img/stamp-parislv.jpg']
 ];
 
 /* 스탬프판: 장소 카드에서 이름·사진·DAY를 읽어 칸을 만들고, STAMPS 목록에 있는 곳에 도장 표시 */
