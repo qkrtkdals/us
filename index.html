@@ -1620,6 +1620,7 @@ body.stamp-lock{overflow:hidden;}
 <li>페인티드 레이디스 (스탬프판) — <a href="https://commons.wikimedia.org/wiki/File:Painted_Ladies,_Alamo_Square.jpg" target="_blank" rel="noopener">Bernard Gagnon</a> · CC BY-SA 3.0</li>
 <li>성 십자가 예배당 (스탬프판) — <a href="https://commons.wikimedia.org/wiki/File:Chapel_of_the_Holy_Cross,_Sedona,_AZ.jpg" target="_blank" rel="noopener">Matthew P. Del Buono</a> · CC BY-SA 3.0</li>
 <li>치폴레 (스탬프판) — <a href="https://commons.wikimedia.org/wiki/File:Chicken_burrito_bowl_with_tortilla_chips_and_drink_at_Chipotle_-_August_2022_-_Sarah_Stierch.jpg" target="_blank" rel="noopener">Missvain</a> · CC BY 4.0</li>
+<li>바카날 뷔페 (스탬프판) — <a href="https://commons.wikimedia.org/wiki/File:Bacchanal_Buffet_at_Caesars_Palace.jpg" target="_blank" rel="noopener">kennejima</a> · CC BY 2.0</li>
 </ol></details>
 
 </div>
@@ -1714,9 +1715,13 @@ var STAMPS = {
   '벨라지오 분수쇼 · 식물원': '10/9',
   '더 스피어 (오즈의 마법사)': '10/9',
   '태양의 서커스 O쇼': '10/9',
+  '라스베이거스 프리미엄 아웃렛 노스': '10/10',
+  '후버댐': '10/10',
+  'KE006 · 태평양 횡단': '10/10',
+  '바카날 뷔페': '10/10',
 };
 /* 스탬프판에서 뺄 장소 (일정표 카드는 그대로) */
-var STAMP_SKIP = ['부댕 베이커리',
+var STAMP_SKIP = ['부댕 베이커리','벨라지오 식물원 · 갤러리',
   /* DAY3은 실제로 간 3곳(미러 레이크·터널 뷰 일출·데스밸리)으로 교체 */
   '올름스테드 포인트','테나야 호수','투올러미 메도우','모노 호수 사우스 터파','앨라배마 힐스 (론파인)','세븐 매직 마운틴'];
 /* 폐쇄 등으로 못 간 곳 : 회색 CLOSED 표시, 전체 개수에서 제외 */
@@ -1739,8 +1744,12 @@ var STAMP_EXTRA = [
   [4,'치폴레','img/stamp-chipotle.jpg'],
   [4,'그랜드캐년 호텔 & 스위트 (숙소)','img/spot28.jpg'],
   [5,'컴포트 인 (숙소)','img/spot34.jpg'],
-  [6,'벨라지오 (숙소)','img/spot44.jpg']
+  [6,'벨라지오 (숙소)','img/spot44.jpg'],
+  [8,'후버댐','img/spot23.jpg'],
+  [9,'바카날 뷔페','img/stamp-bacchanal.jpg']
 ];
+/* 일정 탭에는 없고 스탬프판에만 있는 날 : [DAY, 부제] */
+var STAMP_EXTRA_DAYS = [[9,'라스베이거스']];
 
 /* 스탬프판: 장소 카드에서 이름·사진·DAY를 읽어 칸을 만들고, STAMPS 목록에 있는 곳에 도장 표시 */
 (function(){
@@ -1748,12 +1757,16 @@ var STAMP_EXTRA = [
       modal=document.querySelector('.stamp-modal'), body=modal.querySelector('.stamp-body'),
       prog=modal.querySelector('.prog'), bar=modal.querySelector('.stamp-bar i');
   var total=0, n=0;
-  [].forEach.call(document.querySelectorAll('.day[data-d]'),function(day){
-    var d=day.getAttribute('data-d'), dt=(day.querySelector('.dhead .dt')||{}).textContent||'';
-    var rt=(day.querySelector('.dhead .rt')||{}).textContent||'';
-    var spots=day.querySelectorAll('.spot'); if(!spots.length) return;
+  var days=[].map.call(document.querySelectorAll('.day[data-d]'),function(day){
+    var dt=(day.querySelector('.dhead .dt')||{}).textContent||'', rt=(day.querySelector('.dhead .rt')||{}).textContent||'';
+    return {d:day.getAttribute('data-d'), sub:dt+' · '+rt, spots:day.querySelectorAll('.spot')};
+  });
+  STAMP_EXTRA_DAYS.forEach(function(x){ days.push({d:String(x[0]), sub:x[1], spots:[]}); });
+  days.forEach(function(day){
+    var d=day.d, spots=day.spots;
+    if(!spots.length && !STAMP_EXTRA.some(function(x){ return String(x[0])===d; })) return;
     var h=document.createElement('div'); h.className='stamp-day';
-    h.innerHTML='DAY '+d+'<small></small>'; h.querySelector('small').textContent=dt+' · '+rt; body.appendChild(h);
+    h.innerHTML='DAY '+d+'<small></small>'; h.querySelector('small').textContent=day.sub; body.appendChild(h);
     var grid=document.createElement('div'); grid.className='stamp-grid'; body.appendChild(grid);
     function addCell(nm,src){
       var v=STAMPS[nm], closed=STAMP_CLOSED[nm];
